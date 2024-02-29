@@ -1,4 +1,4 @@
-const unicode_to_tex = {
+const unicode_to_tex: Record<string, string | string[]> = {
 	"U+0020": "\\space",
 	"U+0021": "\\exclam",
 	"U+0022": "\\textquotedbl",
