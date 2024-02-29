@@ -1,4 +1,39 @@
 {
-	"name": "unicode-tex-character-converter",
-	"version": "1.0.0"
+  "name": "unicode-tex-character-converter",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.11.24",
+    "rimraf": "^5.0.5",
+    "rollup": "^4.12.0",
+    "rollup-plugin-dts": "^6.1.0",
+    "syncpack": "^12.3.0",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.6.2",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3",
+    "wireit": "^0.14.4"
+  },
+  "scripts": {
+    "build": "wireit",
+    "test": "wireit"
+  },
+  "type": "module",
+  "wireit": {
+    "build": {
+      "command": "tsc && rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
+      "dependencies": [
+        "syncpack"
+      ],
+      "output": [
+        "dist"
+      ]
+    },
+    "syncpack": {
+      "command": "syncpack fix-mismatches && syncpack format"
+    },
+    "test": {
+      "command": "node --loader ts-node/esm --test ./__tests__/**/*.test.ts"
+    }
+  }
 }
