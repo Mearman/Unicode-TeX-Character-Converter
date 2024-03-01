@@ -17,18 +17,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        command:
-          - node --loader ts-node/esm --test-reporter=spec --test
-          - node --import tsx --test-reporter=spec --test
-        files:
-          - ./__tests__/**/*.test.ts
+        node_version:
+          - 18
+          - 19
+          - 20
+          - 21
     steps:
       - uses: actions/checkout@main
       - uses: actions/setup-node@main
         with:
-          node-version: ${{env.node_version}}
+          node-version: ${{ matrix.node_version }}
       - run: npm ci
-      - run: ${{ matrix.command }} ${{ matrix.files }}
+      - run: npm run test
 
   build:
     needs: test
@@ -37,7 +37,7 @@ jobs:
       - uses: actions/checkout@main
       - uses: actions/setup-node@main
         with:
-          node-version: ${{env.node_version}}
+          node-version: ${{ env.node_version }}
       - run: npm ci
       - run: npm run build
       - name: Upload a Build Artifact
@@ -56,7 +56,7 @@ jobs:
       - uses: actions/checkout@main
       - uses: actions/setup-node@main
         with:
-          node-version: ${{env.node_version}}
+          node-version: ${{ env.node_version }}
           registry-url: https://npm.pkg.github.com/
       - run: npm ci
       - name: Download a Build Artifact
@@ -75,7 +75,7 @@ jobs:
       - uses: actions/checkout@main
       - uses: actions/setup-node@main
         with:
-          node-version: ${{env.node_version}}
+          node-version: ${{ env.node_version }}
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - name: Download a Build Artifact
