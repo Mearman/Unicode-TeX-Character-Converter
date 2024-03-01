@@ -35,10 +35,10 @@
       "command": "syncpack fix-mismatches && syncpack format"
     },
 		"test:node": {
-      "command": "node --loader ts-node/esm --test ./__tests__/**/*.test.ts"
+			"command": "node --loader ts-node/esm --test-reporter=spec --test ./__tests__/**/*.test.ts"
 		},
 		"test:tsx": {
-			"command": "node --import tsx --test ./__tests__/**/*.test.ts"
+			"command": "node --import tsx --test-reporter=spec --test ./__tests__/**/*.test.ts"
 		}
   }
 }
