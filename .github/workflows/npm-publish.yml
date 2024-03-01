@@ -69,6 +69,8 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   publish-npm:
+    permissions:
+      id-token: write
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -83,6 +85,6 @@ jobs:
         with:
           name: dist
           path: dist
-      - run: npm publish
+      - run: npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
