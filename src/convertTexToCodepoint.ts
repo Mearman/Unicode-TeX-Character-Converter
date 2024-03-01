@@ -1,6 +1,6 @@
 import { codePointTex } from "./characters/unicode_to_tex";
 
-export function convertTexToCodepoint(tex: string): string {
+export function convertTexToUnicodeEscapeSequence(tex: string): string {
 	for (const [unicode, texes] of Object.entries(codePointTex)) {
 		if (Array.isArray(texes)) {
 			if (texes.includes(tex)) {
