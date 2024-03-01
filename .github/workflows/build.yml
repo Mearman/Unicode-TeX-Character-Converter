@@ -11,6 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         command:
           - node --loader ts-node/esm --test-reporter=spec --test ./__tests__/**/*.test.ts
