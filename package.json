@@ -16,7 +16,8 @@
   },
   "scripts": {
     "build": "wireit",
-		"test": "wireit",
+		"test": "npm run test:tsx",
+		"test:node": "wireit",
 		"test:tsx": "wireit"
   },
   "type": "module",
@@ -33,7 +34,7 @@
     "syncpack": {
       "command": "syncpack fix-mismatches && syncpack format"
     },
-    "test": {
+		"test:node": {
       "command": "node --loader ts-node/esm --test ./__tests__/**/*.test.ts"
 		},
 		"test:tsx": {
