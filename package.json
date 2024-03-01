@@ -17,6 +17,9 @@
 	"files": [
 		"dist"
 	],
+	"publishConfig": {
+		"provenance": true
+	},
 	"scripts": {
 		"build": "wireit",
 		"syncpack": "wireit",
