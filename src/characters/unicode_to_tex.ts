@@ -1,4 +1,6 @@
-export const codePointTex: Record<string, string | string[]> = {
+import { NonEmptyArray } from "../types/NonEmptyArray";
+
+export const codePointTex: Record<string, string | NonEmptyArray<string>> = {
 	"U+0020": "\\space",
 	"U+0021": "\\exclam",
 	"U+0022": "\\textquotedbl",
