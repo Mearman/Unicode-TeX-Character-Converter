@@ -1,6 +1,6 @@
 {
 	"name": "unicode-tex-character-converter",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"devDependencies": {
 		"@rollup/plugin-typescript": "^11.1.6",
 		"@types/node": "^20.11.24",
