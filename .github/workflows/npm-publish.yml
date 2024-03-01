@@ -69,7 +69,7 @@ jobs:
         with:
           name: dist
           path: dist
-      - run: npm publish
+      - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
@@ -94,6 +94,6 @@ jobs:
         with:
           name: dist
           path: dist
-      - run: npm publish --provenance
+      - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
