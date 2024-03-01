@@ -12,7 +12,26 @@ env:
   node_version: 21
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        command:
+          - node --loader ts-node/esm --test-reporter=spec --test
+          - node --import tsx --test-reporter=spec --test
+        files:
+          - ./__tests__/**/*.test.ts
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-node@main
+        with:
+          node-version: ${{env.node_version}}
+      - run: npm ci
+      - run: ${{ matrix.command }} ${{ matrix.files }}
+
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
@@ -20,7 +39,6 @@ jobs:
         with:
           node-version: ${{env.node_version}}
       - run: npm ci
-      - run: npm test
       - run: npm run build
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@main
