@@ -1,4 +1,4 @@
-name: Build
+name: Test and Build
 
 on:
   workflow_dispatch:
@@ -22,9 +22,21 @@ jobs:
           node-version: ${{ matrix.node_version }}
       - run: npm ci
       - run: npm run test
-      - run: npm run build
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@main
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node_version:
+          - 18
+          - 19
+          - 20
+          - 21
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-node@main
         with:
-          name: dist
-          path: dist
+          node-version: ${{ matrix.node_version }}
+      - run: npm ci
+      - run: npm run build
