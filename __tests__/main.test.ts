@@ -1,4 +1,4 @@
-import { codePointTex } from "characters/unicode_to_tex";
+import { codePointTex } from "../src/characters/unicode_to_tex";
 import assert from "node:assert";
 import { describe, test } from "node:test";
 import { convertUnicodeEscapeSequenceToUnicode } from "../src/convertUnicodeEscapeSequenceToUnicode";
