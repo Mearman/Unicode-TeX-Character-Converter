@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: ${{env.node_version}}
       - run: npm ci
-      - run: npm test
+      - run: npm run test
       - run: npm run build
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@main
