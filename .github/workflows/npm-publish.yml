@@ -53,15 +53,16 @@ jobs:
       contents: read
       packages: write
     env:
-      REGISTRY: https://npm.pkg.github.com/
+      REGISTRY: https://npm.pkg.github.com
     steps:
       - uses: actions/checkout@main
       - uses: actions/setup-node@main
         with:
           node-version: ${{ env.node_version }}
           registry-url: ${{ env.REGISTRY }}
+      - run: npm install -g npm
       - run: npm ci
-      - run: npm pkg set registry=https://npm.pkg.github.com/
+      - run: npm pkg set publishConfig.registry=${{ env.REGISTRY }}
       - name: Download a Build Artifact
         uses: actions/download-artifact@main
         with:
@@ -77,14 +78,16 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     env:
-      REGISTRY: https://registry.npmjs.org/
+      REGISTRY: https://registry.npmjs.org
     steps:
       - uses: actions/checkout@main
       - uses: actions/setup-node@main
         with:
           node-version: ${{ env.node_version }}
           registry-url: ${{ env.REGISTRY }}
+      - run: npm install -g npm
       - run: npm ci
+      - run: npm pkg set publishConfig.registry=${{ env.REGISTRY }}
       - name: Download a Build Artifact
         uses: actions/download-artifact@main
         with:
