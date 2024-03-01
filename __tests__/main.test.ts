@@ -1,6 +1,10 @@
 import assert from "node:assert";
 import { describe, test } from "node:test";
-import { convertUnicodeToCodePoint, isPrefixedHexCodePoint } from "../src/characters/unicode_to_tex";
+import {
+	convertCodePointToUnicode,
+	convertUnicodeToCodePoint,
+	isPrefixedHexCodePoint,
+} from "../src/characters/unicode_to_tex";
 
 test("main", () => {
 	assert.strictEqual(1, 1);
@@ -22,6 +26,17 @@ describe("Encode unicode as codepoint", () => {
 			const codePoint = convertUnicodeToCodePoint(input);
 			console.debug(input, "->", codePoint);
 			assert.notEqual(codePoint, input);
+		});
+	}
+});
+
+describe("Convert Hex Codepoint to Unicode", () => {
+	const cases = ["U+03B1", "U+03B2", "U+03B3"];
+	for (const input of cases) {
+		test(`should convert ${input} to Unicode`, () => {
+			const unicode = convertCodePointToUnicode(input);
+			console.debug(input, "->", unicode);
+			assert.notEqual(input, unicode);
 		});
 	}
 });
