@@ -1,10 +1,8 @@
 import assert from "node:assert";
 import { describe, test } from "node:test";
-import {
-	convertCodePointToUnicode,
-	convertUnicodeToCodePoint,
-	isPrefixedHexCodePoint,
-} from "../src/characters/unicode_to_tex";
+import { convertCodePointToUnicode } from "../src/convertCodePointToUnicode";
+import { convertUnicodeToCodePoint } from "../src/convertUnicodeToCodePoint";
+import { isPrefixedHexCodePoint } from "../src/isPrefixedHexCodePoint";
 
 test("main", () => {
 	assert.strictEqual(1, 1);
