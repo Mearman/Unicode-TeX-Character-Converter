@@ -52,13 +52,16 @@ jobs:
     permissions:
       contents: read
       packages: write
+    env:
+      REGISTRY: https://npm.pkg.github.com/
     steps:
       - uses: actions/checkout@main
       - uses: actions/setup-node@main
         with:
           node-version: ${{ env.node_version }}
-          registry-url: https://npm.pkg.github.com/
+          registry-url: ${{ env.REGISTRY }}
       - run: npm ci
+      - run: npm pkg set registry=https://npm.pkg.github.com/
       - name: Download a Build Artifact
         uses: actions/download-artifact@main
         with:
@@ -73,12 +76,14 @@ jobs:
       id-token: write
     needs: build
     runs-on: ubuntu-latest
+    env:
+      REGISTRY: https://registry.npmjs.org/
     steps:
       - uses: actions/checkout@main
       - uses: actions/setup-node@main
         with:
           node-version: ${{ env.node_version }}
-          registry-url: https://registry.npmjs.org/
+          registry-url: ${{ env.REGISTRY }}
       - run: npm ci
       - name: Download a Build Artifact
         uses: actions/download-artifact@main
