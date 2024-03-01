@@ -10,28 +10,21 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        command:
+          - node --loader ts-node/esm --test-reporter=spec --test ./__tests__/**/*.test.ts
+          - node --import tsx --test-reporter=spec --test ./__tests__/**/*.test.ts
     steps:
       - uses: actions/checkout@main
       - uses: actions/setup-node@main
         with:
           node-version: ${{env.node_version}}
       - run: npm ci
-      - run: npm run test
+      - run: ${{ matrix.command }}
       - run: npm run build
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@main
         with:
           name: dist
           path: dist
-      - name: Set commit status
-        if : always()
-        uses: actions/github-script@main
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            github.rest.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.sha,
-              state: "${{ job.status }}",
-            });
