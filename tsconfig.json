@@ -21,6 +21,7 @@
 	},
 	"include": [
 		"src/**/*",
-		"rollup.config.ts"
+		"rollup.config.ts",
+		"__tests__/"
 	]
 }

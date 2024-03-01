@@ -16,7 +16,8 @@
   },
   "scripts": {
     "build": "wireit",
-    "test": "wireit"
+		"test": "wireit",
+		"test:tsx": "wireit"
   },
   "type": "module",
   "wireit": {
@@ -34,6 +35,9 @@
     },
     "test": {
       "command": "node --loader ts-node/esm --test ./__tests__/**/*.test.ts"
-    }
+		},
+		"test:tsx": {
+			"command": "node --import tsx --test ./__tests__/**/*.test.ts"
+		}
   }
 }
