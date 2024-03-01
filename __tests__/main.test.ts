@@ -1,3 +1,4 @@
+import { codePointTex } from "characters/unicode_to_tex";
 import assert from "node:assert";
 import { describe, test } from "node:test";
 import { convertCodePointToUnicode } from "../src/convertCodePointToUnicode";
@@ -18,9 +19,6 @@ describe("Encode unicode as codepoint", () => {
 	const cases = ["β", "γ", "α"];
 	for (const input of cases) {
 		test(`should convert ${input} to codepoint`, () => {
-			// const codePoint = input.codePointAt(0)?.toString(16)
-			// codepoint with padded zeros
-			// const codePoint = input.codePointAt(0)?.toString(16).padStart(4, "0").toUpperCase();
 			const codePoint = convertUnicodeToCodePoint(input);
 			console.debug(input, "->", codePoint);
 			assert.notEqual(codePoint, input);
@@ -35,6 +33,21 @@ describe("Convert Hex Codepoint to Unicode", () => {
 			const unicode = convertCodePointToUnicode(input);
 			console.debug(input, "->", unicode);
 			assert.notEqual(input, unicode);
+		});
+	}
+});
+
+describe("Decode encode unicode round trip", async (t) => {
+	for await (const key of Object.keys(codePointTex)) {
+		test(`decode ${key} then encode`, async (t) => {
+			const parsed = convertCodePointToUnicode(key);
+			const message = `${key} -> ${parsed}`;
+			console.debug(message);
+			assert.notEqual(key, parsed);
+			const codepoint = convertUnicodeToCodePoint(parsed);
+			console.debug(parsed, "->", codepoint);
+			assert.notEqual(parsed, codepoint);
+			assert.strictEqual(key, codepoint);
 		});
 	}
 });
