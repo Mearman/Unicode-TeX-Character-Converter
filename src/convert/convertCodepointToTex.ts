@@ -11,12 +11,7 @@ export function convertCodepointToTex(
 	codepoint = codepoint.trim();
 
 	if (!isPrefixedHexCodePoint(codepoint)) {
-		return handleAction(
-			onInvalid,
-			codepoint,
-			codepoint,
-			`Invalid code point: ${codepoint}`
-		);
+		return handleAction(onInvalid, codepoint);
 	}
 
 	if (codePointTex[codepoint]) {
@@ -30,11 +25,5 @@ export function convertCodepointToTex(
 		return tex;
 	}
 
-	return handleAction(
-		onNotFound,
-		codepoint,
-		codepoint,
-		`Tex not found for codepoint: ${codepoint}`
-	);
+	return handleAction(onNotFound, codepoint);
 }
-
