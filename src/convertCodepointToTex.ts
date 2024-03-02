@@ -1,24 +1,35 @@
 import { codePointTex } from "./characters/unicode_to_tex";
 import { isPrefixedHexCodePoint } from "./isPrefixedHexCodePoint";
 
+const Ignore = "ignore";
+type Ignore = typeof Ignore;
+
+// type Throw = "throw";
+
+const Return = "return";
+type Return = typeof Return;
+
+// type Return = "return";
+const Throw = "throw";
+type Throw = typeof Throw;
+
+export type Action = Throw | Ignore | Return | ((value: string) => string);
+
 export function convertCodepointToTex(
-	codepoint: string,
-	index: number = 0,
-	onInvalid:
-		| "throw"
-		| "return"
-		| "ignore"
-		| ((unicode: string) => string) = "return",
-	onNotFound:
-		| "throw"
-		| "return"
-		| "ignore"
-		| ((unicode: string) => string) = "throw"
-): string {
+	codepoint: `${string}`,
+	index = 0,
+	onInvalid: Action = Return,
+	onNotFound: Action = Throw
+) {
 	codepoint = codepoint.trim();
 
 	if (!isPrefixedHexCodePoint(codepoint)) {
-		return handleAction(codepoint, onInvalid);
+		return handleAction(
+			onInvalid,
+			codepoint,
+			codepoint,
+			`Invalid code point: ${codepoint}`
+		);
 	}
 
 	if (codePointTex[codepoint]) {
@@ -32,24 +43,35 @@ export function convertCodepointToTex(
 		return tex;
 	}
 
-	return handleAction(codepoint, onNotFound);
+	return handleAction(
+		onNotFound,
+		codepoint,
+		codepoint,
+		`Tex not found for codepoint: ${codepoint}`
+	);
 }
 
 function handleAction(
-	codepoint: string,
-	action: "throw" | "return" | "ignore" | ((unicode: string) => string)
-): string {
-	if (action === "throw") {
-		throw new Error(`Action failed for codepoint: ${codepoint}`);
+	action: Action,
+	value: string,
+	defaultValue = "",
+	errorMessage = `Invalid value: ${value}`
+) {
+	switch (action) {
+		case Throw:
+			throw new Error(errorMessage);
+		case Ignore:
+			return defaultValue;
+		case Return:
+			return value;
+		default:
+			if (typeof action === "function") {
+				return action(value);
+			}
+			return defaultValue;
 	}
-	if (action === "ignore") {
-		return "";
-	}
-	if (typeof action === "function") {
-		return action(codepoint);
-	}
-	return codepoint;
 }
+
 
 export function isDoubleByte(str: `${string}`) {
 	// for (var i = 0, n = str.length; i < n; i++) {
