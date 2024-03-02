@@ -18,16 +18,7 @@ export function convertCodepointToTex(
 	codepoint = codepoint.trim();
 
 	if (!isPrefixedHexCodePoint(codepoint)) {
-		if (onInvalid === "throw") {
-			throw new Error(`Invalid code point: ${codepoint}`);
-		}
-		if (onInvalid === "ignore") {
-			return "";
-		}
-		if (typeof onInvalid === "function") {
-			return onInvalid(codepoint);
-		}
-		return codepoint;
+		return handleAction(codepoint, onInvalid);
 	}
 
 	if (codePointTex[codepoint]) {
@@ -41,14 +32,21 @@ export function convertCodepointToTex(
 		return tex;
 	}
 
-	if (onNotFound === "throw") {
-		throw new Error(`Tex not found for codepoint: ${codepoint}`);
+	return handleAction(codepoint, onNotFound);
+}
+
+function handleAction(
+	codepoint: string,
+	action: "throw" | "return" | "ignore" | ((unicode: string) => string)
+): string {
+	if (action === "throw") {
+		throw new Error(`Action failed for codepoint: ${codepoint}`);
 	}
-	if (onNotFound === "ignore") {
+	if (action === "ignore") {
 		return "";
 	}
-	if (typeof onNotFound === "function") {
-		return onNotFound(codepoint);
+	if (typeof action === "function") {
+		return action(codepoint);
 	}
 	return codepoint;
 }
