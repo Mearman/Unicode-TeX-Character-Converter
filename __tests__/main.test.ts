@@ -1,7 +1,7 @@
 import { unicodeToTex } from "convert/unicodeToTex";
 import assert from "node:assert";
 import { describe, test } from "node:test";
-import { codePointTex } from "../src/characters/codePointTex";
+import { codePointTexMap } from "../src/characters/codePointTexMap";
 import { codepointToTex } from "../src/convert/codepointToTex";
 import { codepointToUnicode } from "../src/convert/codepointToUnicode";
 import { texToUnicode } from "../src/convert/texToUnicode";
@@ -49,7 +49,7 @@ describe("Convert Hex Codepoint to Unicode", () => {
 });
 
 describe("Decode encode unicode round trip", async (t) => {
-	for await (const key of Object.keys(codePointTex)) {
+	for await (const key of Object.keys(codePointTexMap)) {
 		test(`decode ${key} then encode`, async (t) => {
 			const parsed = codepointToUnicode(key);
 			const message = `${key} -> ${parsed}`;

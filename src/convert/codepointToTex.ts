@@ -1,4 +1,4 @@
-import { codePointTex } from "../characters/codePointTex";
+import { codePointTexMap } from "../characters/codePointTexMap";
 import { Action, handleAction, Return, Throw } from "../handleAction";
 import { isPrefixedHexCodePoint } from "../isPrefixedHexCodePoint";
 
@@ -14,8 +14,8 @@ export function codepointToTex(
 		return handleAction(onInvalid, codepoint);
 	}
 
-	if (codePointTex[codepoint]) {
-		const tex = codePointTex[codepoint];
+	if (codePointTexMap[codepoint]) {
+		const tex = codePointTexMap[codepoint];
 		if (Array.isArray(tex)) {
 			if (index < 0 || index >= tex.length) {
 				throw new Error(`Invalid index: ${index}`);

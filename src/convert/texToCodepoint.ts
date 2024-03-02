@@ -1,4 +1,4 @@
-import { codePointTex } from "../characters/codePointTex";
+import { codePointTexMap } from "../characters/codePointTexMap";
 import { Action, Throw, handleAction } from "../handleAction";
 import { isTexCommand } from "../isTexCommand";
 
@@ -11,7 +11,7 @@ export function texToCodepoint(
 		return handleAction(onInvalid, tex);
 	}
 
-	for (const [unicode, texes] of Object.entries(codePointTex)) {
+	for (const [unicode, texes] of Object.entries(codePointTexMap)) {
 		if (Array.isArray(texes)) {
 			if (texes.includes(tex)) {
 				return unicode;
