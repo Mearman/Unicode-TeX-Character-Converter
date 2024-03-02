@@ -63,6 +63,7 @@ jobs:
           registry-url: ${{ env.REGISTRY }}
       - run: npm install -g npm
       - run: npm ci
+      - run: npm pkg set name=@${{ github.repository_owner }}/$(npm pkg get name)
       - run: npm pkg set publishConfig.registry=${{ env.REGISTRY }}
       - name: Download a Build Artifact
         uses: actions/download-artifact@main
