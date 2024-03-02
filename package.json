@@ -20,6 +20,7 @@
 	"publishConfig": {
 		"provenance": true
 	},
+	"repository": "github:Mearman/Unicode-Tex-Character-Converter",
 	"scripts": {
 		"build": "wireit",
 		"syncpack": "wireit",
