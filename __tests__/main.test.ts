@@ -74,39 +74,29 @@ const fixtures: [string, string, string][] = [
 
 ////////////////////////////////////////////////////////////
 
-// test("codepointToTex should return array when index is explicitly undefined", () => {
-// 	const fixture = fixtures[0];
-// 	const [tex, code] = fixture;
-// 	const texCode = codepointToTex(code,undefined);
-// 	assert.notEqual(typeof texCode, "string");
-// });
-
-describe("codepointToTex should return array when index is explicitly undefined", (t) => {
-	for (const fixture of fixtures) {
-		const [char, tex, code] = fixture;
-		const texCode = codepointToTex(code, "all", Throw, Throw);
-		test(`${char}`, () => {
-			assert.notEqual(typeof texCode, "string");
-			assert.ok(Array.isArray(texCode));
+describe("array and string returns", () => {
+	describe("codepointToTex", () => {
+		describe("codepointToTex should return array when index is explicitly undefined", (t) => {
+			for (const fixture of fixtures) {
+				const [char, tex, code] = fixture;
+				const texCode = codepointToTex(code, "all", Throw, Throw);
+				test(`${char}`, () => {
+					assert.notEqual(typeof texCode, "string");
+					assert.ok(Array.isArray(texCode));
+				});
+			}
 		});
-	}
-});
 
-// test("codepointToTex should return string when index is provided", () => {
-// 	const fixture = fixtures[0];
-// 	const [, code] = fixture;
-// 	const texCode = codepointToTex(code, 0);
-// 	assert.ok(typeof texCode === "string");
-// });
-
-describe("codepointToTex should return string when index is provided", () => {
-	for (const fixture of fixtures) {
-		const [char, code] = fixture;
-		const texCode = codepointToTex(code, 0);
-		test(`${char}`, () => {
-			assert.ok(typeof texCode === "string");
+		describe("codepointToTex should return string when index is provided", () => {
+			for (const fixture of fixtures) {
+				const [char, code] = fixture;
+				const texCode = codepointToTex(code, 0);
+				test(`${char}`, () => {
+					assert.ok(typeof texCode === "string");
+				});
+			}
 		});
-	}
+	});
 });
 
 ////////////////////////////////////////////////////////////
