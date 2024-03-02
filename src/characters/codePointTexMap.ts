@@ -20,7 +20,10 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+003E": "\\greater",
 	"U+0040": "\\textatsign",
 	"U+005B": "\\lbrack",
-	"U+005C": ["\\textbackslash", "\\backslash"],
+	"U+005C": [
+		"\\textbackslash",
+		"\\backslash"
+	],
 	"U+005D": "\\rbrack",
 	"U+005E": "\\textasciicircum",
 	"U+005F": "\\textunderscore",
@@ -52,7 +55,10 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+00B4": "\\textasciiacute",
 	"U+00B5": "\\textmu",
 	"U+00B6": "\\P",
-	"U+00B7": ["\\textperiodcentered", "\\cdotp"],
+	"U+00B7": [
+		"\\textperiodcentered",
+		"\\cdotp"
+	],
 	"U+00B8": "\\c{}",
 	"U+00B9": "\\textonesuperior",
 	"U+00BA": "\\textordmasculine",
@@ -141,8 +147,14 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+010D": "\\v{c}",
 	"U+010E": "\\v{D}",
 	"U+010F": "\\v{d}",
-	"U+0110": ["\\textcrD", "\\DJ"],
-	"U+0111": ["\\textcrd", "\\dj"],
+	"U+0110": [
+		"\\textcrD",
+		"\\DJ"
+	],
+	"U+0111": [
+		"\\textcrd",
+		"\\dj"
+	],
 	"U+0112": "\\={E}",
 	"U+0113": "\\={e}",
 	"U+0114": "\\u{E}",
@@ -174,7 +186,10 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+012E": "\\k{I}",
 	"U+012F": "\\k{i}",
 	"U+0130": "\\.{I}",
-	"U+0131": ["\\imath", "\\i"],
+	"U+0131": [
+		"\\imath",
+		"\\i"
+	],
 	"U+0132": "IJ",
 	"U+0133": "ij",
 	"U+0134": "\\^{J}",
@@ -258,7 +273,11 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+0195": "\\texthvlig",
 	"U+0199": "\\texthtk",
 	"U+019A": "\\textbarl",
-	"U+019B": ["\\textcrlambda", "\\lambdaslash", "\\lambdabar"],
+	"U+019B": [
+		"\\textcrlambda",
+		"\\lambdaslash",
+		"\\lambdabar"
+	],
 	"U+019E": "\\textnrleg",
 	"U+01A0": "\\Ohorn",
 	"U+01A1": "\\ohorn",
@@ -302,7 +321,10 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+0261": "\\textscriptg",
 	"U+0262": "\\textscg",
 	"U+0263": "\\textgamma",
-	"U+0264": ["\\textramshorns", "\\textbabygamma"],
+	"U+0264": [
+		"\\textbabygamma",
+		"\\textramshorns",
+	],
 	"U+0265": "\\textturnh",
 	"U+0266": "\\texthth",
 	"U+0267": "\\texththeng",
@@ -395,8 +417,14 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+02C3": "\\textrptr",
 	"U+02C4": "\\textuptr",
 	"U+02C5": "\\textdptr",
-	"U+02C6": ["\\textfall", "\\^"],
-	"U+02C7": ["\\textrise", "\\v"],
+	"U+02C6": [
+		"\\textfall",
+		"\\^"
+	],
+	"U+02C7": [
+		"\\textrise",
+		"\\v"
+	],
 	"U+02C8": "\\textprimstress",
 	"U+02C9": "\\textmacron",
 	"U+02CA": "\\textacute",
@@ -435,8 +463,14 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+02ED": "\\ipaunaspirated",
 	"U+0300": "\\grave",
 	"U+0301": "\\acute",
-	"U+0302": ["\\hat", "\\widehat"],
-	"U+0303": ["\\tilde", "\\widetilde"],
+	"U+0302": [
+		"\\hat",
+		"\\widehat"
+	],
+	"U+0303": [
+		"\\tilde",
+		"\\widetilde"
+	],
 	"U+0304": "\\bar",
 	"U+0305": "\\overbar",
 	"U+0306": "\\breve",
@@ -445,7 +479,10 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+0309": "\\ovhook",
 	"U+030A": "\\ocirc",
 	"U+030B": "\\H",
-	"U+030C": ["\\widecheck", "\\check"],
+	"U+030C": [
+		"\\widecheck",
+		"\\check"
+	],
 	"U+030D": "\\textvbaraccent",
 	"U+030E": "\\textdoublevbaraccent",
 	"U+030F": "\\textdoublegrave",
@@ -468,12 +505,18 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+0320": "\\textsubminus",
 	"U+0321": "\\textpalhook",
 	"U+0322": "\\textrhook",
-	"U+0323": ["\\textsubdot", "\\d"],
+	"U+0323": [
+		"\\textsubdot",
+		"\\d"
+	],
 	"U+0324": "\\textsubumlaut",
 	"U+0325": "\\textsubring",
 	"U+0326": "\\textsubcomma",
 	"U+0327": "\\c",
-	"U+0328": ["\\textpolhk", "\\k"],
+	"U+0328": [
+		"\\textpolhk",
+		"\\k"
+	],
 	"U+0329": "\\textsyllabic",
 	"U+032A": "\\textsubbridge",
 	"U+032B": "\\textsubw",
@@ -481,8 +524,14 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+032D": "\\textsubcircum",
 	"U+032E": "\\textsubbreve",
 	"U+032F": "\\textsubarch",
-	"U+0330": ["\\wideutilde", "\\textsubtilde"],
-	"U+0331": ["\\underbar", "\\textsubbar"],
+	"U+0330": [
+		"\\textsubtilde",
+		"\\wideutilde",
+	],
+	"U+0331": [
+		"\\textsubbar",
+		"\\underbar",
+	],
 	"U+0332": "\\textsubline",
 	"U+0333": "\\textsubdoubleline",
 	"U+0334": "\\textsuperimposetilde",
@@ -551,17 +600,29 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+03AE": "\\acute{\\eta}",
 	"U+03AF": "\\acute{\\iota}",
 	"U+03B0": "\\acute{\\ddot{\\upsilon}}",
-	"U+03B1": ["\\textalpha", "\\upalpha"],
-	"U+03B2": ["\\textbeta", "\\upbeta"],
+	"U+03B1": [
+		"\\textalpha",
+		"\\upalpha"
+	],
+	"U+03B2": [
+		"\\textbeta",
+		"\\upbeta"
+	],
 	"U+03B3": "\\upgamma",
 	"U+03B4": "\\updelta",
 	"U+03B5": "\\upvarepsilon",
 	"U+03B6": "\\upzeta",
 	"U+03B7": "\\upeta",
-	"U+03B8": ["\\texttheta", "\\uptheta"],
+	"U+03B8": [
+		"\\texttheta",
+		"\\uptheta"
+	],
 	"U+03B9": "\\upiota",
 	"U+03BA": "\\upkappa",
-	"U+03BB": ["\\textlambda", "\\uplambda"],
+	"U+03BB": [
+		"\\textlambda",
+		"\\uplambda"
+	],
 	"U+03BC": "\\upmu",
 	"U+03BD": "\\upnu",
 	"U+03BE": "\\upxi",
@@ -569,13 +630,22 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+03C0": "\\uppi",
 	"U+03C1": "\\uprho",
 	"U+03C2": "\\upvarsigma",
-	"U+03C3": ["\\upsigma", "\\textsigma"],
+	"U+03C3": [
+		"\\textsigma",
+		"\\upsigma",
+	],
 	"U+03C4": "\\uptau",
 	"U+03C5": "\\upupsilon",
 	"U+03C6": "\\upvarphi",
-	"U+03C7": ["\\textchi", "\\upchi"],
+	"U+03C7": [
+		"\\textchi",
+		"\\upchi"
+	],
 	"U+03C8": "\\uppsi",
-	"U+03C9": ["\\textomega", "\\upomega"],
+	"U+03C9": [
+		"\\textomega",
+		"\\upomega"
+	],
 	"U+03CA": "\\ddot{\\iota}",
 	"U+03CB": "\\ddot{\\upsilon}",
 	"U+03CC": "\\'{o}",
@@ -832,19 +902,43 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+201F": "\\quotdblright",
 	"U+2020": "\\dagger",
 	"U+2021": "\\ddagger",
-	"U+2022": ["\\textbullet", "\\smblkcircle"],
+	"U+2022": [
+		"\\textbullet",
+		"\\smblkcircle"
+	],
 	"U+2024": "\\enleaderonedot",
 	"U+2025": "\\enleadertwodots",
-	"U+2026": ["\\dots", "\\emleader"],
+	"U+2026": [
+		"\\dots",
+		"\\emleader"
+	],
 	"U+2027": "\\hyphenpoint",
 	"U+2030": "\\textperthousand",
 	"U+2031": "\\textpertenthousand",
-	"U+2032": ["\\textprime", "\\prime"],
-	"U+2033": ["\\dprime", "\\textdprime"],
-	"U+2034": ["\\trprime", "\\texttrprime"],
-	"U+2035": ["\\textbackprime", "\\backprime"],
-	"U+2036": ["\\textbackdprime", "\\backdprime"],
-	"U+2037": ["\\textbacktrprime", "\\backtrprime"],
+	"U+2032": [
+		"\\textprime",
+		"\\prime"
+	],
+	"U+2033": [
+		"\\textdprime",
+		"\\dprime",
+	],
+	"U+2034": [
+		"\\texttrprime",
+		"\\trprime",
+	],
+	"U+2035": [
+		"\\textbackprime",
+		"\\backprime"
+	],
+	"U+2036": [
+		"\\textbackdprime",
+		"\\backdprime"
+	],
+	"U+2037": [
+		"\\textbacktrprime",
+		"\\backtrprime"
+	],
 	"U+2038": "\\caretinsert",
 	"U+2039": "\\guilsinglleft",
 	"U+203A": "\\guilsinglright",
@@ -860,7 +954,10 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+2050": "\\closure",
 	"U+2051": "\\textAsterisks",
 	"U+2052": "\\textdiscount",
-	"U+2057": ["\\qprime", "\\textqprime"],
+	"U+2057": [
+		"\\qprime",
+		"\\textqprime"
+	],
 	"U+205F": "\\medmathspace",
 	"U+2060": "\\wordjoin",
 	"U+2061": "\\functionapply",
@@ -893,11 +990,23 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+20A4": "\\textlira",
 	"U+20A7": "\\textpesetas",
 	"U+20AC": "\\euro",
-	"U+20D0": ["\\leftharpoonaccent", "\\wideleftharpoonaccent"],
-	"U+20D1": ["\\rightharpoonaccent", "\\widerightharpoonaccent"],
+	"U+20D0": [
+		"\\leftharpoonaccent",
+		"\\wideleftharpoonaccent"
+	],
+	"U+20D1": [
+		"\\rightharpoonaccent",
+		"\\widerightharpoonaccent"
+	],
 	"U+20D2": "\\vertoverlay",
-	"U+20D6": ["\\wideoverleftarrow", "\\overleftarrow"],
-	"U+20D7": ["\\wideoverrightarrow", "\\vec"],
+	"U+20D6": [
+		"\\overleftarrow",
+		"\\wideoverleftarrow",
+	],
+	"U+20D7": [
+		"\\vec",
+		"\\wideoverrightarrow",
+	],
 	"U+20DB": "\\dddot",
 	"U+20DC": "\\ddddot",
 	"U+20DD": "\\enclosecircle",
@@ -924,9 +1033,15 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+210C": "\\frakH",
 	"U+210D": "\\BbbH",
 	"U+210E": "\\Planckconst",
-	"U+210F": ["\\hslash", "\\hbar"],
+	"U+210F": [
+		"\\hslash",
+		"\\hbar"
+	],
 	"U+2110": "\\scrI",
-	"U+2111": ["\\Im", "\\frakI"],
+	"U+2111": [
+		"\\Im",
+		"\\frakI"
+	],
 	"U+2112": "\\scrL",
 	"U+2113": "\\ell",
 	"U+2115": "\\BbbN",
@@ -936,7 +1051,10 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+2119": "\\BbbP",
 	"U+211A": "\\BbbQ",
 	"U+211B": "\\scrR",
-	"U+211C": ["\\Re", "\\frakR"],
+	"U+211C": [
+		"\\Re",
+		"\\frakR"
+	],
 	"U+211D": "\\BbbR",
 	"U+211E": "\\textrecipe",
 	"U+2122": "\\texttrademark",
@@ -988,10 +1106,22 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+215C": "\\fracthreeeighths",
 	"U+215D": "\\fracfiveeighths",
 	"U+215E": "\\fracseveneights",
-	"U+2190": ["\\leftarrow", "\\shortleftarrow"],
-	"U+2191": ["\\uparrow", "\\shortuparrow"],
-	"U+2192": ["\\rightarrow", "\\shortrightarrow"],
-	"U+2193": ["\\shortdownarrow", "\\downarrow"],
+	"U+2190": [
+		"\\leftarrow",
+		"\\shortleftarrow"
+	],
+	"U+2191": [
+		"\\uparrow",
+		"\\shortuparrow"
+	],
+	"U+2192": [
+		"\\rightarrow",
+		"\\shortrightarrow"
+	],
+	"U+2193": [
+		"\\shortdownarrow",
+		"\\downarrow"
+	],
 	"U+2194": "\\leftrightarrow",
 	"U+2195": "\\updownarrow",
 	"U+2196": "\\nwarrow",
@@ -1000,8 +1130,14 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+2199": "\\swarrow",
 	"U+219A": "\\nleftarrow",
 	"U+219B": "\\nrightarrow",
-	"U+219C": ["\\leftsquigarrow", "\\leftwavyarrow"],
-	"U+219D": ["\\rightwavyarrow", "\\rightsquigarrow"],
+	"U+219C": [
+		"\\leftsquigarrow",
+		"\\leftwavyarrow"
+	],
+	"U+219D": [
+		"\\rightwavyarrow",
+		"\\rightsquigarrow"
+	],
 	"U+219E": "\\twoheadleftarrow",
 	"U+219F": "\\twoheaduparrow",
 	"U+21A0": "\\twoheadrightarrow",
@@ -1017,7 +1153,10 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+21AA": "\\hookrightarrow",
 	"U+21AB": "\\looparrowleft",
 	"U+21AC": "\\looparrowright",
-	"U+21AD": ["\\leftrightwavyarrow", "\\leftrightsquigarrow"],
+	"U+21AD": [
+		"\\leftrightwavyarrow",
+		"\\leftrightsquigarrow"
+	],
 	"U+21AE": "\\nleftrightarrow",
 	"U+21AF": "\\downzigzagarrow",
 	"U+21B0": "\\Lsh",
@@ -1053,10 +1192,19 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+21CE": "\\nLeftrightarrow",
 	"U+21CF": "\\nRightarrow",
 	"U+21D0": "\\Leftarrow",
-	"U+21D1": ["\\Uparrow", "\\Uparrowhead"],
+	"U+21D1": [
+		"\\Uparrow",
+		"\\Uparrowhead"
+	],
 	"U+21D2": "\\Rightarrow",
-	"U+21D3": ["\\Downarrowhead", "\\Downarrow"],
-	"U+21D4": ["\\Leftrightarrow", "\\iff"],
+	"U+21D3": [
+		"\\Downarrowhead",
+		"\\Downarrow"
+	],
+	"U+21D4": [
+		"\\Leftrightarrow",
+		"\\iff"
+	],
 	"U+21D5": "\\Updownarrow",
 	"U+21D6": "\\Nwarrow",
 	"U+21D7": "\\Nearrow",
@@ -1064,13 +1212,22 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+21D9": "\\Swarrow",
 	"U+21DA": "\\Lleftarrow",
 	"U+21DB": "\\Rrightarrow",
-	"U+21DC": ["\\longleftzigzagarrow", "\\leftzigzagarrow"],
+	"U+21DC": [
+		"\\longleftzigzagarrow",
+		"\\leftzigzagarrow"
+	],
 	"U+21DD": "\\rightzigzagarrow",
 	"U+21DE": "\\nHuparrow",
 	"U+21DF": "\\nHdownarrow",
-	"U+21E0": ["\\leftdasharrowhead", "\\leftdasharrow"],
+	"U+21E0": [
+		"\\leftdasharrowhead",
+		"\\leftdasharrow"
+	],
 	"U+21E1": "\\updasharrow",
-	"U+21E2": ["\\rightdasharrowhead", "\\rightdasharrow"],
+	"U+21E2": [
+		"\\rightdasharrowhead",
+		"\\rightdasharrow"
+	],
 	"U+21E3": "\\downdasharrow",
 	"U+21E4": "\\barleftarrow",
 	"U+21E5": "\\rightarrowbar",
@@ -1096,13 +1253,22 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+2202": "\\partial",
 	"U+2203": "\\exists",
 	"U+2204": "\\nexists",
-	"U+2205": ["\\varnothing", "\\emptyset"],
+	"U+2205": [
+		"\\varnothing",
+		"\\emptyset"
+	],
 	"U+2206": "\\increment",
 	"U+2207": "\\nabla",
-	"U+2208": ["\\varin", "\\in"],
+	"U+2208": [
+		"\\varin",
+		"\\in"
+	],
 	"U+2209": "\\notin",
 	"U+220A": "\\smallin",
-	"U+220B": ["\\ni", "\\varni"],
+	"U+220B": [
+		"\\ni",
+		"\\varni"
+	],
 	"U+220C": "\\nni",
 	"U+220D": "\\smallni",
 	"U+220E": "\\QED",
@@ -1113,28 +1279,61 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+2213": "\\mp",
 	"U+2214": "\\dotplus",
 	"U+2215": "\\slash",
-	"U+2216": ["\\setminus", "\\smallsetminus"],
+	"U+2216": [
+		"\\setminus",
+		"\\smallsetminus"
+	],
 	"U+2217": "\\ast",
-	"U+2218": ["\\vysmwhtcircle", "\\circ"],
-	"U+2219": ["\\vysmblkcircle", "\\bullet"],
-	"U+221A": ["\\surd", "\\sqrt"],
+	"U+2218": [
+		"\\vysmwhtcircle",
+		"\\circ"
+	],
+	"U+2219": [
+		"\\vysmblkcircle",
+		"\\bullet"
+	],
+	"U+221A": [
+		"\\surd",
+		"\\sqrt"
+	],
 	"U+221B": "\\cuberoot",
 	"U+221C": "\\fourthroot",
-	"U+221D": ["\\varpropto", "\\propto"],
+	"U+221D": [
+		"\\varpropto",
+		"\\propto"
+	],
 	"U+221E": "\\infty",
 	"U+221F": "\\rightangle",
 	"U+2220": "\\angle",
 	"U+2221": "\\measuredangle",
-	"U+2222": ["\\ltrpar", "\\sphericalangle"],
-	"U+2223": ["\\shortmid", "\\mid"],
-	"U+2224": ["\\nmid", "\\nshortmid"],
-	"U+2225": ["\\parallel", "\\shortparallel"],
-	"U+2226": ["\\nparallel", "\\nshortparallel"],
+	"U+2222": [
+		"\\ltrpar",
+		"\\sphericalangle"
+	],
+	"U+2223": [
+		"\\shortmid",
+		"\\mid"
+	],
+	"U+2224": [
+		"\\nmid",
+		"\\nshortmid"
+	],
+	"U+2225": [
+		"\\parallel",
+		"\\shortparallel"
+	],
+	"U+2226": [
+		"\\nparallel",
+		"\\nshortparallel"
+	],
 	"U+2227": "\\wedge",
 	"U+2228": "\\vee",
 	"U+2229": "\\cap",
 	"U+222A": "\\cup",
-	"U+222B": ["\\int", "\\smallint"],
+	"U+222B": [
+		"\\int",
+		"\\smallint"
+	],
 	"U+222C": "\\iint",
 	"U+222D": "\\iiint",
 	"U+222E": "\\oint",
@@ -1151,7 +1350,11 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+2239": "\\dashcolon",
 	"U+223A": "\\dotsminusdots",
 	"U+223B": "\\kernelcontraction",
-	"U+223C": ["\\sim", "\\difference", "\\thicksim"],
+	"U+223C": [
+		"\\sim",
+		"\\difference",
+		"\\thicksim"
+	],
 	"U+223D": "\\backsim",
 	"U+223E": "\\ac",
 	"U+223F": "\\sinewave",
@@ -1163,11 +1366,17 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+2245": "\\cong",
 	"U+2246": "\\simneqq",
 	"U+2247": "\\ncong",
-	"U+2248": ["\\thickapprox", "\\approx"],
+	"U+2248": [
+		"\\thickapprox",
+		"\\approx"
+	],
 	"U+2249": "\\napprox",
 	"U+224A": "\\approxeq",
 	"U+224B": "\\approxident",
-	"U+224C": ["\\varbackcong", "\\backcong"],
+	"U+224C": [
+		"\\varbackcong",
+		"\\backcong"
+	],
 	"U+224D": "\\asymp",
 	"U+224E": "\\Bumpeq",
 	"U+224F": "\\bumpeq",
@@ -1187,7 +1396,10 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+225D": "\\eqdef",
 	"U+225E": "\\measeq",
 	"U+225F": "\\questeq",
-	"U+2260": ["\\textdoublebarslash", "\\ne"],
+	"U+2260": [
+		"\\textdoublebarslash",
+		"\\ne"
+	],
 	"U+2261": "\\equiv",
 	"U+2262": "\\nequiv",
 	"U+2263": "\\Equiv",
@@ -1287,8 +1499,14 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+22C1": "\\bigvee",
 	"U+22C2": "\\bigcap",
 	"U+22C3": "\\bigcup",
-	"U+22C4": ["\\diamond", "\\smwhtdiamond"],
-	"U+22C5": ["\\tnyblkcircle", "\\cdot"],
+	"U+22C4": [
+		"\\diamond",
+		"\\smwhtdiamond"
+	],
+	"U+22C5": [
+		"\\tnyblkcircle",
+		"\\cdot"
+	],
 	"U+22C6": "\\star",
 	"U+22C7": "\\divideontimes",
 	"U+22C8": "\\bowtie",
@@ -1375,8 +1593,14 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+231F": "\\lrcorner",
 	"U+2320": "\\inttop",
 	"U+2321": "\\intbottom",
-	"U+2322": ["\\smallfrown", "\\frown"],
-	"U+2323": ["\\smile", "\\smallsmile"],
+	"U+2322": [
+		"\\smallfrown",
+		"\\frown"
+	],
+	"U+2323": [
+		"\\smile",
+		"\\smallsmile"
+	],
 	"U+2329": "\\clangle",
 	"U+232A": "\\crangle",
 	"U+232C": "\\varhexagonlrbonds",
@@ -1555,8 +1779,14 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+2591": "\\blockqtrshaded",
 	"U+2592": "\\blockhalfshaded",
 	"U+2593": "\\blockthreeqtrshaded",
-	"U+25A0": ["\\blacksquare", "\\mdlgblksquare"],
-	"U+25A1": ["\\mdlgwhtsquare", "\\square"],
+	"U+25A0": [
+		"\\blacksquare",
+		"\\mdlgblksquare"
+	],
+	"U+25A1": [
+		"\\mdlgwhtsquare",
+		"\\square"
+	],
 	"U+25A2": "\\squoval",
 	"U+25A3": "\\blackinwhitesquare",
 	"U+25A4": "\\squarehfill",
@@ -1564,7 +1794,10 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+25A6": "\\squarehvfill",
 	"U+25A7": "\\squarenwsefill",
 	"U+25A8": "\\squareneswfill",
-	"U+25A9": ["\\squaregrayfill", "\\squarecrossfill"],
+	"U+25A9": [
+		"\\squaregrayfill",
+		"\\squarecrossfill"
+	],
 	"U+25AA": "\\smblksquare",
 	"U+25AB": "\\smwhtsquare",
 	"U+25AC": "\\hrectangleblack",
@@ -1597,8 +1830,14 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+25C7": "\\mdlgwhtdiamond",
 	"U+25C8": "\\blackinwhitediamond",
 	"U+25C9": "\\fisheye",
-	"U+25CA": ["\\mdlgwhtlozenge", "\\lozenge"],
-	"U+25CB": ["\\mdlgwhtcircle", "\\bigcirc"],
+	"U+25CA": [
+		"\\mdlgwhtlozenge",
+		"\\lozenge"
+	],
+	"U+25CB": [
+		"\\mdlgwhtcircle",
+		"\\bigcirc"
+	],
 	"U+25CC": "\\dottedcircle",
 	"U+25CD": "\\circlevertfill",
 	"U+25CE": "\\bullseye",
@@ -1951,7 +2190,10 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+290C": "\\leftbkarrow",
 	"U+290D": "\\rightbkarrow",
 	"U+290E": "\\leftdbkarrow",
-	"U+290F": ["\\dbkarow", "\\rightdbkarrow"],
+	"U+290F": [
+		"\\dbkarow",
+		"\\rightdbkarrow"
+	],
 	"U+2910": "\\drbkarow",
 	"U+2911": "\\rightdotarrow",
 	"U+2912": "\\baruparrow",
@@ -1973,8 +2215,14 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+2922": "\\neswarrow",
 	"U+2923": "\\hknwarrow",
 	"U+2924": "\\hknearrow",
-	"U+2925": ["\\hksearrow", "\\hksearow"],
-	"U+2926": ["\\hkswarrow", "\\hkswarow"],
+	"U+2925": [
+		"\\hksearrow",
+		"\\hksearow"
+	],
+	"U+2926": [
+		"\\hkswarrow",
+		"\\hkswarow"
+	],
 	"U+2927": "\\tona",
 	"U+2928": "\\toea",
 	"U+2929": "\\tosa",
@@ -2171,7 +2419,10 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+29E8": "\\downtriangleleftblack",
 	"U+29E9": "\\downtrianglerightblack",
 	"U+29EA": "\\blackdiamonddownarrow",
-	"U+29EB": ["\\blacklozenge", "\\mdlgblklozenge"],
+	"U+29EB": [
+		"\\blacklozenge",
+		"\\mdlgblklozenge"
+	],
 	"U+29EC": "\\circledownarrow",
 	"U+29ED": "\\blackcircledownarrow",
 	"U+29EE": "\\errbarsquare",
@@ -2443,9 +2694,15 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+2AF8": "\\gggnest",
 	"U+2AF9": "\\leqqslant",
 	"U+2AFA": "\\geqqslant",
-	"U+2AFB": ["\\texttripleslash", "\\trslash"],
+	"U+2AFB": [
+		"\\texttripleslash",
+		"\\trslash"
+	],
 	"U+2AFC": "\\biginterleave",
-	"U+2AFD": ["\\sslash", "\\textdoubleslash"],
+	"U+2AFD": [
+		"\\sslash",
+		"\\textdoubleslash"
+	],
 	"U+2AFE": "\\talloblong",
 	"U+2AFF": "\\bigtalloblong",
 	"U+2B12": "\\squaretopblack",
@@ -3453,8 +3710,14 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+D7D5": "\\bfseven",
 	"U+D7D6": "\\bfeight",
 	"U+D7D7": "\\bfnine",
-	"U+D7D8": ["\\bbzero", "\\Bbbzero"],
-	"U+D7D9": ["\\bbone", "\\Bbbone"],
+	"U+D7D8": [
+		"\\bbzero",
+		"\\Bbbzero"
+	],
+	"U+D7D9": [
+		"\\bbone",
+		"\\Bbbone"
+	],
 	"U+D7DA": "\\Bbbtwo",
 	"U+D7DB": "\\Bbbthree",
 	"U+D7DC": "\\Bbbfour",
