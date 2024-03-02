@@ -74,7 +74,7 @@ const fixtures: [string, string, string][] = [
 
 ////////////////////////////////////////////////////////////
 
-describe("array and string returns", () => {
+describe("TeX string returns ", () => {
 	describe("unicodeToTex", () => {
 		describe("unicodeToTex should return array when index is set to 'all'", () => {
 			for (const fixture of fixtures) {
