@@ -1,4 +1,6 @@
 import { codepointToUnicode } from "convert/codepointToUnicode";
+import { texToCodepoint } from "convert/texToCodepoint";
+import { texToUnicode } from "convert/texToUnicode";
 import { unicodeToCodepoint } from "convert/unicodeToCodepoint";
 import assert from "node:assert";
 import { describe, test } from "node:test";
@@ -84,11 +86,21 @@ describe("Codepoint to Character", () => {
 
 describe("Tex to Codepoint", () => {
 	for (const [, tex, code] of fixtures) {
+		test(`should convert ${tex} to codepoint`, () => {
+			const result = texToCodepoint(tex);
+			console.debug(tex, "->", result);
+			assert.strictEqual(result, code);
+		});
 	}
 });
 
 describe("Tex to Unicode", () => {
 	for (const [char, tex] of fixtures) {
+		test(`should convert ${tex} to character`, () => {
+			const result = texToUnicode(tex);
+			console.debug(tex, "->", result);
+			assert.strictEqual(result, char);
+		});
 	}
 });
 
