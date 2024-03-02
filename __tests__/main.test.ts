@@ -98,6 +98,8 @@ describe("TeX string returns ", () => {
 		});
 	});
 
+	////////////////////////////////////////////////////////////
+
 	describe("codepointToTex", () => {
 		describe("codepointToTex should always return array when index is set to 'all'", () => {
 			for (const fixture of fixtures) {
@@ -123,6 +125,7 @@ describe("TeX string returns ", () => {
 });
 
 ////////////////////////////////////////////////////////////
+
 describe("From Codepoint", () => {
 	describe("Codepoint to Tex", () => {
 		for (const [, tex, code] of fixtures) {
@@ -147,46 +150,50 @@ describe("From Codepoint", () => {
 
 ////////////////////////////////////////////////////////////
 
-describe("Tex to Codepoint", () => {
-	for (const [, tex, code] of fixtures) {
-		test(`should convert ${tex} to codepoint`, () => {
-			const result = texToCodepoint(tex);
-			console.debug(tex, "->", result);
-			assert.strictEqual(result, code);
-		});
-	}
-});
+describe("From Tex", () => {
+	describe("Tex to Codepoint", () => {
+		for (const [, tex, code] of fixtures) {
+			test(`should convert ${tex} to codepoint`, () => {
+				const result = texToCodepoint(tex);
+				console.debug(tex, "->", result);
+				assert.strictEqual(result, code);
+			});
+		}
+	});
 
-describe("Tex to Unicode", () => {
-	for (const [char, tex] of fixtures) {
-		test(`should convert ${tex} to character`, () => {
-			const result = texToUnicode(tex);
-			console.debug(tex, "->", result);
-			assert.strictEqual(result, char);
-		});
-	}
+	describe("Tex to Unicode", () => {
+		for (const [char, tex] of fixtures) {
+			test(`should convert ${tex} to character`, () => {
+				const result = texToUnicode(tex);
+				console.debug(tex, "->", result);
+				assert.strictEqual(result, char);
+			});
+		}
+	});
 });
 
 ////////////////////////////////////////////////////////////
 
-describe("Character to Codepoint", () => {
-	for (const [char, , code] of fixtures) {
-		test(`should convert ${char} to codepoint`, () => {
-			const result = unicodeToCodepoint(char);
-			console.debug(char, "->", result);
-			assert.strictEqual(result, code);
-		});
-	}
-});
+describe("From Character", () => {
+	describe("Character to Codepoint", () => {
+		for (const [char, , code] of fixtures) {
+			test(`should convert ${char} to codepoint`, () => {
+				const result = unicodeToCodepoint(char);
+				console.debug(char, "->", result);
+				assert.strictEqual(result, code);
+			});
+		}
+	});
 
-describe("Character to Tex", () => {
-	for (const [char, tex] of fixtures) {
-		test(`should convert ${char} to tex`, () => {
-			const result = unicodeToTex(char);
-			console.debug(char, "->", result);
-			assert.strictEqual(result, tex);
-		});
-	}
+	describe("Character to Tex", () => {
+		for (const [char, tex] of fixtures) {
+			test(`should convert ${char} to tex`, () => {
+				const result = unicodeToTex(char);
+				console.debug(char, "->", result);
+				assert.strictEqual(result, tex);
+			});
+		}
+	});
 });
 
 ////////////////////////////////////////////////////////////
