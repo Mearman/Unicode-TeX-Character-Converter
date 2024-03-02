@@ -1,5 +1,5 @@
 import { codePointTex } from "./characters/unicode_to_tex";
-import { isUnicodeSequence } from "./isUnicodeSequence";
+import { isPrefixedHexCodePoint } from "./isPrefixedHexCodePoint";
 
 export function convertUnicodeEscapeSequenceToHex(
 	unicode: string,
@@ -15,7 +15,7 @@ export function convertUnicodeEscapeSequenceToHex(
 	// 	console.debug(unicode, "->", temp);
 	// 	unicode = temp;
 	// }
-	if (!isUnicodeSequence(unicode)) {
+	if (!isPrefixedHexCodePoint(unicode)) {
 		throw new Error(`Invalid code point: ${unicode}`);
 	}
 	if (codePointTex[unicode]) {

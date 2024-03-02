@@ -1,4 +1,4 @@
-export function convertUnicodeToUnicodeToCodePoint(unicode: string): string {
+export function convertUnicodeToCodepoint(unicode: string): string {
 	const length = unicode.length;
 	if (length != 1) {
 		throw new Error(`Invalid code point: ${unicode} length: ${length}`);
