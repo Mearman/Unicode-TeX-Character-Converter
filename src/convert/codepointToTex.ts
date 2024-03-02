@@ -4,7 +4,7 @@ import { isPrefixedHexCodePoint } from "../isPrefixedHexCodePoint";
 
 export function codepointToTex(
 	codepoint: `${string}`,
-	index = 0,
+	index: number = 0,
 	onInvalid: Action = Return,
 	onNotFound: Action = Throw
 ) {
