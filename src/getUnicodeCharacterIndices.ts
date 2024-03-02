@@ -1,3 +1,3 @@
 import { isDoubleByte } from "isDoubleByte";
 
-export const getUnicodeCharacterInices = (str: string): number[] => str.split("").filter((char, i) => isDoubleByte(char as `${string}`)).map((_, i) => i);
+export const getUnicodeCharacterIndices = (str: string): number[] => str.split("").filter((char) => isDoubleByte(char as `${string}`)).map((_, i) => i);
