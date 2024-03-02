@@ -123,24 +123,26 @@ describe("TeX string returns ", () => {
 });
 
 ////////////////////////////////////////////////////////////
-describe("Codepoint to Tex", () => {
-	for (const [, tex, code] of fixtures) {
-		test(`should convert ${code} to tex`, () => {
-			const result = codepointToTex(code);
-			console.debug(code, "->", result);
-			assert.strictEqual(result, tex);
-		});
-	}
-});
+describe("From Codepoint", () => {
+	describe("Codepoint to Tex", () => {
+		for (const [, tex, code] of fixtures) {
+			test(`should convert ${code} to tex`, () => {
+				const result = codepointToTex(code);
+				console.debug(code, "->", result);
+				assert.strictEqual(result, tex);
+			});
+		}
+	});
 
-describe("Codepoint to Character", () => {
-	for (const [char, , code] of fixtures) {
-		test(`should convert ${code} to character`, () => {
-			const result = codepointToUnicode(code);
-			console.debug(char, "->", result);
-			assert.strictEqual(result, char);
-		});
-	}
+	describe("Codepoint to Character", () => {
+		for (const [char, , code] of fixtures) {
+			test(`should convert ${code} to character`, () => {
+				const result = codepointToUnicode(code);
+				console.debug(char, "->", result);
+				assert.strictEqual(result, char);
+			});
+		}
+	});
 });
 
 ////////////////////////////////////////////////////////////
