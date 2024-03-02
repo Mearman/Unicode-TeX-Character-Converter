@@ -1,6 +1,6 @@
 import { NonEmptyArray } from "../types/NonEmptyArray";
 
-export const codePointTex: Record<string, string | NonEmptyArray<string>> = {
+export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+0020": "\\space",
 	"U+0021": "\\exclam",
 	"U+0022": "\\textquotedbl",
@@ -3504,3 +3504,5 @@ export const codePointTex: Record<string, string | NonEmptyArray<string>> = {
 	"U+FE38": "\\underbrace",
 	"U+FFFD": "\\unknown",
 };
+
+export default codePointTexMap;
