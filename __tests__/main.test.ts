@@ -75,6 +75,28 @@ const fixtures: [string, string, string][] = [
 ////////////////////////////////////////////////////////////
 
 describe("array and string returns", () => {
+	describe("unicodeToTex", () => {
+		describe("unicodeToTex should return array when index is set to 'all'", () => {
+			for (const fixture of fixtures) {
+				const [char, tex, code] = fixture;
+				const texCode = unicodeToTex(char, "all", Throw, Throw);
+				test(`${char}`, () => {
+					assert.notEqual(typeof texCode, "string");
+					assert.ok(Array.isArray(texCode));
+				});
+			}
+		});
+
+		describe("unicodeToTex should return string when index is provided", () => {
+			for (const fixture of fixtures) {
+				const [char, code] = fixture;
+				const texCode = unicodeToTex(char, 0);
+				test(`${char}`, () => {
+					assert.ok(typeof texCode === "string");
+				});
+			}
+		});
+	});
 	describe("codepointToTex", () => {
 		describe("codepointToTex should return array when index is explicitly undefined", (t) => {
 			for (const fixture of fixtures) {
