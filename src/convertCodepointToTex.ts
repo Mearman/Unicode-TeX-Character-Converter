@@ -1,7 +1,7 @@
 import { codePointTex } from "./characters/unicode_to_tex";
 import { isPrefixedHexCodePoint } from "./isPrefixedHexCodePoint";
 
-export function convertUnicodeEscapeSequenceToHex(
+export function convertCodepointToTex(
 	unicode: string,
 	index: number = 0
 ): string {
