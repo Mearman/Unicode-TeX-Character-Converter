@@ -1,17 +1,14 @@
 import { codePointTex } from "./characters/unicode_to_tex";
 import { isPrefixedHexCodePoint } from "./isPrefixedHexCodePoint";
 
-const Ignore = "ignore";
-type Ignore = typeof Ignore;
+export const Ignore = "ignore";
+export type Ignore = typeof Ignore;
 
-// type Throw = "throw";
+export const Return = "return";
+export type Return = typeof Return;
 
-const Return = "return";
-type Return = typeof Return;
-
-// type Return = "return";
-const Throw = "throw";
-type Throw = typeof Throw;
+export const Throw = "throw";
+export type Throw = typeof Throw;
 
 export type Action = Throw | Ignore | Return | ((value: string) => string);
 
@@ -51,7 +48,7 @@ export function convertCodepointToTex(
 	);
 }
 
-function handleAction(
+export function handleAction(
 	action: Action,
 	value: string,
 	defaultValue = "",
@@ -72,14 +69,7 @@ function handleAction(
 	}
 }
 
-
 export function isDoubleByte(str: `${string}`) {
-	// for (var i = 0, n = str.length; i < n; i++) {
-	// 	if (str.charCodeAt(i) > 255) {
-	// 		return true;
-	// 	}
-	// }
-	// return false;
 	if (str.length !== 1) {
 		throw new Error(`Invalid double byte: ${str}`);
 	}
