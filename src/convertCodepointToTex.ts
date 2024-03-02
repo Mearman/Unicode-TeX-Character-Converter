@@ -2,25 +2,36 @@ import { codePointTex } from "./characters/unicode_to_tex";
 import { isPrefixedHexCodePoint } from "./isPrefixedHexCodePoint";
 
 export function convertCodepointToTex(
-	unicode: string,
-	index: number = 0
+	codepoint: string,
+	index: number = 0,
+	onInvalid:
+		| "throw"
+		| "return"
+		| "ignore"
+		| ((unicode: string) => string) = "return",
+	onNotFound:
+		| "throw"
+		| "return"
+		| "ignore"
+		| ((unicode: string) => string) = "throw"
 ): string {
-	unicode = unicode.trim();
-	if (unicode === "") {
-		throw new Error("Empty string");
+	codepoint = codepoint.trim();
+
+	if (!isPrefixedHexCodePoint(codepoint)) {
+		if (onInvalid === "throw") {
+			throw new Error(`Invalid code point: ${codepoint}`);
+		}
+		if (onInvalid === "ignore") {
+			return "";
+		}
+		if (typeof onInvalid === "function") {
+			return onInvalid(codepoint);
+		}
+		return codepoint;
 	}
-	// if (!isCodePoint(unicode)) {
-	// 	let temp = unicode.codePointAt(0)!.toString(16).toUpperCase();
-	// 	temp = `U+${temp}`;
-	// 	console.debug(unicode, "->", temp);
-	// 	unicode = temp;
-	// }
-	if (!isPrefixedHexCodePoint(unicode)) {
-		throw new Error(`Invalid code point: ${unicode}`);
-	}
-	if (codePointTex[unicode]) {
-		const tex = codePointTex[unicode];
-		// const tex = Object.keys(codePointTex).find((key
+
+	if (codePointTex[codepoint]) {
+		const tex = codePointTex[codepoint];
 		if (Array.isArray(tex)) {
 			if (index < 0 || index >= tex.length) {
 				throw new Error(`Invalid index: ${index}`);
@@ -29,5 +40,44 @@ export function convertCodepointToTex(
 		}
 		return tex;
 	}
-	return unicode;
+
+	if (onNotFound === "throw") {
+		throw new Error(`Tex not found for codepoint: ${codepoint}`);
+	}
+	if (onNotFound === "ignore") {
+		return "";
+	}
+	if (typeof onNotFound === "function") {
+		return onNotFound(codepoint);
+	}
+	return codepoint;
+}
+
+export function isDoubleByte(str: `${string}`) {
+	// for (var i = 0, n = str.length; i < n; i++) {
+	// 	if (str.charCodeAt(i) > 255) {
+	// 		return true;
+	// 	}
+	// }
+	// return false;
+	if (str.length !== 1) {
+		throw new Error(`Invalid double byte: ${str}`);
+	}
+	const charCode = str.charCodeAt(0);
+	return charCode > 255;
+}
+export function stringComtainsUnicodeCharacter(str: string): boolean {
+	for (var i = 0, n = str.length; i < n; i++) {
+		if (isDoubleByte(str[i] as `${string}`)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+export function isUnicodeCharacter(unicode: `${string}`): boolean {
+	if (unicode.length !== 1) {
+		throw new Error(`Invalid unicode character: ${unicode}`);
+	}
+	return isDoubleByte(unicode);
 }
