@@ -42,7 +42,7 @@
 			"command": "syncpack fix-mismatches && syncpack format"
 		},
 		"test": {
-			"command": "node --import tsx --test-reporter=spec --test"
+			"command": "node --import tsx --test-reporter=spec --test __tests__/**/*.test.ts"
 		}
 	}
 }
