@@ -23,6 +23,7 @@
 	"repository": "github:Mearman/Unicode-Tex-Character-Converter",
 	"scripts": {
 		"build": "wireit",
+		"postversion": "git push --follow-tags",
 		"syncpack": "wireit",
 		"test": "wireit"
 	},
