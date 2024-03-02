@@ -1,5 +1,5 @@
 import { isTexCommand } from "isTexCommand";
-import { codePointTex } from "./characters/unicode_to_tex";
+import { codePointTex } from "../characters/unicode_to_tex";
 
 export function convertTexToCodepoint(tex: string): string {
 	if (!isTexCommand(tex)) {

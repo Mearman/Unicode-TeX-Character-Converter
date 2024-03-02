@@ -1,4 +1,4 @@
-import { isPrefixedHexCodePoint } from "./isPrefixedHexCodePoint";
+import { isPrefixedHexCodePoint } from "../isPrefixedHexCodePoint";
 
 export function convertCodepointToUnicode(
 	unicodeEscapeSequence: string
