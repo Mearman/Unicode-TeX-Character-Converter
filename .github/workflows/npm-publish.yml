@@ -9,7 +9,8 @@ on:
     types: [created]
   push:
     tags:
-      - "v*"
+      - "v*.*.*"
+
 env:
   node_version: 21
 
@@ -49,21 +50,19 @@ jobs:
           path: dist
 
   release:
-    needs: build
+    needs:
+      - build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@main
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@main
+      - uses: actions/download-artifact@main
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+          name: dist
+          path: dist
+      - uses: softprops/action-gh-release@master
+        with:
+          generate_release_notes: true
+          files: dist
 
   publish-gpr:
     needs:
