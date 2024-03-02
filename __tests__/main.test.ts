@@ -1,9 +1,19 @@
+import { convertCodepointToTex } from "convertCodepointToTex";
+import { convertTexToUnicode } from "convertTexToUnicode";
 import assert from "node:assert";
 import { describe, test } from "node:test";
 import { codePointTex } from "../src/characters/unicode_to_tex";
 import { convertCodepointToUnicode } from "../src/convertCodepointToUnicode";
 import { convertUnicodeToCodepoint } from "../src/convertUnicodeToCodepoint";
 import { isPrefixedHexCodePoint } from "../src/isPrefixedHexCodePoint";
+/**
+	- `α` -> `U+03B1`
+	- `α` -> `\textalpha`
+	- `U+03B1` -> `α`
+	- `U+03B1` -> `\textalpha`.
+	- `\textalpha` -> `α`
+	- `\textalpha` -> `U+03B1`
+ */
 
 test("main", () => {
 	assert.strictEqual(1, 1);
@@ -48,6 +58,82 @@ describe("Decode encode unicode round trip", async (t) => {
 			console.debug(parsed, "->", codepoint);
 			assert.notEqual(parsed, codepoint);
 			assert.strictEqual(key, codepoint);
+		});
+	}
+});
+/////////////////////////////////////////////////////////////////////
+const cases: [string, string, string][] = [
+	["α", "\\textalpha", "U+03B1"],
+	["β", "\\textbeta", "U+03B2"],
+	["γ", "\\textgamma", "U+03B3"],
+];
+
+describe("Unicode to Codepoint", () => {
+	for (const [char, tex, uni] of cases) {
+		test(`should convert ${char} to codepoint`, () => {
+			const codePoint = convertUnicodeToCodepoint(char);
+			console.debug(char, "->", codePoint);
+			assert.strictEqual(codePoint, uni);
+		});
+	}
+});
+
+describe("Unicode to Tex", () => {
+	for (const [char, tex, uni] of cases) {
+		test(`should convert ${char} to tex`, () => {
+			const texChar = convertCodepointToTex(char);
+			console.debug(char, "->", texChar);
+			assert.strictEqual(texChar, tex);
+		});
+	}
+});
+
+describe("Tex to Unicode", () => {
+	for (const [char, tex, uni] of cases) {
+		test(`should convert ${tex} to unicode`, () => {
+			const unicode = convertTexToUnicode(tex);
+			console.debug(tex, "->", unicode);
+			assert.strictEqual(unicode, char);
+		});
+	}
+});
+
+describe("Codepoint to Unicode", () => {
+	for (const [char, tex, uni] of cases) {
+		test(`should convert ${uni} to unicode`, () => {
+			const unicode = convertCodepointToUnicode(uni);
+			console.debug(uni, "->", unicode);
+			assert.strictEqual(unicode, char);
+		});
+	}
+});
+
+describe("Codepoint to Tex", () => {
+	for (const [char, tex, uni] of cases) {
+		test(`should convert ${uni} to tex`, () => {
+			const texChar = convertCodepointToTex(uni);
+			console.debug(uni, "->", texChar);
+			assert.strictEqual(texChar, tex);
+		});
+	}
+});
+
+describe("Tex to Unicode", () => {
+	for (const [char, tex, uni] of cases) {
+		test(`should convert ${tex} to unicode`, () => {
+			const unicode = convertTexToUnicode(tex);
+			console.debug(tex, "->", unicode);
+			assert.strictEqual(unicode, char);
+		});
+	}
+});
+
+describe("Tex to Codepoint", () => {
+	for (const [char, tex, uni] of cases) {
+		test(`should convert ${tex} to codepoint`, () => {
+			const codePoint = convertTexToUnicode(tex);
+			console.debug(tex, "->", codePoint);
+			assert.strictEqual(codePoint, uni);
 		});
 	}
 });
