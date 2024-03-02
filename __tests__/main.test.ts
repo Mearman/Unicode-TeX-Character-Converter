@@ -1,3 +1,4 @@
+import { codepointToTex } from "convert/codepointToTex";
 import { codepointToUnicode } from "convert/codepointToUnicode";
 import { texToCodepoint } from "convert/texToCodepoint";
 import { texToUnicode } from "convert/texToUnicode";
@@ -61,7 +62,7 @@ test("main", () => {
 // 	}
 // });
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
 
 const fixtures: [string, string, string][] = [
 	["α", "\\textalpha", "U+03B1"],
@@ -69,9 +70,17 @@ const fixtures: [string, string, string][] = [
 	["ɣ", "\\textgamma", "U+0263"],
 ];
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
 
-describe("Codepoint to Tex", () => {});
+describe("Codepoint to Tex", () => {
+	for (const [, tex, code] of fixtures) {
+		test(`should convert ${code} to tex`, () => {
+			const result = codepointToTex(code);
+			console.debug(code, "->", result);
+			assert.strictEqual(result, tex);
+		});
+	}
+});
 
 describe("Codepoint to Character", () => {
 	for (const [char, , code] of fixtures) {
@@ -83,7 +92,7 @@ describe("Codepoint to Character", () => {
 	}
 });
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
 
 describe("Tex to Codepoint", () => {
 	for (const [, tex, code] of fixtures) {
@@ -105,7 +114,7 @@ describe("Tex to Unicode", () => {
 	}
 });
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
 
 describe("Character to Codepoint", () => {
 	for (const [char, , code] of fixtures) {
@@ -127,4 +136,4 @@ describe("Character to Tex", () => {
 	}
 });
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
