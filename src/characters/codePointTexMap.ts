@@ -551,7 +551,7 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+03AE": "\\acute{\\eta}",
 	"U+03AF": "\\acute{\\iota}",
 	"U+03B0": "\\acute{\\ddot{\\upsilon}}",
-	"U+03B1": ["\\upalpha", "\\textalpha"],
+	"U+03B1": ["\\textalpha", "\\upalpha"],
 	"U+03B2": ["\\textbeta", "\\upbeta"],
 	"U+03B3": "\\upgamma",
 	"U+03B4": "\\updelta",
