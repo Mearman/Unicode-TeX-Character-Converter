@@ -5,7 +5,7 @@ import { unicodeToCodepoint } from "./unicodeToCodepoint";
 
 export function unicodeToTex(
 	char: `${string}`,
-	index = 0,
+	index: number | undefined = 0,
 	onInvalid: Action = Throw,
 	onNotFound: Action = Throw
 ) {
