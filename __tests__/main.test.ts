@@ -76,7 +76,7 @@ const fixtures: [string, string, string][] = [
 
 describe("TeX string returns ", () => {
 	describe("unicodeToTex", () => {
-		describe("unicodeToTex should return array when index is set to 'all'", () => {
+		describe("unicodeToTex should always return array when index is set to 'all'", () => {
 			for (const fixture of fixtures) {
 				const [char, tex, code] = fixture;
 				const texCode = unicodeToTex(char, "all", Throw, Throw);
@@ -87,7 +87,7 @@ describe("TeX string returns ", () => {
 			}
 		});
 
-		describe("unicodeToTex should return string when index is provided", () => {
+		describe("unicodeToTex should always return string when index is provided", () => {
 			for (const fixture of fixtures) {
 				const [char, code] = fixture;
 				const texCode = unicodeToTex(char, 0);
@@ -97,8 +97,9 @@ describe("TeX string returns ", () => {
 			}
 		});
 	});
+
 	describe("codepointToTex", () => {
-		describe("codepointToTex should return array when index is explicitly undefined", (t) => {
+		describe("codepointToTex should always return array when index is set to 'all'", () => {
 			for (const fixture of fixtures) {
 				const [char, tex, code] = fixture;
 				const texCode = codepointToTex(code, "all", Throw, Throw);
@@ -109,7 +110,7 @@ describe("TeX string returns ", () => {
 			}
 		});
 
-		describe("codepointToTex should return string when index is provided", () => {
+		describe("codepointToTex should always return string when index is provided", () => {
 			for (const fixture of fixtures) {
 				const [char, code] = fixture;
 				const texCode = codepointToTex(code, 0);
