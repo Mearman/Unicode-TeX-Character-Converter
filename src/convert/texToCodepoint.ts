@@ -1,0 +1,24 @@
+import { codePointTex } from "../characters/codePointTex";
+import { Action, Throw, handleAction } from "../handleAction";
+import { isTexCommand } from "../isTexCommand";
+
+export function texToCodepoint(
+	tex: `${string}`,
+	onInvalid: Action = Throw,
+	onNotFound: Action = Throw
+): string {
+	if (!isTexCommand(tex)) {
+		return handleAction(onInvalid, tex);
+	}
+
+	for (const [unicode, texes] of Object.entries(codePointTex)) {
+		if (Array.isArray(texes)) {
+			if (texes.includes(tex)) {
+				return unicode;
+			}
+		} else if (texes === tex) {
+			return unicode;
+		}
+	}
+	return handleAction(onNotFound, tex);
+}
