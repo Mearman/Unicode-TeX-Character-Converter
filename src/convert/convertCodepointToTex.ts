@@ -1,6 +1,6 @@
 import { Action, handleAction, Return, Throw } from "handleAction";
-import { codePointTex } from "./characters/unicode_to_tex";
-import { isPrefixedHexCodePoint } from "./isPrefixedHexCodePoint";
+import { codePointTex } from "../characters/unicode_to_tex";
+import { isPrefixedHexCodePoint } from "../isPrefixedHexCodePoint";
 
 export function convertCodepointToTex(
 	codepoint: `${string}`,

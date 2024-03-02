@@ -1,10 +1,10 @@
-import { convertCodepointToTex } from "convertCodepointToTex";
-import { convertTexToUnicode } from "convertTexToUnicode";
+import { convertCodepointToTex } from "convert/convertCodepointToTex";
+import { convertTexToUnicode } from "convert/convertTexToUnicode";
 import assert from "node:assert";
 import { describe, test } from "node:test";
 import { codePointTex } from "../src/characters/unicode_to_tex";
-import { convertCodepointToUnicode } from "../src/convertCodepointToUnicode";
-import { convertUnicodeToCodepoint } from "../src/convertUnicodeToCodepoint";
+import { convertCodepointToUnicode } from "../src/convert/convertCodepointToUnicode";
+import { convertUnicodeToCodepoint } from "../src/convert/convertUnicodeToCodepoint";
 import { isPrefixedHexCodePoint } from "../src/isPrefixedHexCodePoint";
 /**
 	- `α` -> `U+03B1`
@@ -81,7 +81,7 @@ describe("Unicode to Codepoint", () => {
 describe("Unicode to Tex", () => {
 	for (const [char, tex, uni] of cases) {
 		test(`should convert ${char} to tex`, () => {
-			const texChar = convertCodepointToTex(char);
+			const texChar = convertUnicodeToTex(char);
 			console.debug(char, "->", texChar);
 			assert.strictEqual(texChar, tex);
 		});
@@ -138,45 +138,5 @@ describe("Tex to Codepoint", () => {
 	}
 });
 
-// describe("unicodeToTex", () => {
-// 	// count up sequentially in hex
-// 	// for (let i = 0; i < 0x10ffff; i++) {
-// 	for (let i = 0x0020; i < 0xFFFD; i++) {
-// 		const hex = i.toString(16);
-// 		const codePoint = `U+${hex}`;
-// 		// console.debug(`codePoint: ${codePoint}`);
-// 		console.debug(hex, "->", codePoint, "=", String.fromCodePoint(i));
-// 		const tex = convertCodepointToTex(codePoint);
-// 		console.debug(`tex: ${tex}`);
-// 		// test(`should convert ${hex} to ${tex}`, () => {
-// 		// 	assert.notEqual(codePoint, tex);
-// 		// });
-// 	}
-// })
-// describe("texToUnicode", () => {
-// 	test("should convert valid TeX characters to Unicode", () => {
-// 		assert.strictEqual(texToUnicode("\\alpha"), "U+03B1");
-// 		assert.strictEqual(texToUnicode("\\beta"), "β");
-// 		assert.strictEqual(texToUnicode("\\gamma"), "γ");
-// 	});
 
-// 	test("should return the input if no conversion is found", () => {
-// 		assert.strictEqual(texToUnicode(""), "");
-// 		assert.strictEqual(texToUnicode("abc"), "abc");
-// 		assert.strictEqual(texToUnicode("\\alpha\\beta\\gamma"), "αβγ");
-// 	});
-// });
 
-// describe("Unicode to Tex", () => {
-// 	test("should convert valid Unicode characters to TeX", () => {
-// 		assert.strictEqual(texToUnicode("α"), "\\alpha");
-// 		assert.strictEqual(texToUnicode("β"), "\\beta");
-// 		assert.strictEqual(texToUnicode("γ"), "\\gamma");
-// 	});
-
-// 	test("should return the input if no conversion is found", () => {
-// 		assert.strictEqual(texToUnicode(""), "");
-// 		assert.strictEqual(texToUnicode("abc"), "abc");
-// 		assert.strictEqual(texToUnicode("αβγ"), "αβγ");
-// 	});
-// });

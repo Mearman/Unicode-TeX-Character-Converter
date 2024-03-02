@@ -1,5 +1,5 @@
-import { convertCodepointToUnicode } from "convertCodepointToUnicode";
-import { convertTexToCodepoint } from "convertTexToCodepoint";
+import { convertCodepointToUnicode } from "convert/convertCodepointToUnicode";
+import { convertTexToCodepoint } from "convert/convertTexToCodepoint";
 import { isTexCommand } from "isTexCommand";
 
 export function convertTexToUnicode(tex: string) {
