@@ -4,7 +4,7 @@ import { isPrefixedHexCodePoint } from "../isPrefixedHexCodePoint";
 
 export function codepointToTex(
 	codepoint: `${string}`,
-	index: number = 0,
+	index: number | "all" = 0,
 	onInvalid: Action = Return,
 	onNotFound: Action = Throw
 ) {
@@ -16,6 +16,13 @@ export function codepointToTex(
 
 	if (codePointTexMap[codepoint]) {
 		const tex = codePointTexMap[codepoint];
+		if (index == "all") {
+			if (Array.isArray(tex)) {
+				return tex;
+			} else {
+				return [tex];
+			}
+		}
 		if (Array.isArray(tex)) {
 			if (index < 0 || index >= tex.length) {
 				throw new Error(`Invalid index: ${index}`);

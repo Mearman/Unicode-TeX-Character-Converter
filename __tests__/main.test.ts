@@ -4,6 +4,7 @@ import { texToCodepoint } from "convert/texToCodepoint";
 import { texToUnicode } from "convert/texToUnicode";
 import { unicodeToCodepoint } from "convert/unicodeToCodepoint";
 import { unicodeToTex } from "convert/unicodeToTex";
+import { Throw } from "handleAction";
 import assert from "node:assert";
 import { describe, test } from "node:test";
 /**
@@ -68,10 +69,47 @@ const fixtures: [string, string, string][] = [
 	["α", "\\textalpha", "U+03B1"],
 	["β", "\\textbeta", "U+03B2"],
 	["ɣ", "\\textgamma", "U+0263"],
+	["ɤ", "\\textbabygamma", "U+0264"],
 ];
 
 ////////////////////////////////////////////////////////////
 
+// test("codepointToTex should return array when index is explicitly undefined", () => {
+// 	const fixture = fixtures[0];
+// 	const [tex, code] = fixture;
+// 	const texCode = codepointToTex(code,undefined);
+// 	assert.notEqual(typeof texCode, "string");
+// });
+
+describe("codepointToTex should return array when index is explicitly undefined", (t) => {
+	for (const fixture of fixtures) {
+		const [char, tex, code] = fixture;
+		const texCode = codepointToTex(code, "all", Throw, Throw);
+		test(`${char}`, () => {
+			assert.notEqual(typeof texCode, "string");
+			assert.ok(Array.isArray(texCode));
+		});
+	}
+});
+
+// test("codepointToTex should return string when index is provided", () => {
+// 	const fixture = fixtures[0];
+// 	const [, code] = fixture;
+// 	const texCode = codepointToTex(code, 0);
+// 	assert.ok(typeof texCode === "string");
+// });
+
+describe("codepointToTex should return string when index is provided", () => {
+	for (const fixture of fixtures) {
+		const [char, code] = fixture;
+		const texCode = codepointToTex(code, 0);
+		test(`${char}`, () => {
+			assert.ok(typeof texCode === "string");
+		});
+	}
+});
+
+////////////////////////////////////////////////////////////
 describe("Codepoint to Tex", () => {
 	for (const [, tex, code] of fixtures) {
 		test(`should convert ${code} to tex`, () => {

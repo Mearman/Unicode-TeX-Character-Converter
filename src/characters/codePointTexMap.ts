@@ -1198,8 +1198,8 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	],
 	"U+21D2": "\\Rightarrow",
 	"U+21D3": [
+		"\\Downarrow",
 		"\\Downarrowhead",
-		"\\Downarrow"
 	],
 	"U+21D4": [
 		"\\Leftrightarrow",
@@ -1220,13 +1220,13 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+21DE": "\\nHuparrow",
 	"U+21DF": "\\nHdownarrow",
 	"U+21E0": [
+		"\\leftdasharrow",
 		"\\leftdasharrowhead",
-		"\\leftdasharrow"
 	],
 	"U+21E1": "\\updasharrow",
 	"U+21E2": [
+		"\\rightdasharrow",
 		"\\rightdasharrowhead",
-		"\\rightdasharrow"
 	],
 	"U+21E3": "\\downdasharrow",
 	"U+21E4": "\\barleftarrow",
@@ -1255,7 +1255,7 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+2204": "\\nexists",
 	"U+2205": [
 		"\\varnothing",
-		"\\emptyset"
+		"\\emptyset",
 	],
 	"U+2206": "\\increment",
 	"U+2207": "\\nabla",
@@ -1266,8 +1266,8 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+2209": "\\notin",
 	"U+220A": "\\smallin",
 	"U+220B": [
+		"\\varni",
 		"\\ni",
-		"\\varni"
 	],
 	"U+220C": "\\nni",
 	"U+220D": "\\smallni",
@@ -1289,8 +1289,8 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 		"\\circ"
 	],
 	"U+2219": [
+		"\\bullet",
 		"\\vysmblkcircle",
-		"\\bullet"
 	],
 	"U+221A": [
 		"\\surd",
