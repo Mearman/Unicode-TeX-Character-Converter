@@ -1,9 +1,9 @@
-import { isUnicodeSequence } from "./isUnicodeSequence";
+import { isPrefixedHexCodePoint } from "./isPrefixedHexCodePoint";
 
-export function convertUnicodeEscapeSequenceToUnicode(
+export function convertCodepointToUnicode(
 	unicodeEscapeSequence: string
 ): string {
-	if (!isUnicodeSequence(unicodeEscapeSequence)) {
+	if (!isPrefixedHexCodePoint(unicodeEscapeSequence)) {
 		throw new Error(`Invalid code point: ${unicodeEscapeSequence}`);
 	}
 	return String.fromCodePoint(parseInt(unicodeEscapeSequence.slice(2), 16));
