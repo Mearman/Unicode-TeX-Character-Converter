@@ -330,20 +330,21 @@ export function encodeString(
 ): string {
 	let result = "";
 	for (const char of input) {
-
-		// if (!isAsciiCharacter(char)) {
-		// 	// return encodeStringNonAscii(input, radix);
-		// 	const latexCommand = unicodeToTex(char, 0, Discard, Discard);
-		// 	if (latexCommand && !Array.isArray(latexCommand)) {
-		// 		result += latexCommand;
-		// 	} else {
-		// 		const normalized = input.normalize("NFD");
-		// 		// let result = "";
-		// 		for (const n of normalized) {
-		// 			result += encodeCharacter(n, radix, Return, Return);
-		// 		}
-		// 	}
-		// }
+		if (!isAsciiCharacter(char)) {
+			// return encodeStringNonAscii(input, radix);
+			const latexCommand = unicodeToTex(char, 0, Discard, Discard);
+			if (latexCommand && !Array.isArray(latexCommand)) {
+				result += latexCommand;
+			} else if (latexCommand && Array.isArray(latexCommand)) {
+				result += latexCommand[0];
+			} else {
+				const normalized = input.normalize("NFD");
+				// let result = "";
+				for (const n of normalized) {
+					result += encodeCharacter(n, radix, Return, Return);
+				}
+			}
+		}
 	}
 	return result;
 	// const normalized = input.normalize("NFD");
@@ -372,21 +373,21 @@ function encodeCharacter(
 	}
 }
 
-// describe("encodeString", () => {
-// 	const fixtures = [
-// 		[
-// 			"François, who lives in Zürich, enjoys reading Brontë novels and loves the café near the fjord.",
-// 			'Fran\\c{c}ois, who lives in Z\\"{u}rich, enjoys reading Bront\\"{e} novels and loves the caf\\\'{e} near the fjord}',
-// 		],
-// 	];
-// 	for (const [decoded, encoded] of fixtures) {
-// 		const decodedFirst3 = decoded.split(" ").slice(0, 3).join(" ") + "...";
-// 		const encodedFirstThree = encoded.split(" ").slice(0, 3).join(" ") + "...";
+await describe("encodeString", async () => {
+	const fixtures = [
+		[
+			"François, who lives in Zürich, enjoys reading Brontë novels and loves the café near the fjord.",
+			'Fran\\c{c}ois, who lives in Z\\"{u}rich, enjoys reading Bront\\"{e} novels and loves the caf\\\'{e} near the fjord}',
+		],
+	];
+	for await (const [decoded, encoded] of fixtures) {
+		const decodedFirst3 = decoded.split(" ").slice(0, 3).join(" ") + "...";
+		const encodedFirstThree = encoded.split(" ").slice(0, 3).join(" ") + "...";
 
-// 		test(`should encode ${decodedFirst3} to ${encodedFirstThree}`, () => {
-// 			const result = encodeString(decoded);
-// 			console.debug(decoded, "->", result);
-// 			assert.strictEqual(result, encoded);
-// 		});
-// 	}
-// });
+		await test(`should encode ${decodedFirst3} to ${encodedFirstThree}`, () => {
+			const result = encodeString(decoded);
+			console.debug(decoded, "->", result);
+			assert.strictEqual(result, encoded);
+		});
+	}
+});
