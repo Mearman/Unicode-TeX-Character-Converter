@@ -1,7 +1,8 @@
+#!/usr/bin/env node --loader @esbuild-kit/esm-loader --test
 import {
+	handleAction,
 	Action,
 	Throw,
-	handleAction,
 	Return,
 	Discard,
 	Handler,
