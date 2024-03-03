@@ -1,5 +1,5 @@
-import { isUnicodeCharacter } from "isUnicodeCharacter";
-import { Action, Throw, handleAction } from "../handleAction";
+import { isUnicodeCharacter } from "util/isUnicodeCharacter";
+import { Action, Throw, handleAction } from "../util/handleAction";
 import { codepointToTex } from "./codepointToTex";
 import { unicodeToCodepoint } from "./unicodeToCodepoint";
 

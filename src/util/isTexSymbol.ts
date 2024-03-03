@@ -1,4 +1,4 @@
-import { Action, Throw, handleAction } from "handleAction";
+import { Action, Throw, handleAction } from "util/handleAction";
 import {
 	OctalChar,
 	HexChar,
@@ -12,7 +12,8 @@ import {
 	HexUnicodeValue,
 	OctalUnicodeValue,
 	DecimalUnicodeValue,
-} from "hexSymbol";
+} from "util/hexSymbol";
+
 import { Octal, Decimal } from "types/radix";
 
 export function isOctalChar(char: string): char is OctalChar {

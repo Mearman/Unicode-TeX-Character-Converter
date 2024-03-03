@@ -1,6 +1,6 @@
 import { codePointTexMap } from "../characters/codePointTexMap";
-import { Action, Throw, handleAction } from "../handleAction";
-import { isTexCommand } from "../isTexCommand";
+import { Action, Throw, handleAction } from "../util/handleAction";
+import { isTexCommand } from "../util/isTexCommand";
 
 export function texToCodepoint(
 	tex: `${string}`,
