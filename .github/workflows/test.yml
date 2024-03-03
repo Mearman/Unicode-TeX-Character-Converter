@@ -14,13 +14,13 @@ jobs:
       fail-fast: false
       matrix:
         test_command:
-          - tsx --test ${{ github.env.test_pattern }}"
-          - node --loader ts-node/esm --test ${{ github.env.test_pattern }}"
-          - node --loader @esbuild-kit/esm-loader --test -r esbuild-register ${{ github.env.test_pattern }}"
-          - node --loader @esbuild-kit/esm-loader --test  ${{ github.env.test_pattern }}"
-          - node --import tsx --test ${{ github.env.test_pattern }}"
-          - glob ${{ github.env.test_pattern }} -c 'tsx --test'"
-          - glob ${{ github.env.test_pattern }} -c 'node --import tsx --test'"
+          - tsx --test $test_pattern"
+          - node --loader ts-node/esm --test $test_pattern"
+          - node --loader @esbuild-kit/esm-loader --test -r esbuild-register $test_pattern"
+          - node --loader @esbuild-kit/esm-loader --test  $test_pattern"
+          - node --import tsx --test $test_pattern"
+          - glob $test_pattern -c 'tsx --test'"
+          - glob $test_pattern -c 'node --import tsx --test'"
         node_version:
           - 18
           - 19
