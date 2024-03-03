@@ -1,4 +1,4 @@
-import { Radix } from "./types/radix";
+import { Radix } from "../types/radix";
 
 export function getLatexRadixSymbol(base: Radix) {
 	switch (base) {

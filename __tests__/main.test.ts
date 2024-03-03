@@ -1,11 +1,11 @@
-import { Action, Throw, handleAction } from "handleAction";
+import { Action, Throw, handleAction } from "util/handleAction";
 import assert from "node:assert";
 import { describe, test } from "node:test";
 import { Hexadecimal, Radix } from "types/radix";
 import { codepointToUnicode } from "../src/convert/codepointToUnicode";
 import { unicodeToCodepoint } from "../src/convert/unicodeToCodepoint";
-import { getLatexRadixSymbol } from "../src/getLatexRadixSymbol";
-import { charToTex, stringToTex } from "../src/stringToTex";
+import { getLatexRadixSymbol } from "../src/util/getLatexRadixSymbol";
+import { charToTex, stringToTex } from "../src/util/stringToTex";
 /**
 	- `α` -> `U+03B1`
 	- `α` -> `\textalpha`
