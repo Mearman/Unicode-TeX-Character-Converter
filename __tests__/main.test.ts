@@ -1,10 +1,10 @@
 
-import { charToTex, stringToTex } from "../src/stringToTex";
+import assert from "node:assert";
+import { describe, test } from "node:test";
 import { codepointToUnicode } from "../src/convert/codepointToUnicode";
 import { unicodeToCodepoint } from "../src/convert/unicodeToCodepoint";
 import { getLatexRadixSymbol } from "../src/getLatexRadixSymbol";
-import assert from "node:assert";
-import { describe, test } from "node:test";
+import { charToTex, stringToTex } from "../src/stringToTex";
 /**
 	- `α` -> `U+03B1`
 	- `α` -> `\textalpha`
@@ -264,10 +264,6 @@ describe("Decode encode unicode round trip", () => {
 // 	["ø", "\\o{}", "U+00F8"],
 // 	["ı", "{\\i}", "U+0131"],
 // ];
-
-export function texToChar(input: string) {}
-
-export function texToString(input: string) {}
 
 // export function latexToUnicode(input: string): string {
 
