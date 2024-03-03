@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        fixture: ${{ fromJson(needs.setup.outputs.matrix).fixtures }}
+        fixture: ${{ fromJson(needs.setup.outputs.matrix) }}
         node_version:
           - 18
           - 19
