@@ -5,7 +5,8 @@
 		"declaration": true,
 		"esModuleInterop": false,
 		"lib": [
-			"ES2017"
+			"ES2017",
+			"DOM"
 		],
 		"module": "esnext",
 		"moduleResolution": "node",
