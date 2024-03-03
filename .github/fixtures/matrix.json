@@ -1,9 +1,0 @@
-[
-	"yarn dlx tsx --test $TEST_PATTERN",
-	"yarn dlx node --loader ts-node/esm --test $TEST_PATTERN",
-	"yarn dlx node --loader @esbuild-kit/esm-loader --test -r esbuild-register $TEST_PATTERN",
-	"yarn dlx node --loader @esbuild-kit/esm-loader --test  $TEST_PATTERN",
-	"yarn dlx node --import tsx --test $TEST_PATTERN",
-	"yarn dlx glob $TEST_PATTERN -c 'tsx --test'",
-	"yarn dlx glob $TEST_PATTERN -c 'node --import tsx --test'"
-]
