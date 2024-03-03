@@ -330,7 +330,7 @@ export function encodeString(
 ): string {
 	let result = "";
 	for (const char of input) {
-		
+
 		// if (!isAsciiCharacter(char)) {
 		// 	// return encodeStringNonAscii(input, radix);
 		// 	const latexCommand = unicodeToTex(char, 0, Discard, Discard);
