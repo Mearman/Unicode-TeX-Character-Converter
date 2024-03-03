@@ -30,6 +30,7 @@
 		"build": "wireit",
 		"postversion": "git push --follow-tags",
 		"syncpack": "wireit",
+		"test": "tsx --test  ./__tests__/**/*.ts",
 		"test:glob:node:tsx": "glob __tests__/**/*.test.ts -c 'node --import tsx --test-reporter=spec --test'",
 		"test:glob:tsx": "glob __tests__/**/*.test.ts -c 'tsx --test'",
 		"test:node:esbuild": "node --loader @esbuild-kit/esm-loader  --test  __tests__/**/*.test.ts",
@@ -50,9 +51,6 @@
 		},
 		"syncpack": {
 			"command": "syncpack fix-mismatches && syncpack format"
-		},
-		"test": {
-			"command": "tsx --test  ./__tests__/**/*.ts"
 		}
 	}
 }
