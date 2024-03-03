@@ -347,21 +347,17 @@ export function encodeString(
 			} else if (latexCommand && Array.isArray(latexCommand)) {
 				result += latexCommand[0];
 			} else {
-				const normalized = input.normalize("NFD");
+				const normalized = char.normalize("NFD");
 				// let result = "";
 				for (const n of normalized) {
 					result += encodeCharacter(n, radix, Return, Return);
 				}
 			}
+		} else {
+			result += char;
 		}
 	}
 	return result;
-	// const normalized = input.normalize("NFD");
-	// let result = "";
-	// for (const char of normalized) {
-	// 	return encodeCharacter(char, radix, Throw, Return);
-	// }
-	// return result;
 }
 
 function encodeCharacter(
