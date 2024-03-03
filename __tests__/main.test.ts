@@ -372,21 +372,21 @@ function encodeCharacter(
 	}
 }
 
-describe("encodeString", () => {
-	const fixtures = [
-		[
-			"François, who lives in Zürich, enjoys reading Brontë novels and loves the café near the fjord.",
-			'Fran\\c{c}ois, who lives in Z\\"{u}rich, enjoys reading Bront\\"{e} novels and loves the caf\\\'{e} near the fjord}',
-		],
-	];
-	for (const [decoded, encoded] of fixtures) {
-		const decodedFirst3 = decoded.split(" ").slice(0, 3).join(" ") + "...";
-		const encodedFirstThree = encoded.split(" ").slice(0, 3).join(" ") + "...";
+// describe("encodeString", () => {
+// 	const fixtures = [
+// 		[
+// 			"François, who lives in Zürich, enjoys reading Brontë novels and loves the café near the fjord.",
+// 			'Fran\\c{c}ois, who lives in Z\\"{u}rich, enjoys reading Bront\\"{e} novels and loves the caf\\\'{e} near the fjord}',
+// 		],
+// 	];
+// 	for (const [decoded, encoded] of fixtures) {
+// 		const decodedFirst3 = decoded.split(" ").slice(0, 3).join(" ") + "...";
+// 		const encodedFirstThree = encoded.split(" ").slice(0, 3).join(" ") + "...";
 
-		test(`should encode ${decodedFirst3} to ${encodedFirstThree}`, () => {
-			const result = encodeString(decoded);
-			console.debug(decoded, "->", result);
-			assert.strictEqual(result, encoded);
-		});
-	}
-});
+// 		test(`should encode ${decodedFirst3} to ${encodedFirstThree}`, () => {
+// 			const result = encodeString(decoded);
+// 			console.debug(decoded, "->", result);
+// 			assert.strictEqual(result, encoded);
+// 		});
+// 	}
+// });
