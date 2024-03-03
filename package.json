@@ -21,6 +21,7 @@
 	"files": [
 		"dist"
 	],
+	"packageManager": "yarn@4.1.0",
 	"publishConfig": {
 		"provenance": true
 	},
@@ -29,17 +30,17 @@
 		"build": "wireit",
 		"postversion": "git push --follow-tags",
 		"syncpack": "wireit",
+		"test:glob:node:tsx": "glob __tests__/**/*.test.ts -c 'node --import tsx --test-reporter=spec --test'",
 		"test:glob:tsx": "glob __tests__/**/*.test.ts -c 'tsx --test'",
 		"test:node:esbuild": "node --loader @esbuild-kit/esm-loader  --test  __tests__/**/*.test.ts",
 		"test:node:esbuild-register": "node --loader @esbuild-kit/esm-loader --test -r esbuild-register __tests__/**/*.test.ts",
-		"test:glob:node:tsx": "glob __tests__/**/*.test.ts -c 'node --import tsx --test-reporter=spec --test'",
 		"test:node:tsnode": "node --loader ts-node/esm --test __tests__/**/*.test.ts",
 		"test:tsx": "tsx --test ./__tests__/**/*.ts"
 	},
 	"type": "module",
 	"wireit": {
 		"build": {
-			"command": "tsc && rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
+			"command": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
 			"dependencies": [
 				"syncpack"
 			],
