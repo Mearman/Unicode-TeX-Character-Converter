@@ -19,13 +19,13 @@ jobs:
           - 20
           - 21
         fixture:
-          - yarn dlx tsx --test $TEST_PATTERN
-          - yarn dlx node --loader ts-node/esm --test $TEST_PATTERN
-          - yarn dlx node --loader @esbuild-kit/esm-loader --test -r esbuild-register $TEST_PATTERN
-          - yarn dlx node --loader @esbuild-kit/esm-loader --test  $TEST_PATTERN
-          - yarn dlx node --import tsx --test $TEST_PATTERN
-          - yarn dlx glob $TEST_PATTERN -c 'tsx --test'
-          - yarn dlx glob $TEST_PATTERN -c 'node --import tsx --test'
+          - yarn tsx --test $TEST_PATTERN
+          - yarn node --loader ts-node/esm --test $TEST_PATTERN
+          - yarn node --loader @esbuild-kit/esm-loader --test -r esbuild-register $TEST_PATTERN
+          - yarn node --loader @esbuild-kit/esm-loader --test  $TEST_PATTERN
+          - yarn node --import tsx --test $TEST_PATTERN
+          - yarn glob $TEST_PATTERN -c 'tsx --test'
+          - yarn glob $TEST_PATTERN -c 'node --import tsx --test'
     steps:
       - uses: actions/checkout@main
       - uses: actions/setup-node@main
