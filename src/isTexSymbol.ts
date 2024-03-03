@@ -1,31 +1,19 @@
-export const HexSymbol = `"`;
-export type HexSymbol = typeof HexSymbol;
-export const OctalSymbol = `'`;
-export type OctalSymbol = typeof OctalSymbol;
-
-export type RadixChar = HexSymbol | OctalSymbol | "";
-
-export type OctalChar = `0` | `1` | `2` | `3` | `4` | `5` | `6` | `7`;
-export type HexChar =
-	| `${OctalChar}`
-	| `8`
-	| `9`
-	| `A`
-	| `B`
-	| `C`
-	| `D`
-	| `E`
-	| `F`;
-
-export type OctalTexSymbol =
-	`\\symbol{${OctalSymbol}${OctalChar}${OctalChar}${OctalChar}}`;
-
-export type HexTexSymbol =
-	`\\symbol{${HexSymbol}${HexChar}${HexChar}${HexChar}${HexChar}}`;
-
-export type DecimalTexSymbol = `\\symbol{${number}}`;
-
-export type TexSymbol = OctalTexSymbol | HexTexSymbol | DecimalTexSymbol;
+import { Action, Throw, handleAction } from "handleAction";
+import {
+	OctalChar,
+	HexChar,
+	RadixChar,
+	HexSymbol,
+	OctalSymbol,
+	HexTexSymbol,
+	OctalTexSymbol,
+	DecimalTexSymbol,
+	TexSymbol,
+	HexUnicodeValue,
+	OctalUnicodeValue,
+	DecimalUnicodeValue,
+} from "hexSymbol";
+import { Octal, Decimal } from "types/radix";
 
 export function isOctalChar(char: string): char is OctalChar {
 	return /[0-7]/.test(char);
@@ -39,16 +27,19 @@ export function isRadixChar(char: string): char is RadixChar {
 	return char === HexSymbol || char === OctalSymbol;
 }
 
+export const HexTexSymbolRegex = /\\symbol{"\[0-9A-F]{4}}/;
 export function isHexTexSymbol(tex: string): tex is HexTexSymbol {
-	return /\\symbol{"\d{4}}/.test(tex);
+	return HexTexSymbolRegex.test(tex);
 }
 
+export const OctalTexSymbolRegex = /\\symbol{'[0-7]{3}}/;
 export function isOctalTexSymbol(tex: string): tex is OctalTexSymbol {
-	return /\\symbol{'\d{3}}/.test(tex);
+	return OctalTexSymbolRegex.test(tex);
 }
 
+export const DecimalTexSymbolRegex = /\\symbol{\d{1,3}}/;
 export function isDecimalTexSymbol(tex: string): tex is DecimalTexSymbol {
-	return /\\symbol{\d{1,3}}/.test(tex);
+	return DecimalTexSymbolRegex.test(tex);
 }
 
 export function isTexSymbol(tex: string): tex is TexSymbol {
@@ -56,3 +47,26 @@ export function isTexSymbol(tex: string): tex is TexSymbol {
 		isOctalTexSymbol(tex) || isHexTexSymbol(tex) || isDecimalTexSymbol(tex)
 	);
 }
+
+export function getTexSymbolValues(
+	tex: TexSymbol,
+	onInvalid: Action = Throw
+):
+	| [value: HexUnicodeValue, radix: Hex]
+	| [value: OctalUnicodeValue, radix: Octal]
+	| [value: DecimalUnicodeValue, radix: Decimal] {
+	if (isOctalTexSymbol(tex)) {
+		const value = parseInt(tex.slice(9, 12), 8);
+		return [value];
+	} else if (isHexTexSymbol(tex)) {
+		const value = parseInt(tex.slice(9, 13), 16);
+		return [value];
+	} else if (isDecimalTexSymbol(tex)) {
+		const value = parseInt(tex.slice(8, -1), 10);
+		return [value];
+	} else {
+		return handleAction(onInvalid, tex);
+	}
+}
+
+export function decodeString(input: string): string {}

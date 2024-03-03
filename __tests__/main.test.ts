@@ -1,6 +1,7 @@
-
+import { Action, Throw, handleAction } from "handleAction";
 import assert from "node:assert";
 import { describe, test } from "node:test";
+import { Hexadecimal, Radix } from "types/radix";
 import { codepointToUnicode } from "../src/convert/codepointToUnicode";
 import { unicodeToCodepoint } from "../src/convert/unicodeToCodepoint";
 import { getLatexRadixSymbol } from "../src/getLatexRadixSymbol";
@@ -294,6 +295,7 @@ describe("characterToTex", () => {
 		});
 	}
 });
+
 describe("stringToTex", () => {
 	const fixtures: [string, string][] = [["go͡od", 'go\\symbol{"361}od']];
 	for (const [char, tex] of fixtures) {
@@ -302,5 +304,54 @@ describe("stringToTex", () => {
 			console.debug(char, "->", result);
 			assert.strictEqual(result, tex);
 		});
+	}
+});
+
+export function isAsciiCharacter(char: string): boolean {
+	if (char.length !== 1) {
+		throw new Error(`Expected single character, got ${char.length} characters`);
+	}
+	const code = char.charCodeAt(0);
+	return code < 128;
+}
+
+export function encodeString(
+	input: string,
+	radix: Radix = Hexadecimal
+): string {
+	const normalized = input.normalize("NFD");
+	let result = "";
+	for (const char of normalized) {
+		result += encodeCharacter(char, radix);
+	}
+	return result;
+}
+
+function encodeCharacter(
+	char: string,
+	radix: Radix = Hexadecimal,
+	onInvalid: Action = Throw,
+	onNonUnicode: Action = Throw
+): string {
+	if (char.length !== 1) {
+		return handleAction(onInvalid, char);
+	}
+	if (isAsciiCharacter(char)) {
+		return handleAction(onNonUnicode, char);
+	} else {
+		const charCode = char.charCodeAt(0);
+		const baseChar = getLatexRadixSymbol(radix);
+		return `\\symbol{${baseChar}${charCode.toString(radix).toUpperCase()}}`;
+	}
+}
+
+describe("encodeString", () => {
+	const fixtures = [
+		[
+			"François, who lives in Zürich, enjoys reading Brontë novels and loves the café near the fjord.",
+			'Fran\\c{c}ois, who lives in Z\\"{u}rich, enjoys reading Bront\\"{e} novels and loves the caf\\\'{e} near the fjord}',
+		],
+	];
+	for (const [decoded, encoded] of fixtures) {
 	}
 });
