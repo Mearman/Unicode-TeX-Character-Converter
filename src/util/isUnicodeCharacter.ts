@@ -1,4 +1,4 @@
-import { isDoubleByte } from "util/isDoubleByte";
+import { isDoubleByte } from "./isDoubleByte";
 
 export function isUnicodeCharacter(unicode: `${string}`): boolean {
 	if (unicode.length !== 1) {
