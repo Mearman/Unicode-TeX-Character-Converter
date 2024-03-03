@@ -3,8 +3,7 @@ name: Test and Build
 on:
   workflow_dispatch:
   push:
-    tags-ignore:
-      - '**'
+
 env:
   test_pattern: ./__tests__/**/*.test.ts
 
