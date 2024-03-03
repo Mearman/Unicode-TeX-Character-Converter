@@ -4,23 +4,32 @@ on:
   workflow_dispatch:
   push:
 
-env:
-  test_pattern: ./__tests__/**/*.test.ts
 
 jobs:
+  setup:
+    env:
+      TEST_PATTERN: ./__tests__/**/*.test.ts
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout to repository
+        uses: actions/checkout@main
+        with:
+          sparse-checkout: .github/fixtures
+      - name: Set matrix data
+        env:
+          FILE: .github/fixtures/matrix.json
+        id: set-matrix
+        run: echo "matrix=$(jq -c . < $FILE)" >> $GITHUB_OUTPUT
+
   test:
     runs-on: ubuntu-latest
+    needs: setup
     strategy:
       fail-fast: false
       matrix:
-        test_command:
-          - tsx --test $test_pattern"
-          - node --loader ts-node/esm --test $test_pattern"
-          - node --loader @esbuild-kit/esm-loader --test -r esbuild-register $test_pattern"
-          - node --loader @esbuild-kit/esm-loader --test  $test_pattern"
-          - node --import tsx --test $test_pattern"
-          - glob $test_pattern -c 'tsx --test'"
-          - glob $test_pattern -c 'node --import tsx --test'"
+        fixture: ${{ fromJson(needs.setup.outputs.matrix).fixtures }}
         node_version:
           - 18
           - 19
@@ -32,7 +41,7 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - run: npm ci
-      - run: npx -y ${{ matrix.test_command }}
+      - run: ${{ matrix.fixture }}
 
   build:
     runs-on: ubuntu-latest
