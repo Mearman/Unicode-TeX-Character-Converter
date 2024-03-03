@@ -1,4 +1,3 @@
-#!/usr/bin/env node --loader @esbuild-kit/esm-loader --test
 import {
 	handleAction,
 	Action,
@@ -7,14 +6,15 @@ import {
 	Discard,
 	Handler,
 } from "../src/util/handleAction";
-import assert from "node:assert";
-import { describe, test } from "node:test";
+// import assert from "node:assert";
+// import { describe, test } from "node:test";
 import { Hexadecimal, Radix } from "../src/types/radix";
 import { codepointToUnicode } from "../src/convert/codepointToUnicode";
 import { unicodeToCodepoint } from "../src/convert/unicodeToCodepoint";
 import { getLatexRadixSymbol } from "../src/util/getLatexRadixSymbol";
 import { charToTex, stringToTex } from "../src/util/stringToTex";
 import { unicodeToTex } from "../src/convert/unicodeToTex";
+// import assert from "assert";
 
 /**
 	- `α` -> `U+03B1`
@@ -26,7 +26,8 @@ import { unicodeToTex } from "../src/convert/unicodeToTex";
  */
 
 test("main", () => {
-	assert.strictEqual(1, 1);
+	// assert.strictEqual(1, 1);
+	expect(1).toBe(1);
 });
 
 // test("isCodePoint", () => {
@@ -41,7 +42,8 @@ describe("Encode unicode as codepoint", () => {
 		test(`should convert ${input} to codepoint`, () => {
 			const codePoint = unicodeToCodepoint(input);
 			console.debug(input, "->", codePoint);
-			assert.notEqual(codePoint, input);
+			// assert.notEqual(codePoint, input);
+			expect(codePoint).not.toBe(input);
 		});
 	}
 });
@@ -52,7 +54,8 @@ describe("Convert Hex Codepoint to Unicode", () => {
 		test(`should convert ${input} to Unicode`, () => {
 			const unicode = codepointToUnicode(input);
 			console.debug(input, "->", unicode);
-			assert.notEqual(input, unicode);
+			// assert.notEqual(input, unicode);
+			expect(unicode).not.toBe(input);
 		});
 	}
 });
@@ -280,13 +283,16 @@ describe("Decode encode unicode round trip", () => {
 
 describe("latexRadixSymbol", () => {
 	test("should return ` for base 16", () => {
-		assert.strictEqual(getLatexRadixSymbol(16), '"');
+		// assert.strictEqual(getLatexRadixSymbol(16), '"');
+		expect(getLatexRadixSymbol(16)).toBe('"');
 	});
 	test("should return ' for base 8", () => {
-		assert.strictEqual(getLatexRadixSymbol(8), "'");
+		// assert.strictEqual(getLatexRadixSymbol(8), "'");
+		expect(getLatexRadixSymbol(8)).toBe("'");
 	});
 	test("should return '' for base 10", () => {
-		assert.strictEqual(getLatexRadixSymbol(10), "");
+		// assert.strictEqual(getLatexRadixSymbol(10), "");
+		expect(getLatexRadixSymbol(10)).toBe("");
 	});
 });
 
@@ -301,7 +307,8 @@ describe("characterToTex", () => {
 		test(`should convert ${char} to tex`, () => {
 			const result = charToTex(char);
 			console.debug(char, "->", result);
-			assert.strictEqual(result, tex);
+			// assert.strictEqual(result, tex);
+			expect(result).toBe(tex);
 		});
 	}
 });
@@ -312,7 +319,8 @@ describe("stringToTex", () => {
 		test(`should convert ${char} to tex`, () => {
 			const result = stringToTex(char);
 			console.debug(char, "->", result);
-			assert.strictEqual(result, tex);
+			// assert.strictEqual(result, tex);
+			expect(result).toBe(tex);
 		});
 	}
 });
@@ -374,21 +382,22 @@ function encodeCharacter(
 	}
 }
 
-await describe("encodeString", async () => {
+describe("encodeString", () => {
 	const fixtures = [
 		[
 			"François, who lives in Zürich, enjoys reading Brontë novels and loves the café near the fjord.",
 			'Fran\\c{c}ois, who lives in Z\\"{u}rich, enjoys reading Bront\\"{e} novels and loves the caf\\\'{e} near the fjord}',
 		],
 	];
-	for await (const [decoded, encoded] of fixtures) {
+	for (const [decoded, encoded] of fixtures) {
 		const decodedFirst3 = decoded.split(" ").slice(0, 3).join(" ") + "...";
 		const encodedFirstThree = encoded.split(" ").slice(0, 3).join(" ") + "...";
 
-		await test(`should encode ${decodedFirst3} to ${encodedFirstThree}`, () => {
+		test(`should encode ${decodedFirst3} to ${encodedFirstThree}`, () => {
 			const result = encodeString(decoded);
 			console.debug(decoded, "->", result);
-			assert.strictEqual(result, encoded);
+			// assert.strictEqual(result, encoded);
+			expect(result).toBe(encoded);
 		});
 	}
 });
