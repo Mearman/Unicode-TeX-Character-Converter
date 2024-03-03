@@ -5,6 +5,8 @@ on:
   push:
     tags-ignore:
       - '**'
+env:
+  test_pattern: ./__tests__/**/*.test.ts
 
 jobs:
   test:
@@ -12,6 +14,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        test_command:
+          - tsx --test ${{ github.env.test_pattern }}"
+          - node --loader ts-node/esm --test ${{ github.env.test_pattern }}"
+          - node --loader @esbuild-kit/esm-loader --test -r esbuild-register ${{ github.env.test_pattern }}"
+          - node --loader @esbuild-kit/esm-loader --test  ${{ github.env.test_pattern }}"
+          - node --import tsx --test ${{ github.env.test_pattern }}"
+          - glob ${{ github.env.test_pattern }} -c 'tsx --test'"
+          - glob ${{ github.env.test_pattern }} -c 'node --import tsx --test'"
         node_version:
           - 18
           - 19
@@ -23,7 +33,7 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - run: npm ci
-      - run: npm run test
+      - run: npx -y ${{ matrix.test_command }}
 
   build:
     runs-on: ubuntu-latest

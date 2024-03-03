@@ -2,13 +2,17 @@
 	"name": "unicode-tex-character-converter",
 	"version": "1.0.13",
 	"devDependencies": {
+		"@esbuild-kit/esm-loader": "^2.6.5",
 		"@rollup/plugin-typescript": "^11.1.6",
 		"@types/node": "^20.11.24",
+		"esbuild": "^0.20.1",
+		"esbuild-register": "^3.5.0",
+		"glob": "^10.3.10",
 		"rimraf": "^5.0.5",
 		"rollup": "^4.12.0",
 		"rollup-plugin-dts": "^6.1.0",
 		"syncpack": "^12.3.0",
-		"ts-node": "^10.9.2",
+		"ts-node": "^11.0.0-beta.1",
 		"tslib": "^2.6.2",
 		"tsx": "^4.7.1",
 		"typescript": "^5.3.3",
@@ -25,7 +29,12 @@
 		"build": "wireit",
 		"postversion": "git push --follow-tags",
 		"syncpack": "wireit",
-		"test": "wireit"
+		"test:glob:tsx": "glob __tests__/**/*.test.ts -c 'tsx --test'",
+		"test:node:esbuild": "node --loader @esbuild-kit/esm-loader  --test  __tests__/**/*.test.ts",
+		"test:node:esbuild-register": "node --loader @esbuild-kit/esm-loader --test -r esbuild-register __tests__/**/*.test.ts",
+		"test:glob:node:tsx": "glob __tests__/**/*.test.ts -c 'node --import tsx --test-reporter=spec --test'",
+		"test:node:tsnode": "node --loader ts-node/esm --test __tests__/**/*.test.ts",
+		"test:tsx": "tsx --test ./__tests__/**/*.ts"
 	},
 	"type": "module",
 	"wireit": {
@@ -42,7 +51,7 @@
 			"command": "syncpack fix-mismatches && syncpack format"
 		},
 		"test": {
-			"command": "node --import tsx --test-reporter=spec --test __tests__/**/*.test.ts"
+			"command": "tsx --test  ./__tests__/**/*.ts"
 		}
 	}
 }
