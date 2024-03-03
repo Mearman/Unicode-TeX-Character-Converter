@@ -1,11 +1,20 @@
-import { Action, Throw, handleAction, Return } from "util/handleAction";
+import {
+	Action,
+	Throw,
+	handleAction,
+	Return,
+	Discard,
+	Handler,
+} from "../src/util/handleAction";
 import assert from "node:assert";
 import { describe, test } from "node:test";
-import { Hexadecimal, Radix } from "types/radix";
+import { Hexadecimal, Radix } from "../src/types/radix";
 import { codepointToUnicode } from "../src/convert/codepointToUnicode";
 import { unicodeToCodepoint } from "../src/convert/unicodeToCodepoint";
 import { getLatexRadixSymbol } from "../src/util/getLatexRadixSymbol";
 import { charToTex, stringToTex } from "../src/util/stringToTex";
+import { unicodeToTex } from "../src/convert/unicodeToTex";
+
 /**
 	- `α` -> `U+03B1`
 	- `α` -> `\textalpha`
@@ -319,12 +328,30 @@ export function encodeString(
 	input: string,
 	radix: Radix = Hexadecimal
 ): string {
-	const normalized = input.normalize("NFD");
 	let result = "";
-	for (const char of normalized) {
-		result += encodeCharacter(char, radix, Throw, Return);
+	for (const char of input) {
+		
+		// if (!isAsciiCharacter(char)) {
+		// 	// return encodeStringNonAscii(input, radix);
+		// 	const latexCommand = unicodeToTex(char, 0, Discard, Discard);
+		// 	if (latexCommand && !Array.isArray(latexCommand)) {
+		// 		result += latexCommand;
+		// 	} else {
+		// 		const normalized = input.normalize("NFD");
+		// 		// let result = "";
+		// 		for (const n of normalized) {
+		// 			result += encodeCharacter(n, radix, Return, Return);
+		// 		}
+		// 	}
+		// }
 	}
 	return result;
+	// const normalized = input.normalize("NFD");
+	// let result = "";
+	// for (const char of normalized) {
+	// 	return encodeCharacter(char, radix, Throw, Return);
+	// }
+	// return result;
 }
 
 function encodeCharacter(
@@ -353,7 +380,10 @@ describe("encodeString", () => {
 		],
 	];
 	for (const [decoded, encoded] of fixtures) {
-		test(`should encode ${decoded} to ${encoded}`, () => {
+		const decodedFirst3 = decoded.split(" ").slice(0, 3).join(" ") + "...";
+		const encodedFirstThree = encoded.split(" ").slice(0, 3).join(" ") + "...";
+
+		test(`should encode ${decodedFirst3} to ${encodedFirstThree}`, () => {
 			const result = encodeString(decoded);
 			console.debug(decoded, "->", result);
 			assert.strictEqual(result, encoded);
