@@ -1,4 +1,4 @@
-import { Action, Throw, handleAction } from "util/handleAction";
+import { Action, Throw, handleAction, Return } from "util/handleAction";
 import assert from "node:assert";
 import { describe, test } from "node:test";
 import { Hexadecimal, Radix } from "types/radix";
@@ -322,7 +322,7 @@ export function encodeString(
 	const normalized = input.normalize("NFD");
 	let result = "";
 	for (const char of normalized) {
-		result += encodeCharacter(char, radix);
+		result += encodeCharacter(char, radix, Throw, Return);
 	}
 	return result;
 }
@@ -353,5 +353,10 @@ describe("encodeString", () => {
 		],
 	];
 	for (const [decoded, encoded] of fixtures) {
+		test(`should encode ${decoded} to ${encoded}`, () => {
+			const result = encodeString(decoded);
+			console.debug(decoded, "->", result);
+			assert.strictEqual(result, encoded);
+		});
 	}
 });
