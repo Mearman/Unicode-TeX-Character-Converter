@@ -23,8 +23,5 @@
 		"src/**/*",
 		"rollup.config.ts",
 		"__tests__/**/*"
-	],
-	"ts-node": {
-		"esm": true
-	}
+	]
 }
