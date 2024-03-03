@@ -13,5 +13,13 @@ export function unicodeToTex(
 		return handleAction(onInvalid, char);
 	}
 	const codePoint = unicodeToCodepoint(char, onInvalid);
-	return codepointToTex(codePoint, index, onInvalid, onNotFound);
+	const result = codepointToTex(codePoint, index, onInvalid, onNotFound);
+	if (index == "all") {
+		if (!Array.isArray(result)) {
+			return [result];
+		} else {
+			return result;
+		}
+	}
+	return result;
 }
