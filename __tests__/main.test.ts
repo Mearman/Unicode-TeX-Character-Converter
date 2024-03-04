@@ -3,6 +3,7 @@
 import { codepointToUnicode } from "../src/convert/codepointToUnicode";
 import { unicodeToCodepoint } from "../src/convert/unicodeToCodepoint";
 import { decodeString, encodeString } from "../src/main";
+// import { decodeString, encodeString } from "../src/main";
 import { getLatexRadixSymbol } from "../src/util/radix/getLatexRadixSymbol";
 import { charToTex, stringToTex } from "../src/util/tex/stringToTex";
 // import assert from "assert";
@@ -353,6 +354,41 @@ describe("encodeString", () => {
 		});
 	}
 });
+
+describe("decodeString", () => {
+	// Test fixtures
+	const testCases = [
+		{ input: "Hello \\symbol{0041} World", expected: "Hello A World" },
+		{ input: "Some \\symbol{0042} text", expected: "Some B text" },
+		{
+			input: "Test \\symbol{0031}\\symbol{0032}\\symbol{0033}",
+			expected: "Test 123",
+		},
+		{
+			input: "Unicode \\symbol{03B1}\\symbol{03B2}\\symbol{03B3}",
+			expected: "Unicode αβγ",
+		},
+		{
+			input: "Mixed \\symbol{0041}BCD E\\symbol{0046}G",
+			expected: "Mixed ABCD EFG",
+		},
+		{ input: "Just ASCII", expected: "Just ASCII" },
+		{ input: "Empty string", expected: "Empty string" },
+		{ input: "\\symbol{005A}", expected: "Z" },
+		{ input: "No \\command here", expected: "No \\command here" },
+		{ input: 'No \\"{o} here', expected: "No ö here" },
+		{ input: "o\\symbol{0361}o", expected: "o͡o" },
+	];
+
+	testCases.forEach(({ input, expected }) => {
+		test(`should decode ${input}`, () => {
+			const result = decodeString(input);
+			console.debug(input, "->", result);
+			expect(result).toBe(expected);
+		});
+	});
+});
+
 function nameTest(decoded: string, encoded: string) {
 	const decodedFirst3 = truncateString(decoded);
 	const encodedFirstThree = truncateString(encoded);
