@@ -1,5 +1,5 @@
 import { Action, Throw } from "../util/handleAction";
-import { isTexCommand } from "../util/isTexCommand";
+import { isTexCommand } from "../util/tex/isTexCommand";
 import { codepointToUnicode } from "./codepointToUnicode";
 import { texToCodepoint } from "./texToCodepoint";
 

@@ -11,8 +11,8 @@ import {
 import { Hexadecimal, Radix } from "../src/types/radix";
 import { codepointToUnicode } from "../src/convert/codepointToUnicode";
 import { unicodeToCodepoint } from "../src/convert/unicodeToCodepoint";
-import { getLatexRadixSymbol } from "../src/util/getLatexRadixSymbol";
-import { charToTex, stringToTex } from "../src/util/stringToTex";
+import { getLatexRadixSymbol } from "../src/util/radix/getLatexRadixSymbol";
+import { charToTex, stringToTex } from "../src/util/tex/stringToTex";
 import { unicodeToTex } from "../src/convert/unicodeToTex";
 import { texToUnicode } from "../src/convert/texToUnicode";
 // import assert from "assert";
