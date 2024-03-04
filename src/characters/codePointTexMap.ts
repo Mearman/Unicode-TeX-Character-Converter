@@ -510,7 +510,7 @@ export const codePointTexMap: Record<string, string | NonEmptyArray<string>> = {
 	"U+0359": "\\textunderasterisk",
 	"U+035C": "\\texttieunderarc",
 	"U+0360": "\\texttietilde",
-	"U+0361": "\\t",
+	// "U+0361": "\\t", // TODO: this is comment out until a better way to handle inter-character mapping is found (e.g. "U+0361": "\\t{L,R}" )
 	"U+0362": "\\texttieunderrightarrow",
 	"U+0386": "\\'{A}",
 	"U+0388": "\\'{E}",
