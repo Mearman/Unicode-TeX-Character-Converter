@@ -386,6 +386,11 @@ describe("encodeString", () => {
 			encoded:
 				'Fran\\c{c}ois, who lives in Z\\"{u}rich, enjoys reading Bront\\"{e} novels and loves the caf\\\'{e} near the fjord.',
 		},
+		{
+			decoded: "go͡od",
+			encoded: 'go\\symbol{"361}od',
+			// encoded: "g\\t{oo}d",
+		},
 	];
 	for (const { decoded, encoded } of fixtures) {
 		const decodedFirst3 = decoded.split(" ").slice(0, 3).join(" ") + "...";
