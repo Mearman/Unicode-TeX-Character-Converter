@@ -379,24 +379,25 @@ function encodeCharacter(
 }
 
 describe("encodeString", () => {
-	const fixtures: { decoded: string; encoded: string }[] = [
+	const fixtures: { name?: string; decoded: string; encoded: string }[] = [
 		{
+			name: "encode sentence containing accented characters",
 			decoded:
 				"François, who lives in Zürich, enjoys reading Brontë novels and loves the café near the fjord.",
 			encoded:
 				'Fran\\c{c}ois, who lives in Z\\"{u}rich, enjoys reading Bront\\"{e} novels and loves the caf\\\'{e} near the fjord.',
 		},
 		{
+			name: 'encode go͡od to go\\symbol{"361}od',
 			decoded: "go͡od",
 			encoded: 'go\\symbol{"361}od',
 			// encoded: "g\\t{oo}d",
 		},
 	];
-	for (const { decoded, encoded } of fixtures) {
-		const decodedFirst3 = decoded.split(" ").slice(0, 3).join(" ") + "...";
-		const encodedFirstThree = encoded.split(" ").slice(0, 3).join(" ") + "...";
+	for (let { name, decoded, encoded } of fixtures) {
+		name ??= nameTest(decoded, encoded);
 
-		test(`should encode ${decodedFirst3} to ${encodedFirstThree}`, () => {
+		test(name, () => {
 			const result = encodeString(decoded);
 			console.debug(decoded, "->", result);
 			// assert.strictEqual(result, encoded);
@@ -404,3 +405,10 @@ describe("encodeString", () => {
 		});
 	}
 });
+function nameTest(decoded: string, encoded: string) {
+	const decodedFirst3 = decoded.split(" ").slice(0, 3).join(" ") + "...";
+	const encodedFirstThree = encoded.split(" ").slice(0, 3).join(" ") + "...";
+	const newLocal = `should encode ${decodedFirst3} to ${encodedFirstThree}`;
+	return newLocal;
+}
+
