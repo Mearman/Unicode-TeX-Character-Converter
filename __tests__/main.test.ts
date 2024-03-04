@@ -425,32 +425,31 @@ function decodeCharacter(
 describe("encodeString", () => {
 	const fixtures: { name?: string; decoded: string; encoded: string }[] = [
 		{
-			name: "encode sentence containing accented characters",
+			name: "sentence containing accented characters",
 			decoded:
 				"François, who lives in Zürich, enjoys reading Brontë novels and loves the café near the fjord.",
 			encoded:
 				'Fran\\c{c}ois, who lives in Z\\"{u}rich, enjoys reading Bront\\"{e} novels and loves the caf\\\'{e} near the fjord.',
 		},
 		{
-			name: 'go͡od to go\\symbol{"361}od',
 			decoded: "go͡od",
 			encoded: 'go\\symbol{"361}od',
 			// encoded: "g\\t{oo}d",
 		},
 	];
 	for (let { name, decoded, encoded } of fixtures) {
-		name ??= nameTest(decoded, encoded);
-		test("encode " + name, () => {
+		// name ??= nameTest(decoded, encoded);
+		test("encode " + (name || nameTest(decoded, encoded)), () => {
 			const result = encodeString(decoded);
 			console.debug(decoded, "->", result);
 			expect(result).toBe(encoded);
 		});
-		test("decode " + name, () => {
+		test("decode " + (name ?? nameTest(encoded, decoded)), () => {
 			const result = decodeString(encoded);
 			console.debug(encoded, "->", result);
 			expect(result).toBe(decoded);
 		});
-		test("round trip " + name, () => {
+		test("round trip " + (name ?? nameTest(encoded, decoded)), () => {
 			const encodedResult = encodeString(decoded);
 			console.debug(decoded, "->", encodedResult);
 			expect(encodedResult).toBe(encoded);
@@ -461,8 +460,24 @@ describe("encodeString", () => {
 	}
 });
 function nameTest(decoded: string, encoded: string) {
-	const decodedFirst3 = decoded.split(" ").slice(0, 3).join(" ") + "...";
-	const encodedFirstThree = encoded.split(" ").slice(0, 3).join(" ") + "...";
+	const decodedFirst3 = truncateString(decoded);
+	const encodedFirstThree = truncateString(encoded);
 	return `${decodedFirst3} to ${encodedFirstThree}`;
+}
+
+function truncateString(input: string) {
+	return input
+		.split(" ")
+		.map((word, index) => {
+			if (index < 3) {
+				return word;
+			} else if (index == 3) {
+				return "...";
+			} else {
+				return;
+			}
+		})
+		.filter(Boolean)
+		.join(" ");
 }
 
