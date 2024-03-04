@@ -418,7 +418,6 @@ function decodeCharacter(
 		const charCode = parseInt(match[1], radix);
 		return String.fromCharCode(charCode);
 	} else {
-		// Handle invalid encoding or return the original character
 		return encodedChar;
 	}
 }
@@ -444,14 +443,20 @@ describe("encodeString", () => {
 		test("encode " + name, () => {
 			const result = encodeString(decoded);
 			console.debug(decoded, "->", result);
-			// assert.strictEqual(result, encoded);
 			expect(result).toBe(encoded);
 		});
 		test("decode " + name, () => {
 			const result = decodeString(encoded);
 			console.debug(encoded, "->", result);
-			// assert.strictEqual(result, decoded);
 			expect(result).toBe(decoded);
+		});
+		test("round trip " + name, () => {
+			const encodedResult = encodeString(decoded);
+			console.debug(decoded, "->", encodedResult);
+			expect(encodedResult).toBe(encoded);
+			const decodedResult = decodeString(encodedResult);
+			console.debug(encodedResult, "->", decodedResult);
+			expect(decodedResult).toBe(decoded);
 		});
 	}
 });
