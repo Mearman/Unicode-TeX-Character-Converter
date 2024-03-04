@@ -14,6 +14,7 @@ import { unicodeToCodepoint } from "../src/convert/unicodeToCodepoint";
 import { getLatexRadixSymbol } from "../src/util/getLatexRadixSymbol";
 import { charToTex, stringToTex } from "../src/util/stringToTex";
 import { unicodeToTex } from "../src/convert/unicodeToTex";
+import { texToUnicode } from "../src/convert/texToUnicode";
 // import assert from "assert";
 
 /**
@@ -378,6 +379,50 @@ function encodeCharacter(
 	}
 }
 
+export function decodeString(
+	input: string,
+	radix: Radix = Hexadecimal
+): string {
+	let result = "";
+	let i = 0;
+	while (i < input.length) {
+		if (input[i] === "\\") {
+			// Handle LaTeX command
+			let commandEnd = input.indexOf("}", i);
+			if (commandEnd === -1) {
+				commandEnd = input.length;
+			}
+			const latexCommand = input.substring(i, commandEnd + 1);
+			const unicodeChar = texToUnicode(latexCommand, Discard, Discard);
+			if (unicodeChar) {
+				result += unicodeChar;
+			} else {
+				result += decodeCharacter(latexCommand, radix);
+			}
+			i = commandEnd + 1;
+		} else {
+			// Handle normal ASCII character
+			result += input[i];
+			i++;
+		}
+	}
+	return result;
+}
+
+function decodeCharacter(
+	encodedChar: string,
+	radix: Radix = Hexadecimal
+): string {
+	const match = encodedChar.match(/\\symbol\{.([0-9A-F]+)\}/i);
+	if (match && match[1]) {
+		const charCode = parseInt(match[1], radix);
+		return String.fromCharCode(charCode);
+	} else {
+		// Handle invalid encoding or return the original character
+		return encodedChar;
+	}
+}
+
 describe("encodeString", () => {
 	const fixtures: { name?: string; decoded: string; encoded: string }[] = [
 		{
@@ -388,7 +433,7 @@ describe("encodeString", () => {
 				'Fran\\c{c}ois, who lives in Z\\"{u}rich, enjoys reading Bront\\"{e} novels and loves the caf\\\'{e} near the fjord.',
 		},
 		{
-			name: 'encode go͡od to go\\symbol{"361}od',
+			name: 'go͡od to go\\symbol{"361}od',
 			decoded: "go͡od",
 			encoded: 'go\\symbol{"361}od',
 			// encoded: "g\\t{oo}d",
@@ -396,19 +441,23 @@ describe("encodeString", () => {
 	];
 	for (let { name, decoded, encoded } of fixtures) {
 		name ??= nameTest(decoded, encoded);
-
-		test(name, () => {
+		test("encode " + name, () => {
 			const result = encodeString(decoded);
 			console.debug(decoded, "->", result);
 			// assert.strictEqual(result, encoded);
 			expect(result).toBe(encoded);
+		});
+		test("decode " + name, () => {
+			const result = decodeString(encoded);
+			console.debug(encoded, "->", result);
+			// assert.strictEqual(result, decoded);
+			expect(result).toBe(decoded);
 		});
 	}
 });
 function nameTest(decoded: string, encoded: string) {
 	const decodedFirst3 = decoded.split(" ").slice(0, 3).join(" ") + "...";
 	const encodedFirstThree = encoded.split(" ").slice(0, 3).join(" ") + "...";
-	const newLocal = `should encode ${decodedFirst3} to ${encodedFirstThree}`;
-	return newLocal;
+	return `${decodedFirst3} to ${encodedFirstThree}`;
 }
 
