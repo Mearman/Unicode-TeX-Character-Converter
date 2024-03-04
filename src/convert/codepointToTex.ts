@@ -1,6 +1,6 @@
 import { codePointTexMap } from "../characters/codePointTexMap";
 import { Action, handleAction, Return, Throw } from "../util/handleAction";
-import { isPrefixedHexCodePoint } from "../util/isPrefixedHexCodePoint";
+import { isPrefixedHexCodePoint } from "../util/unicode/isPrefixedHexCodePoint";
 
 export function codepointToTex(
 	codepoint: `${string}`,

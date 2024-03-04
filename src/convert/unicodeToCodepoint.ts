@@ -1,5 +1,5 @@
 import { Action, Throw, handleAction } from "../util/handleAction";
-import { isUnicodeCharacter } from "../util/isUnicodeCharacter";
+import { isUnicodeCharacter } from "../util/unicode/isUnicodeCharacter";
 
 export function unicodeToCodepoint(
 	unicode: `${string}`,

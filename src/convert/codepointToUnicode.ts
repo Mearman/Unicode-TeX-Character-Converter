@@ -1,5 +1,5 @@
 import { Action, Throw, handleAction } from "../util/handleAction";
-import { isPrefixedHexCodePoint } from "../util/isPrefixedHexCodePoint";
+import { isPrefixedHexCodePoint } from "../util/unicode/isPrefixedHexCodePoint";
 
 export function codepointToUnicode(
 	codePoint: `${string}`,

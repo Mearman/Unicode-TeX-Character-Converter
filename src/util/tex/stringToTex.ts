@@ -1,5 +1,5 @@
-import { getLatexRadixSymbol } from "./getLatexRadixSymbol";
-import { Radix } from "../types/radix";
+import { getLatexRadixSymbol } from "../radix/getLatexRadixSymbol";
+import { Radix } from "../../types/radix";
 
 export function charToTex(input: string, radix: Radix = 16): string {
 	if (input.length > 1) {

@@ -1,4 +1,4 @@
-import { isDoubleByte } from "util/isDoubleByte";
+import { isDoubleByte } from "util/unicode/isDoubleByte";
 
 export const getUnicodeCharacterIndices = (str: string): number[] =>
 	str
