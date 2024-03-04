@@ -379,13 +379,15 @@ function encodeCharacter(
 }
 
 describe("encodeString", () => {
-	const fixtures = [
-		[
-			"François, who lives in Zürich, enjoys reading Brontë novels and loves the café near the fjord.",
-			'Fran\\c{c}ois, who lives in Z\\"{u}rich, enjoys reading Bront\\"{e} novels and loves the caf\\\'{e} near the fjord}',
-		],
+	const fixtures: { decoded: string; encoded: string }[] = [
+		{
+			decoded:
+				"François, who lives in Zürich, enjoys reading Brontë novels and loves the café near the fjord.",
+			encoded:
+				'Fran\\c{c}ois, who lives in Z\\"{u}rich, enjoys reading Bront\\"{e} novels and loves the caf\\\'{e} near the fjord.',
+		},
 	];
-	for (const [decoded, encoded] of fixtures) {
+	for (const { decoded, encoded } of fixtures) {
 		const decodedFirst3 = decoded.split(" ").slice(0, 3).join(" ") + "...";
 		const encodedFirstThree = encoded.split(" ").slice(0, 3).join(" ") + "...";
 
