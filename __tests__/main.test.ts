@@ -2,7 +2,8 @@
 // import { describe, test } from "node:test";
 import { codepointToUnicode } from "../src/convert/codepointToUnicode";
 import { unicodeToCodepoint } from "../src/convert/unicodeToCodepoint";
-import { decodeString, encodeString } from "../src/main";
+import { decodeString } from "../src/util/decodeString";
+import { encodeString } from "../src/util/encodeString";
 import {
 	ParsedLaTeXCommandAndValue,
 	parseLatexCommands,
