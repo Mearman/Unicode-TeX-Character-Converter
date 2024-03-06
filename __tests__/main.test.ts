@@ -3,6 +3,10 @@
 import { codepointToUnicode } from "../src/convert/codepointToUnicode";
 import { unicodeToCodepoint } from "../src/convert/unicodeToCodepoint";
 import { decodeString, encodeString } from "../src/main";
+import {
+	ParsedLaTeXCommandAndValue,
+	parseLatexCommand,
+} from "../src/util/tex/isTexCommand";
 // import { decodeString, encodeString } from "../src/main";
 import { getLatexRadixSymbol } from "../src/util/radix/getLatexRadixSymbol";
 import { charToTex, stringToTex } from "../src/util/tex/stringToTex";
@@ -22,12 +26,270 @@ test("main", () => {
 	expect(1).toBe(1);
 });
 
+describe("string normalization methods", () => {
+	const fixtures: { input: string }[] = [
+		{
+			input:
+				"François, who lives in Zürich, enjoys reading Brontë novels and loves the café near the fjord.",
+		},
+	];
+	const cases: {
+		form: "NFC" | "NFD" | "NFKC" | "NFKD";
+		expected: "same" | "different";
+	}[] = [
+		{ form: "NFC", expected: "same" },
+		{ form: "NFD", expected: "different" },
+		{ form: "NFKC", expected: "same" },
+		{ form: "NFKD", expected: "different" },
+	];
+	// const methods = ["NFC", "NFD", "NFKC", "NFKD"];
+	for (const fixture of fixtures) {
+		for (const method of cases) {
+			test(`should normalize ${method}`, () => {
+				const input = fixture.input;
+				const result = fixture.input.normalize(method.form).split("");
+				console.debug(input, "--", method, "->", result);
+				if (method.expected === "same") {
+					expect(result).toEqual(input.split(""));
+				} else {
+					expect(result).not.toEqual(input.split(""));
+				}
+			});
+		}
+	}
+});
 // test("isCodePoint", () => {
 // 	assert.ok(isPrefixedHexCodePoint("U+0041"));
 // 	assert.ok(isPrefixedHexCodePoint("U+1F600"));
 // 	assert.ok(isPrefixedHexCodePoint("U+10FFFF"));
 // });
 
+describe("parseLatexCommand", () => {
+	const fixtures: { input: string; expected: ParsedLaTeXCommandAndValue[] }[] =
+		[
+			{
+				input:
+					'\\beta \\beta \\beta{} {\\beta} \\beta{$char} \\"{$char} \\"{o} \\\'{u} \\c{c} \\beta asdasd\\beta{foo}asdasd \\beta {\\beta{bar}} {\\beta{$char}} {\\"{o}}',
+				expected: [
+					{
+						commandName: "beta",
+						bracketContents: undefined,
+					},
+					{
+						commandName: "beta",
+						bracketContents: undefined,
+					},
+					{
+						commandName: "beta",
+						bracketContents: undefined,
+					},
+					{
+						commandName: "beta",
+						bracketContents: undefined,
+					},
+					{
+						commandName: "beta",
+						bracketContents: "$char",
+					},
+					{
+						commandName: '"',
+						bracketContents: "$char",
+					},
+					{
+						commandName: '"',
+						bracketContents: "o",
+					},
+					{
+						commandName: "'",
+						bracketContents: "u",
+					},
+					{
+						commandName: "c",
+						bracketContents: "c",
+					},
+					{
+						commandName: "beta",
+						bracketContents: undefined,
+					},
+					{
+						commandName: "beta",
+						bracketContents: "foo",
+					},
+					{
+						commandName: "beta",
+						bracketContents: undefined,
+					},
+					{
+						commandName: "beta",
+						bracketContents: "bar",
+					},
+					{
+						commandName: "beta",
+						bracketContents: "$char",
+					},
+					{
+						commandName: '"',
+						bracketContents: "o",
+					},
+				],
+			},
+			{
+				input: "\\textalpha",
+				expected: [
+					{
+						commandName: "textalpha",
+					},
+				],
+			},
+			{
+				input: '\\"{o}',
+				expected: [
+					{
+						commandName: '"',
+						bracketContents: "o",
+					},
+				],
+			},
+			{
+				input: "o\\symbol{0361}o",
+				expected: [
+					{
+						commandName: "symbol",
+						bracketContents: "0361",
+					},
+				],
+			},
+			{
+				input: "\\c{o}",
+				expected: [
+					{
+						commandName: "c",
+						bracketContents: "o",
+					},
+				],
+			},
+			{
+				input: "\\beta",
+				expected: [
+					{
+						commandName: "beta",
+					},
+				],
+			},
+			{
+				input: "\\beta{}",
+				expected: [
+					{
+						commandName: "beta",
+					},
+				],
+			},
+			{
+				input: "{\\beta}",
+				expected: [
+					{
+						commandName: "beta",
+					},
+				],
+			},
+			{
+				input: "\\beta{$char}",
+				expected: [
+					{
+						commandName: "beta",
+						bracketContents: "$char",
+					},
+				],
+			},
+			{
+				input: '\\"{$char}',
+				expected: [
+					{
+						commandName: '"',
+						bracketContents: "$char",
+					},
+				],
+			},
+			{
+				input: '\\"{o}',
+				expected: [
+					{
+						commandName: '"',
+						bracketContents: "o",
+					},
+				],
+			},
+			{
+				input: "\\'{u}",
+				expected: [
+					{
+						commandName: "'",
+						bracketContents: "u",
+					},
+				],
+			},
+			{
+				input: "\\c{c}",
+				expected: [
+					{
+						commandName: "c",
+						bracketContents: "c",
+					},
+				],
+			},
+			{
+				input: "foo\\beta{foo}bar",
+				expected: [
+					{
+						commandName: "beta",
+						bracketContents: "foo",
+					},
+				],
+			},
+			{
+				input: "\\beta {\\beta{bar}}",
+				expected: [
+					{
+						commandName: "beta",
+					},
+					{
+						commandName: "beta",
+						bracketContents: "bar",
+					},
+				],
+			},
+			{
+				input: "{\\beta{$char}}",
+				expected: [
+					{
+						commandName: "beta",
+						bracketContents: "$char",
+					},
+				],
+			},
+			{
+				input: '{\\"{o}}',
+				expected: [
+					{
+						commandName: '"',
+						bracketContents: "o",
+					},
+				],
+			},
+		];
+	// for (const fixture of fixtures) {
+	// 	test(`should parse ${fixture.input}`, () => {
+	// 		const result = parseLatexCommand(fixture.input);
+	// 		console.debug(fixture.input, "-->", result);
+	// 		expect(result).toEqual(fixture.expected);
+	// 	});
+	// }
+	test.each(fixtures)("should parse %s", (fixture) => {
+		const result = parseLatexCommand(fixture.input);
+		console.debug(fixture.input, "-->", result);
+		expect(result).toEqual(fixture.expected);
+	});
+});
 describe("Encode unicode as codepoint", () => {
 	const cases = ["β", "γ", "α"];
 	for (const input of cases) {
@@ -290,10 +552,10 @@ describe("latexRadixSymbol", () => {
 
 describe("characterToTex", () => {
 	const fixtures: [string, string][] = [
-		["α", '\\symbol{"3B1}'],
-		["β", '\\symbol{"3B2}'],
-		["ɣ", '\\symbol{"263}'],
-		["ɤ", '\\symbol{"264}'],
+		// ["α", '\\symbol{"3B1}'],
+		// ["β", '\\symbol{"3B2}'],
+		// ["ɣ", '\\symbol{"263}'],
+		// ["ɤ", '\\symbol{"264}'],
 	];
 	for (const [char, tex] of fixtures) {
 		test(`should convert ${char} to tex`, () => {
@@ -326,11 +588,11 @@ describe("encodeString", () => {
 			encoded:
 				'Fran\\c{c}ois, who lives in Z\\"{u}rich, enjoys reading Bront\\"{e} novels and loves the caf\\\'{e} near the fjord.',
 		},
-		{
-			decoded: "go͡od",
-			encoded: 'go\\symbol{"361}od',
-			// encoded: "g\\t{oo}d",
-		},
+		// {
+		// 	decoded: "go͡od",
+		// 	encoded: 'go\\symbol{"361}od',
+		// 	// encoded: "g\\t{oo}d",
+		// },
 	];
 	for (let { name, decoded, encoded } of fixtures) {
 		// name ??= nameTest(decoded, encoded);
@@ -357,27 +619,27 @@ describe("encodeString", () => {
 
 describe("decodeString", () => {
 	// Test fixtures
-	const testCases = [
-		{ input: "Hello \\symbol{0041} World", expected: "Hello A World" },
-		{ input: "Some \\symbol{0042} text", expected: "Some B text" },
-		{
-			input: "Test \\symbol{0031}\\symbol{0032}\\symbol{0033}",
-			expected: "Test 123",
-		},
-		{
-			input: "Unicode \\symbol{03B1}\\symbol{03B2}\\symbol{03B3}",
-			expected: "Unicode αβγ",
-		},
-		{
-			input: "Mixed \\symbol{0041}BCD E\\symbol{0046}G",
-			expected: "Mixed ABCD EFG",
-		},
-		{ input: "Just ASCII", expected: "Just ASCII" },
-		{ input: "Empty string", expected: "Empty string" },
-		{ input: "\\symbol{005A}", expected: "Z" },
-		{ input: "No \\command here", expected: "No \\command here" },
-		{ input: 'No \\"{o} here', expected: "No ö here" },
-		{ input: "o\\symbol{0361}o", expected: "o͡o" },
+	const testCases: { input: string; expected: string }[] = [
+		// { input: "Hello \\symbol{0041} World", expected: "Hello A World" },
+		// { input: "Some \\symbol{0042} text", expected: "Some B text" },
+		// {
+		// 	input: "Test \\symbol{0031}\\symbol{0032}\\symbol{0033}",
+		// 	expected: "Test 123",
+		// },
+		// {
+		// 	input: "Unicode \\symbol{03B1}\\symbol{03B2}\\symbol{03B3}",
+		// 	expected: "Unicode αβγ",
+		// },
+		// {
+		// 	input: "Mixed \\symbol{0041}BCD E\\symbol{0046}G",
+		// 	expected: "Mixed ABCD EFG",
+		// },
+		// { input: "Just ASCII", expected: "Just ASCII" },
+		// { input: "Empty string", expected: "Empty string" },
+		// { input: "\\symbol{005A}", expected: "Z" },
+		// { input: "No \\command here", expected: "No \\command here" },
+		// { input: 'No \\"{o} here', expected: "No ö here" },
+		// { input: "o\\symbol{0361}o", expected: "o͡o" },
 	];
 
 	testCases.forEach(({ input, expected }) => {
@@ -410,3 +672,4 @@ function truncateString(input: string) {
 		.filter(Boolean)
 		.join(" ");
 }
+

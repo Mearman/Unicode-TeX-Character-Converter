@@ -3,7 +3,7 @@ import { codepointToUnicode } from "./convert/codepointToUnicode";
 import { Hexadecimal, Radix } from "./types/radix";
 import { Action, Throw, handleAction } from "./util/handleAction";
 import { getLatexRadixSymbol } from "./util/radix/getLatexRadixSymbol";
-import { isTexCommand } from "./util/tex/isTexCommand";
+import { extractTexCommand, isTexCommand } from "./util/tex/isTexCommand";
 
 export function decodeCharacter(
 	encodedChar: string,
@@ -647,7 +647,7 @@ export class UnicodeLaTeXCommand {
 
 		// throw error if codepoint or any of the commands already exist
 		if (UnicodeLaTeXCommand.codepoints.has(codepoint)) {
-			throw new Error(`Duplicate codepoint ${codepoint}`);
+			throw new Error(`Duplicate codepoint ${codepoint.toString(16)}`);
 		}
 		if (commands.some((command) => UnicodeLaTeXCommand.commands.has(command))) {
 			throw new Error(`Duplicate command ${commands}`);
@@ -693,11 +693,11 @@ export const codepointToLatexMap: UnicodeLaTeXCommand[] = [
 		description: "β as a standalone symbol",
 		commands: ["\\beta"],
 	} satisfies UnicodeLaTeXCommand,
-	{
-		codepoint: 0x0302,
-		description: "̂ (Circumflex accent)",
-		commands: ["\\^{$char}"],
-	} satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x0302,
+	// 	description: "̂ (Circumflex accent)",
+	// 	commands: ["\\^{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
 	{
 		codepoint: 0x0110,
 		description: "Đ as a standalone symbol",
@@ -713,45 +713,418 @@ export const codepointToLatexMap: UnicodeLaTeXCommand[] = [
 			// "{\\i}"
 		],
 	} satisfies UnicodeLaTeXCommand,
+	// {
+	// 	description: "cedilla",
+	// 	commands: ["\\c{$char}"],
+	// 	codepoint: 0x0247,
+	// } satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0300,
+		description: "Combining grave accent (̀)",
+		commands: ["\\`{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0301,
+		description: "Combining acute accent (´)",
+		commands: ["\\'{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0302,
+		description: "Combining circumflex accent (^)",
+		commands: ["\\^{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0303,
+		description: "Combining tilde (~)",
+		commands: ["\\~{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0304,
+		description: "Combining macron (=)",
+		commands: ["\\={$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0305,
+		description: "Combining overline",
+		commands: ["\\overline{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0306,
+		description: "Combining breve (u)",
+		commands: ["\\u{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0307,
+		description: "Combining dot above (.)",
+		commands: ["\\.{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		commands: ['\\"{$char}'],
+		codepoint: 0x0308,
+		description: "Combining diaeresis (¨)",
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0309,
+		description: "Combining hook above",
+		commands: ["\\texthookabove{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x030a,
+		description: "Combining ring above (r)",
+		commands: ["\\r{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x030b,
+		description: "Combining double acute accent (H)",
+		commands: ["\\H{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x030c,
+		description: "Combining caron (v)",
+		commands: ["\\v{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x030d,
+	// 	description: "Combining vertical line above",
+	// 	commands: ["\\textvline{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x030e,
+	// 	description: "Combining double vertical line above",
+	// 	commands: ["\\textvline{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x030f,
+		description: "Combining double grave accent",
+		commands: ["\\textdoublegrave{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0310,
+		description: "Combining candrabindu",
+		commands: ["\\textcandra{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0311,
+		description: "Combining inverted breve",
+		commands: ["\\textinvbreve{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0312,
+		description: "Combining turned comma above",
+		commands: ["\\textcommabelow{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0313,
+		description: "Combining comma above",
+		commands: ["\\textcommaabove{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0314,
+		description: "Combining reversed comma above",
+		commands: ["\\textreversedcomma{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0315,
+		description: "Combining comma above right",
+		commands: ["\\textcommaaboveright{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0316,
+		description: "Combining grave accent below",
+		commands: ["\\grave{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0317,
+		description: "Combining acute accent below",
+		commands: ["\\acute{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0318,
+		description: "Combining left tack below",
+		commands: ["\\texttackdown{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x0319,
+	// 	description: "Combining right tack below",
+	// 	commands: ["\\texttackup{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x031a,
+		description: "Combining left angle above",
+		commands: ["\\textleftangle{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x031b,
+		description: "Combining horn",
+		commands: ["\\texthorn{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x031c,
+	// 	description: "Combining left half ring below",
+	// 	commands: ["\\leftharpoonaccent{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x031d,
+	// 	description: "Combining up tack below",
+	// 	commands: ["\\texttackup{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x031e,
+	// 	description: "Combining vertical line below",
+	// 	commands: ["\\textvline{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x031f,
+	// 	description: "Combining double vertical line below",
+	// 	commands: ["\\textvline{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x0320,
+	// 	description: "Combining left half ring above",
+	// 	commands: ["\\leftharpoonaccent{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0321,
+		description: "Combining palatalized hook below",
+		commands: ["\\textpalhookbelow{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0322,
+		description: "Combining retroflex hook below",
+		commands: ["\\textretroflexhookbelow{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0323,
+		description: "Combining dot below (d)",
+		commands: ["\\d{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0324,
+		description: "Combining diaeresis below",
+		commands: ["\\textdiaeresisbelow{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0325,
+		description: "Combining ring below",
+		commands: ["\\textsubring{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x0326,
+	// 	description: "Combining comma below (c)",
+	// 	commands: ["\\c{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0327,
+		description: "Combining cedilla (c)",
+		commands: ["\\c{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0328,
+		description: "Combining ogonek (k)",
+		commands: ["\\k{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x0329,
+	// 	description: "Combining vertical line below",
+	// 	commands: ["\\textvline{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x032a,
+		description: "Combining bridge below",
+		commands: ["\\textbridgebelow{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x032b,
+		description: "Combining inverted double arch below",
+		commands: ["\\textdoublearchbelow{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x032c,
+		description: "Combining caron below",
+		commands: ["\\textcaronbelow{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x032d,
+		description: "Combining circumflex accent below",
+		commands: ["\\textcircumflexbelow{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x032e,
+		description: "Combining breve below",
+		commands: ["\\textbrevebelow{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x032f,
+		description: "Combining inverted breve below",
+		commands: ["\\textinvertedbrevebelow{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0330,
+		description: "Combining tilde below",
+		commands: ["\\texttilde{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0331,
+		description: "Combining macron below (b)",
+		commands: ["\\b{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0332,
+		description: "Combining low line",
+		commands: ["\\textlowline{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0333,
+		description: "Combining double low line",
+		commands: ["\\textdoublelowline{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0334,
+		description: "Combining tilde overlay",
+		commands: ["\\texttildeoverlay{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0335,
+		description: "Combining short stroke overlay",
+		commands: ["\\textshortstrokeoverlay{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0336,
+		description: "Combining long stroke overlay",
+		commands: ["\\textlongstrokeoverlay{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0337,
+		description: "Combining short solidus overlay",
+		commands: ["\\textshortsolidusoverlay{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0338,
+		description: "Combining long solidus overlay",
+		commands: ["\\textlongsolidusoverlay{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0339,
+		description: "Combining right half ring below",
+		commands: ["\\rightharpoonaccent{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x033a,
+		description: "Combining inverted bridge below",
+		commands: ["\\textinvertedbridgebelow{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x033b,
+		description: "Combining square below",
+		commands: ["\\textsquarebelow{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x033c,
+		description: "Combining seagull below",
+		commands: ["\\textseagullbelow{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x033d,
+		description: "Combining x above",
+		commands: ["\\textovercross{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x033e,
+	// 	description: "Combining vertical tilde",
+	// 	commands: ["\\textvtilde{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x033f,
+		description: "Combining double overline",
+		commands: ["\\textdoubleoverline{$char}"],
+	} satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x0340,
+	// 	description: "Combining grave tone mark",
+	// 	commands: ["\\textgravedbl{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x0341,
+	// 	description: "Combining acute tone mark",
+	// 	commands: ["\\textacutedbl{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x0342,
+	// 	description: "Combining greek perispomeni",
+	// 	commands: ["\\textperispomeni{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x0343,
+	// 	description: "Combining greek koronis",
+	// 	commands: ["\\textkoronis{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x0344,
+	// 	description: "Combining greek dialytika tonos",
+	// 	commands: ["\\textdialytikatonos{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	// {
+	// 	codepoint: 0x0345,
+	// 	description: "Combining greek ypogegrammeni",
+	// 	commands: ["\\textsubl{$char}"],
+	// } satisfies UnicodeLaTeXCommand,
+	{
+		codepoint: 0x0346,
+		description: "Combining bridge above",
+		commands: ["\\overbridge{$char}"],
+	} satisfies UnicodeLaTeXCommand,
 ].map(
 	({ codepoint, description, commands }) =>
 		new UnicodeLaTeXCommand(codepoint, description, commands)
 );
 
-export function encodeString(input: string) {
+export function encodeString(input: string, radix: Radix = Hexadecimal) {
+	input = input.normalize("NFD");
+	const radixSymbol = getLatexRadixSymbol(radix);
 	let result = "";
 	let skipNext = false;
 
-	for (let i = 0; i < input.length; i++) {
+	// for (let i = 0; i < input.length; i++) {
+	// for (const [i, char] of input.split("")) {
+	const split = input.split("");
+	// split.forEach((char, i) => {
+	for (let i = 0; i < split.length; i++) {
+		const char = split[i];
 		if (skipNext) {
 			skipNext = false;
 			continue;
+			// break
+			// return;
 		}
 
-		const char = input[i];
-		const nextChar = input[i + 1] || "";
-		const charCode: number = char.codePointAt(0)!;
-		const unicodeLatexCommand = UnicodeLaTeXCommand.codepoints.get(charCode);
-
-		if (unicodeLatexCommand) {
-			if (
-				UnicodeLaTeXCommand.isCombiningCharacter(unicodeLatexCommand) &&
-				nextChar
-			) {
-				const nextCharCode = nextChar.codePointAt(0);
-				const command = unicodeLatexCommand.commands[0].replace(
-					"{$char}",
-					nextChar
-				);
-				result += command;
-				skipNext = true;
-			} else if (
-				UnicodeLaTeXCommand.isStandaloneCharacter(unicodeLatexCommand)
-			) {
-				result += unicodeLatexCommand.commands[0];
-			}
+		const isAsciiCharacter = char.codePointAt(0)! < 128;
+		// const char = input[i];
+		if (isAsciiCharacter) {
+			result += char;
 		} else {
-			result += char; // Directly append characters that don't have a LaTeX equivalent
+			const charCode = char.codePointAt(0)!;
+			const unicodeLatexCommand = UnicodeLaTeXCommand.codepoints.get(charCode);
+
+			if (unicodeLatexCommand) {
+				if (UnicodeLaTeXCommand.isCombiningCharacter(unicodeLatexCommand)) {
+					// const nextChar = input[i + 1] || "";
+					const parentChar = split[i - 1] || "";
+					// const nextCharCode = nextChar.codePointAt(0)!.toString(radix);
+					const command = unicodeLatexCommand.commands[0].replace(
+						"$char",
+						parentChar
+					);
+					// result += command;
+					// replace last character in result
+					result = result.slice(0, -1) + command;
+					// skipNext = true;
+				} else {
+					result += unicodeLatexCommand.commands[0];
+				}
+			} else {
+				// Use \symbol{codepoint} for characters without a specific LaTeX command
+				result += `\\symbol{${radixSymbol}${charCode.toString(radix)}}`;
+			}
 		}
 	}
 	return result;
@@ -792,42 +1165,117 @@ export function encodeString(input: string) {
 // 	}
 // 	return result;
 // }
+// export function decodeString(input: string) {
+// 	let result = "";
+// 	let i = 0;
 
-export function decodeString(input: string) {
+// 	while (i < input.length) {
+// 		if (input[i] === "\\") {
+// 			if (input.startsWith("\\symbol{", i)) {
+// 				// Handle \symbol{codepoint} command
+// 				let j = i + "\\symbol{".length;
+// 				// get the radix symbol if present
+// 				let radixSymbol: LaTeXSymbolRadix = "";
+// 				let radix: Radix = 10;
+// 				if (input[j] === "'" || input[j] === '"') {
+// 					radixSymbol = input[j] as LaTeXSymbolRadix;
+// 					radix = radixSymbolToRadix(radixSymbol);
+// 					j++;
+// 				}
+
+// 				let codepointStr = "";
+// 				while (j < input.length && input[j] !== "}") {
+// 					codepointStr += input[j];
+// 					j++;
+// 				}
+// 				const codepoint = parseInt(codepointStr, radix);
+// 				result += String.fromCodePoint(codepoint);
+// 				i = j + 1; // Move index past the closing brace
+// 			} else {
+// 				// Handling other LaTeX commands
+// 				let j = i + 1;
+// 				while (j < input.length && /[a-zA-Z]/.test(input[j])) {
+// 					j++;
+// 				}
+// 				const latexCommand = input.substring(i, j);
+// 				const commandKey = latexCommand.replace(/(\{.*?\})/g, "{$char}");
+// 				const unicodeLatexCommand =
+// 					UnicodeLaTeXCommand.commands.get(commandKey);
+
+// 				if (unicodeLatexCommand) {
+// 					if (UnicodeLaTeXCommand.isCombiningCharacter(unicodeLatexCommand)) {
+// 						// Handle combining characters
+// 						const combinedChar = input[j] || "";
+// 						result +=
+// 							String.fromCodePoint(unicodeLatexCommand.codepoint) +
+// 							combinedChar;
+// 						i = j + 1; // Skip the combined character
+// 					} else {
+// 						result += String.fromCodePoint(unicodeLatexCommand.codepoint);
+// 						i = j;
+// 					}
+// 				} else {
+// 					result += latexCommand;
+// 					i = j;
+// 				}
+// 			}
+// 		} else {
+// 			result += input[i];
+// 			i++;
+// 		}
+// 	}
+// 	return result;
+// }
+
+export function decodeString(
+	encodedString: string,
+	radix: Radix = Hexadecimal
+): string {
 	let result = "";
 	let i = 0;
 
-	while (i < input.length) {
-		if (input[i] === "\\") {
-			// Find the end of the LaTeX command
-			let j = i + 1;
-			while (j < input.length && /[a-zA-Z]/.test(input[j])) {
-				j++;
-			}
+	const commands = extractTexCommand(encodedString);
 
-			const latexCommand = input.substring(i, j);
-			const commandKey = latexCommand.replace(/(\{.*?\})/g, "{$char}");
-			const unicodeLatexCommand = UnicodeLaTeXCommand.commands.get(commandKey);
+	while (i < encodedString.length) {
+		const char = encodedString[i];
 
-			if (unicodeLatexCommand) {
-				if (UnicodeLaTeXCommand.isCombiningCharacter(unicodeLatexCommand)) {
-					// Handle combining characters
-					const combinedChar = input[j] || "";
-					result +=
-						String.fromCodePoint(unicodeLatexCommand.codepoint) + combinedChar;
-					i = j + 1; // Skip the combined character
-				} else {
-					result += String.fromCodePoint(unicodeLatexCommand.codepoint);
-					i = j;
-				}
+		// Check for LaTeX command or symbol
+		if (char === "\\") {
+			const nextSpaceIndex = encodedString.indexOf(" ", i);
+			const command = encodedString.slice(i, nextSpaceIndex);
+			const decodedChar = decodeLatexCommand(command);
+
+			if (decodedChar) {
+				result += decodedChar;
+				i = nextSpaceIndex + 1;
 			} else {
-				result += latexCommand;
-				i = j;
+				// Handle \symbol{code}
+				const codeStart = command.indexOf("{") + 1;
+				const codeEnd = command.indexOf("}", codeStart);
+				const codePoint = parseInt(command.slice(codeStart, codeEnd), radix);
+				result += String.fromCodePoint(codePoint);
+				i = codeEnd + 1;
 			}
 		} else {
-			result += input[i];
+			// ASCII character, add directly
+			result += char;
 			i++;
 		}
 	}
-	return result;
+
+	return result.normalize("NFD");
+}
+
+export function decodeLatexCommand(latexCommand: string): string | null {
+	const command = latexCommand.replace(/(\{.*?\})/g, "{$char}");
+	const unicodeLatexCommand = UnicodeLaTeXCommand.commands.get(command);
+
+	if (unicodeLatexCommand) {
+		if (UnicodeLaTeXCommand.isCombiningCharacter(unicodeLatexCommand)) {
+			return null;
+		} else {
+			return String.fromCodePoint(unicodeLatexCommand.codepoint);
+		}
+	}
+	return null;
 }
