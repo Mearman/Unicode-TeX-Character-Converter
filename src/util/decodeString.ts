@@ -40,3 +40,6 @@ export function decodeString(encodedString: string): string {
 
 	return decodedString;
 }
+
+
+"o͡o".normalize("NFD").split("").map(a => a.charCodeAt(0).toString(16)).join(" ")

@@ -14,7 +14,7 @@ export class UnicodeLaTeXCommand {
 		{
 			codepoint: 945,
 			description: "α as a standalone symbol",
-			commands: ["\\alpha"],
+			commands: ["\\textalpha", "\\alpha", "\\upalpha"],
 		} satisfies Partial<UnicodeLaTeXCommand>,
 		{
 			codepoint: 946,
@@ -400,9 +400,20 @@ export class UnicodeLaTeXCommand {
 			codepoint: 838,
 			description: "Combining bridge above",
 			commands: ["\\overbridge{$char}"],
-		} satisfies Partial<UnicodeLaTeXCommand>,
+		},
+		// {
+		// 	codepoint: 0x03b1,
+		// 	commands: ["\\textalpha", "\\upalpha"],
+		// 	description: "α",
+		// },
 	].map(
-		({ codepoint, description, commands }) =>
+		({
+			codepoint,
+			description,
+			commands,
+		}: Pick<UnicodeLaTeXCommand, "codepoint"> &
+			Pick<UnicodeLaTeXCommand, "description"> &
+			Pick<UnicodeLaTeXCommand, "commands">) =>
 			new UnicodeLaTeXCommand(codepoint, description, commands)
 	);
 
@@ -458,7 +469,10 @@ export class UnicodeLaTeXCommand {
 		if (result) {
 			return result;
 		} else {
-			throw new Error(`No LaTeX command found for ${obj.commandName}`);
+			// throw new Error(`No LaTeX command found for ${obj.commandName}`);
+			// if (obj.commandName === "symbol") {
+			// 	return texSymbolCommandToChar(obj.bracketContents || "");
+			// }
 		}
 	}
 
