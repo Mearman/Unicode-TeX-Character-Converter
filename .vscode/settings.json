@@ -18,5 +18,30 @@
     "titleBar.inactiveBackground": "#35b5da99",
     "titleBar.inactiveForeground": "#15202b99"
   },
-  "peacock.color": "#35b5da"
+	"peacock.color": "#35b5da",
+	"nodejs-testing.include": [
+		"./__tests__/"
+	],
+	"nodejs-testing.nodejsPath": "/Users/joe/.asdf/installs/nodejs/21.6.2/bin/node",
+	"nodejs-testing.extensions": [
+		{
+			"extensions": [
+				"mjs",
+				"cjs",
+				"js"
+			],
+			"parameters": []
+		},
+		{
+			"extensions": [
+				"mts",
+				"cts",
+				"ts"
+			],
+			"parameters": [
+				"--loader",
+				"tsx"
+			]
+		}
+	]
 }
