@@ -12,6 +12,7 @@ import {
 import { getLatexRadixSymbol } from "../src/util/radix/getLatexRadixSymbol";
 import { charToTexSymbolCommand } from "../src/util/tex/charToTexSymbolCommand";
 import { stringToTexSymbolCommand } from "../src/util/tex/stringToTex";
+import { texSymbolCommandToChar } from "../src/util/tex/texSymbolCommandToChar";
 // import assert from "assert";
 
 /**
@@ -636,7 +637,7 @@ describe("latexRadixSymbol", () => {
 	});
 });
 
-describe("charToTexSymbolCommand", () => {
+describe("\\symbol commands", () => {
 	const fixtures: { input: string; expected: string }[] = [
 		{ input: "α", expected: '\\symbol{"3B1}' },
 		{ input: "β", expected: '\\symbol{"3B2}' },
@@ -644,14 +645,42 @@ describe("charToTexSymbolCommand", () => {
 		{ input: "ɤ", expected: '\\symbol{"264}' },
 	];
 
-	test.each(fixtures)("should convert %s to tex", ({ input, expected }) => {
-		const result = charToTexSymbolCommand(input);
-		console.debug(input, "->", result);
-		expect(result).toBe(expected);
+	// describe("charToTexSymbolCommand", () => {
+	// 	test.each(fixtures)("should convert %s to tex", ({ input, expected }) => {
+	// 		const result = charToTexSymbolCommand(input);
+	// 		console.debug(input, "->", result);
+	// 		expect(result).toBe(expected);
+	// 	});
+	// });
+	// describe("stringToTexSymbolCommand", () => {
+	// 	test.each(fixtures)("should convert %s to tex", ({ input, expected }) => {
+	// 		const result = stringToTexSymbolCommand(input);
+	// 		console.debug(input, "->", result);
+	// 		expect(result).toBe(expected);
+	// 	});
+	// });
+	describe.each(fixtures)("%s", ({ input, expected }) => {
+		test(`charToTexSymbolCommand(${input})`, () => {
+			const result = charToTexSymbolCommand(input);
+			console.debug(input, "->", result);
+			expect(result).toBe(expected);
+		});
+
+		test(`stringToTexSymbolCommand(${input})`, () => {
+			const result = stringToTexSymbolCommand(input);
+			console.debug(input, "->", result);
+			expect(result).toBe(expected);
+		});
+
+		test(`texSymbolToChar(${input})`, () => {
+			const result = texSymbolCommandToChar(expected);
+			console.debug(expected, "->", input);
+			expect(result).toBe(input);
+		});
 	});
 });
 
-describe("stringToTex", () => {
+describe("stringToTexSymbolCommand", () => {
 	const fixtures: [string, string][] = [["go͡od", 'go\\symbol{"361}od']];
 	for (const [char, tex] of fixtures) {
 		test(`should convert ${char} to tex`, () => {
