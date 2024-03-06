@@ -1,6 +1,7 @@
 import { Radix } from "../../types/radix";
 
-export function getLatexRadixSymbol(base: Radix) {
+export type LaTeXSymbolRadix = "'" | "" | '"';
+export function getLatexRadixSymbol(base: Radix): LaTeXSymbolRadix {
 	switch (base) {
 		case 8:
 			return "'";
@@ -8,5 +9,16 @@ export function getLatexRadixSymbol(base: Radix) {
 			return "";
 		case 16:
 			return '"';
+	}
+}
+
+export function radixSymbolToRadix(symbol: LaTeXSymbolRadix): Radix {
+	switch (symbol) {
+		case "'":
+			return 8;
+		case "":
+			return 10;
+		case '"':
+			return 16;
 	}
 }
