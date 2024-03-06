@@ -10,7 +10,8 @@ import {
 } from "../src/util/tex/isTexCommand";
 // import { decodeString, encodeString } from "../src/main";
 import { getLatexRadixSymbol } from "../src/util/radix/getLatexRadixSymbol";
-import { charToTex, stringToTex } from "../src/util/tex/stringToTex";
+import { charToTexSymbolCommand } from "../src/util/tex/charToTexSymbolCommand";
+import { stringToTexSymbolCommand } from "../src/util/tex/stringToTex";
 // import assert from "assert";
 
 /**
@@ -635,28 +636,26 @@ describe("latexRadixSymbol", () => {
 	});
 });
 
-describe("characterToTex", () => {
-	const fixtures: [string, string][] = [
-		// ["α", '\\symbol{"3B1}'],
-		// ["β", '\\symbol{"3B2}'],
-		// ["ɣ", '\\symbol{"263}'],
-		// ["ɤ", '\\symbol{"264}'],
+describe("charToTexSymbolCommand", () => {
+	const fixtures: { input: string; expected: string }[] = [
+		{ input: "α", expected: '\\symbol{"3B1}' },
+		{ input: "β", expected: '\\symbol{"3B2}' },
+		{ input: "ɣ", expected: '\\symbol{"263}' },
+		{ input: "ɤ", expected: '\\symbol{"264}' },
 	];
-	for (const [char, tex] of fixtures) {
-		test(`should convert ${char} to tex`, () => {
-			const result = charToTex(char);
-			console.debug(char, "->", result);
-			// assert.strictEqual(result, tex);
-			expect(result).toBe(tex);
-		});
-	}
+
+	test.each(fixtures)("should convert %s to tex", ({ input, expected }) => {
+		const result = charToTexSymbolCommand(input);
+		console.debug(input, "->", result);
+		expect(result).toBe(expected);
+	});
 });
 
 describe("stringToTex", () => {
 	const fixtures: [string, string][] = [["go͡od", 'go\\symbol{"361}od']];
 	for (const [char, tex] of fixtures) {
 		test(`should convert ${char} to tex`, () => {
-			const result = stringToTex(char);
+			const result = stringToTexSymbolCommand(char);
 			console.debug(char, "->", result);
 			// assert.strictEqual(result, tex);
 			expect(result).toBe(tex);
