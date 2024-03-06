@@ -1,6 +1,7 @@
 {
 	"name": "unicode-tex-character-converter",
 	"version": "1.0.13",
+	"browser": "dist/index.iife.js",
 	"devDependencies": {
 		"@esbuild-kit/esm-loader": "^2.6.5",
 		"@rollup/plugin-typescript": "^11.1.6",
@@ -21,9 +22,27 @@
 		"typescript": "^5.4.2",
 		"wireit": "^0.14.4"
 	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"node": "./dist/index.cjs.js",
+			"browser": "./dist/index.iife.js",
+			"import": "./dist/index.esm.js",
+			"require": "./dist/index.cjs.js",
+			"default": "./dist/index.cjs.js",
+			"umd": "./dist/index.umd.js"
+		},
+		"./cjs": "./dist/index.cjs.js",
+		"./esm": "./dist/index.esm.js",
+		"./iife": "./dist/index.iife.js",
+		"./types": "./dist/index.d.ts",
+		"./umd": "./dist/index.umd.js"
+	},
 	"files": [
 		"dist"
 	],
+	"main": "dist/index.cjs.js",
+	"module": "dist/index.esm.js",
 	"packageManager": "yarn@4.1.0",
 	"publishConfig": {
 		"provenance": true
@@ -42,6 +61,7 @@
 		"test:tsx": "tsx --test ./__tests__/**/*.ts"
 	},
 	"type": "module",
+	"types": "dist/index.d.ts",
 	"wireit": {
 		"build": {
 			"command": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
