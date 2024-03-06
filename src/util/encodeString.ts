@@ -1,5 +1,5 @@
 import { Hexadecimal, Radix } from "../types/radix";
-import { UnicodeLaTeXCommand } from "./UnicodeLaTeXCommand";
+import { UnicodeTeXCommand } from "./UnicodeTeXCommand";
 import { getLatexRadixSymbol } from "./radix/getLatexRadixSymbol";
 
 export function encodeString(input: string, radix: Radix = Hexadecimal) {
@@ -27,10 +27,10 @@ export function encodeString(input: string, radix: Radix = Hexadecimal) {
 			result += char;
 		} else {
 			const charCode = char.codePointAt(0)!;
-			const unicodeLatexCommand = UnicodeLaTeXCommand.codepoints.get(charCode);
+			const unicodeLatexCommand = UnicodeTeXCommand.codepoints.get(charCode);
 
 			if (unicodeLatexCommand) {
-				if (UnicodeLaTeXCommand.isCombiningCharacter(unicodeLatexCommand)) {
+				if (UnicodeTeXCommand.isCombiningCharacter(unicodeLatexCommand)) {
 					// const nextChar = input[i + 1] || "";
 					const parentChar = split[i - 1] || "";
 					// const nextCharCode = nextChar.codePointAt(0)!.toString(radix);

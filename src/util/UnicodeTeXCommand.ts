@@ -4,13 +4,13 @@ import {
 	parseLatexCommands,
 } from "./tex/isTexCommand";
 
-export class UnicodeLaTeXCommand {
-	static codepoints: Map<number, UnicodeLaTeXCommand> = new Map();
-	static commands: Map<string, UnicodeLaTeXCommand> = new Map();
-	static commandNames: Map<string, UnicodeLaTeXCommand> = new Map();
+export class UnicodeTeXCommand {
+	static codepoints: Map<number, UnicodeTeXCommand> = new Map();
+	static commands: Map<string, UnicodeTeXCommand> = new Map();
+	static commandNames: Map<string, UnicodeTeXCommand> = new Map();
 	commandNames: string[];
 
-	static mappings: UnicodeLaTeXCommand[] = [
+	static mappings: UnicodeTeXCommand[] = [
 		{
 			codepoint: 272,
 			description: "Đ as a standalone symbol",
@@ -411,10 +411,10 @@ export class UnicodeLaTeXCommand {
 			codepoint,
 			description,
 			commands,
-		}: Pick<UnicodeLaTeXCommand, "codepoint"> &
-			Pick<UnicodeLaTeXCommand, "description"> &
-			Pick<UnicodeLaTeXCommand, "commands">) =>
-			new UnicodeLaTeXCommand(codepoint, description, commands)
+		}: Pick<UnicodeTeXCommand, "codepoint"> &
+			Pick<UnicodeTeXCommand, "description"> &
+			Pick<UnicodeTeXCommand, "commands">) =>
+			new UnicodeTeXCommand(codepoint, description, commands)
 	);
 
 	constructor(
@@ -422,23 +422,23 @@ export class UnicodeLaTeXCommand {
 		public readonly description: string,
 		public readonly commands: string[]
 	) {
-		if (!UnicodeLaTeXCommand.allLatexCommandsAreValid(this)) {
+		if (!UnicodeTeXCommand.allLatexCommandsAreValid(this)) {
 			throw new Error(
 				`Invalid LaTeX commands for codepoint ${codepoint}: ${commands}`
 			);
 		}
 
-		if (!UnicodeLaTeXCommand.hasCombiningOrStandaloneCommands(this)) {
+		if (!UnicodeTeXCommand.hasCombiningOrStandaloneCommands(this)) {
 			throw new Error(
 				"All commands for a character must be exclusively combining or standalone"
 			);
 		}
 
 		// throw error if codepoint or any of the commands already exist
-		if (UnicodeLaTeXCommand.codepoints.has(codepoint)) {
+		if (UnicodeTeXCommand.codepoints.has(codepoint)) {
 			throw new Error(`Duplicate codepoint ${codepoint.toString(16)}`);
 		}
-		if (commands.some((command) => UnicodeLaTeXCommand.commands.has(command))) {
+		if (commands.some((command) => UnicodeTeXCommand.commands.has(command))) {
 			throw new Error(`Duplicate command ${commands}`);
 		}
 		// this.commandName = [...new Set(commands.map((command) => parseLatexCommands(command).map((c) => c.commandName)).flat())]
@@ -449,23 +449,23 @@ export class UnicodeLaTeXCommand {
 			.filter((commandName, i, names) => names.indexOf(commandName) === i);
 		// if there is only one command, set it to a string, otherwise set it to an array
 		this.commandNames.forEach((name) =>
-			UnicodeLaTeXCommand.commandNames.set(name, this)
+			UnicodeTeXCommand.commandNames.set(name, this)
 		);
 
-		UnicodeLaTeXCommand.codepoints.set(codepoint, this);
+		UnicodeTeXCommand.codepoints.set(codepoint, this);
 		commands.forEach((command) =>
-			UnicodeLaTeXCommand.commands.set(command, this)
+			UnicodeTeXCommand.commands.set(command, this)
 		);
 	}
 
 	isCombiningCharacter(): this is UnicodeLaTeXCombiningCharacter {
-		return UnicodeLaTeXCommand.isCombiningCharacter(this);
+		return UnicodeTeXCommand.isCombiningCharacter(this);
 	}
 
 	static getUnicodeLaTeXCommandFromParsedLaTeXCommand(
 		obj: ParsedLaTeXCommandAndValue
 	) {
-		const result = UnicodeLaTeXCommand.commandNames.get(obj.commandName);
+		const result = UnicodeTeXCommand.commandNames.get(obj.commandName);
 		if (result) {
 			return result;
 		} else {
@@ -476,73 +476,73 @@ export class UnicodeLaTeXCommand {
 		}
 	}
 
-	static hasCombiningOrStandaloneCommands(character: UnicodeLaTeXCommand) {
+	static hasCombiningOrStandaloneCommands(character: UnicodeTeXCommand) {
 		return (
-			UnicodeLaTeXCommand.isCombiningCharacter(character) ||
-			UnicodeLaTeXCommand.isStandaloneCharacter(character)
+			UnicodeTeXCommand.isCombiningCharacter(character) ||
+			UnicodeTeXCommand.isStandaloneCharacter(character)
 		);
 	}
 
-	static isStandaloneCharacter(character: UnicodeLaTeXCommand) {
+	static isStandaloneCharacter(character: UnicodeTeXCommand) {
 		return character.commands.every(
 			(command) => isTexCommand(command) && !command.includes("{$char}")
 		);
 	}
 
 	isStandaloneCharacter(): this is UnicodeLaTeXStandaloneCharacter {
-		return UnicodeLaTeXCommand.isStandaloneCharacter(this);
+		return UnicodeTeXCommand.isStandaloneCharacter(this);
 	}
 
-	static isCombiningCharacter(character: UnicodeLaTeXCommand) {
+	static isCombiningCharacter(character: UnicodeTeXCommand) {
 		return character.commands.every(
 			(command) => isTexCommand(command) && command.includes("{$char}")
 		);
 	}
 
-	static allLatexCommandsAreValid(obj: UnicodeLaTeXCommand): boolean {
+	static allLatexCommandsAreValid(obj: UnicodeTeXCommand): boolean {
 		return obj.commands.every((command) => isTexCommand(command));
 		// return obj.commands.every((command) => /^\\
 	}
 	static instanceOfCombiningCharacter(
-		obj: UnicodeLaTeXCommand
+		obj: UnicodeTeXCommand
 	): obj is UnicodeLaTeXCombiningCharacter {
-		return UnicodeLaTeXCommand.isCombiningCharacter(obj);
+		return UnicodeTeXCommand.isCombiningCharacter(obj);
 	}
 
 	static instanceOfStandaloneCharacter(
-		obj: UnicodeLaTeXCommand
+		obj: UnicodeTeXCommand
 	): obj is UnicodeLaTeXStandaloneCharacter {
-		return UnicodeLaTeXCommand.isStandaloneCharacter(obj);
+		return UnicodeTeXCommand.isStandaloneCharacter(obj);
 	}
-	static getCommandNames(obj: UnicodeLaTeXCommand) {
+	static getCommandNames(obj: UnicodeTeXCommand) {
 		return obj.commands.map(
 			(command) => parseLatexCommands(command)[0].commandName
 		);
 	}
-	static getBaseCommandNameAndValue(obj: UnicodeLaTeXCommand) {
+	static getBaseCommandNameAndValue(obj: UnicodeTeXCommand) {
 		return obj.commands.map((command) => parseLatexCommands(command)[0]);
 	}
 
 	static isParsedLaTeXCommandCombiningCharacter(
 		obj: ParsedLaTeXCommandAndValue
 	): obj is ParsedLaTeXCommandAndValue {
-		return UnicodeLaTeXCommand.instanceOfCombiningCharacter(
-			UnicodeLaTeXCommand.getUnicodeCharacterFromParsedLaTexCommand(obj)
+		return UnicodeTeXCommand.instanceOfCombiningCharacter(
+			UnicodeTeXCommand.getUnicodeCharacterFromParsedLaTexCommand(obj)
 		);
 	}
 
 	static isParsedLaTeXCommandStandaloneCharacter(
 		obj: ParsedLaTeXCommandAndValue
 	): obj is ParsedLaTeXCommandAndValue {
-		return UnicodeLaTeXCommand.instanceOfStandaloneCharacter(
-			UnicodeLaTeXCommand.getUnicodeCharacterFromParsedLaTexCommand(obj)
+		return UnicodeTeXCommand.instanceOfStandaloneCharacter(
+			UnicodeTeXCommand.getUnicodeCharacterFromParsedLaTexCommand(obj)
 		);
 	}
 
 	static getUnicodeCharacterFromParsedLaTexCommand(
 		obj: ParsedLaTeXCommandAndValue
 	): UnicodeLaTeXCombiningCharacter {
-		const command = UnicodeLaTeXCommand.commandNames.get(obj.commandName);
+		const command = UnicodeTeXCommand.commandNames.get(obj.commandName);
 		if (command) {
 			return new UnicodeLaTeXCombiningCharacter(
 				command.codepoint,
@@ -555,16 +555,16 @@ export class UnicodeLaTeXCommand {
 	}
 
 	static toUnicode(
-		command: UnicodeLaTeXCommand,
+		command: UnicodeTeXCommand,
 		combinedWith: string = ""
 	): string {
 		return (combinedWith + String.fromCodePoint(command.codepoint)).normalize();
 	}
 
-	static getAllCombiningCharacters(): UnicodeLaTeXCommand[] {
-		const results: UnicodeLaTeXCommand[] = [];
-		for (const command of UnicodeLaTeXCommand.codepoints.values()) {
-			if (UnicodeLaTeXCommand.isCombiningCharacter(command)) {
+	static getAllCombiningCharacters(): UnicodeTeXCommand[] {
+		const results: UnicodeTeXCommand[] = [];
+		for (const command of UnicodeTeXCommand.codepoints.values()) {
+			if (UnicodeTeXCommand.isCombiningCharacter(command)) {
 				results.push(command);
 			}
 		}
@@ -572,6 +572,6 @@ export class UnicodeLaTeXCommand {
 	}
 }
 
-export class UnicodeLaTeXCombiningCharacter extends UnicodeLaTeXCommand {}
+export class UnicodeLaTeXCombiningCharacter extends UnicodeTeXCommand {}
 
-export class UnicodeLaTeXStandaloneCharacter extends UnicodeLaTeXCommand {}
+export class UnicodeLaTeXStandaloneCharacter extends UnicodeTeXCommand {}
