@@ -355,6 +355,7 @@ describe("parseLatexCommand", () => {
 				],
 			},
 		];
+
 	// for (const fixture of fixtures) {
 	// 	test(`should parse ${fixture.input}`, () => {
 	// 		const result = parseLatexCommand(fixture.input);
@@ -362,11 +363,13 @@ describe("parseLatexCommand", () => {
 	// 		expect(result).toEqual(fixture.expected);
 	// 	});
 	// }
+
 	// test.each(fixtures)("should parse %s", (fixture) => {
 	// 	const result = parseLatexCommands(fixture.input);
 	// 	console.debug(fixture.input, "-->", result);
 	// 	expect(result).toEqual(fixture.expected);
 	// });
+
 	describe.each(fixtures)("should parse %s", ({ input, expected }) => {
 		test("should parse", () => {
 			const result = parseLatexCommands(input);
@@ -841,3 +844,19 @@ function truncateString(input: string) {
 		.filter(Boolean)
 		.join(" ");
 }
+
+// ////////////////////////////////////////////////////////////
+// test unicode ranges between 128 and 255
+describe.each(Array.from({ length: 128 }, (_, i) => i + 128))(
+	"unicode value %s",
+	(code) => {
+		test(`"${code}" roundtrip`, () => {
+			const unicode = String.fromCharCode(code);
+			const encoded = unicodeToCodepoint(unicode);
+			const decoded = codepointToUnicode(encoded);
+			console.debug(unicode, "->", encoded, "->", decoded);
+			expect(decoded).toBe(unicode);
+			expect(encoded).not.toBe(unicode);
+		});
+	}
+);
