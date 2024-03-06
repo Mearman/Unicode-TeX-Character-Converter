@@ -560,6 +560,16 @@ export class UnicodeLaTeXCommand {
 	): string {
 		return (combinedWith + String.fromCodePoint(command.codepoint)).normalize();
 	}
+
+	static getAllCombiningCharacters(): UnicodeLaTeXCommand[] {
+		const results: UnicodeLaTeXCommand[] = [];
+		for (const command of UnicodeLaTeXCommand.codepoints.values()) {
+			if (UnicodeLaTeXCommand.isCombiningCharacter(command)) {
+				results.push(command);
+			}
+		}
+		return results;
+	}
 }
 
 export class UnicodeLaTeXCombiningCharacter extends UnicodeLaTeXCommand {}
