@@ -21,10 +21,14 @@ export function extractTexCommand(command: string) {
 
 export type ParsedLaTeXCommandAndValue = {
 	commandName: string;
+	startIndex: number;
+	endIndex: number;
 	bracketContents?: string;
 };
 
-export function parseLatexCommand(input: string): ParsedLaTeXCommandAndValue[] {
+export function parseLatexCommands(
+	input: string
+): ParsedLaTeXCommandAndValue[] {
 	// const regex = /(?:\{?\\)([^\{\}\s)]+)((?:(\{))(.*?)(?:(\})))*(?:\}?)/g;
 	// const regex = /(?:\{?\\)([^\{\}\s)]+)(?:\{((?:[^{}]|{\S*?})*?)\})?/g;
 	const regex = /(?:\{?\\)([^\{\}\s)]+)((?:(\{))(.*?)(?:(\})))*(?:\}?)/g;
@@ -34,7 +38,9 @@ export function parseLatexCommand(input: string): ParsedLaTeXCommandAndValue[] {
 	while ((match = regex.exec(input)) !== null) {
 		const commandName = match[1];
 		const bracketContents = match[4] ? match[4] : undefined;
-		results.push({ commandName, bracketContents });
+		const startIndex = match.index;
+		const endIndex = match.index + match[0].length;
+		results.push({ commandName, bracketContents, startIndex, endIndex });
 	}
 
 	return results;

@@ -5,7 +5,7 @@ import { unicodeToCodepoint } from "../src/convert/unicodeToCodepoint";
 import { decodeString, encodeString } from "../src/main";
 import {
 	ParsedLaTeXCommandAndValue,
-	parseLatexCommand,
+	parseLatexCommands,
 } from "../src/util/tex/isTexCommand";
 // import { decodeString, encodeString } from "../src/main";
 import { getLatexRadixSymbol } from "../src/util/radix/getLatexRadixSymbol";
@@ -74,62 +74,101 @@ describe("parseLatexCommand", () => {
 					{
 						commandName: "beta",
 						bracketContents: undefined,
+						startIndex: 0,
+						endIndex: 5,
 					},
 					{
 						commandName: "beta",
 						bracketContents: undefined,
+						startIndex: 6,
+						endIndex: 11,
 					},
 					{
-						commandName: "beta",
 						bracketContents: undefined,
+						commandName: "beta",
+						endIndex: 19,
+						startIndex: 12,
 					},
 					{
-						commandName: "beta",
 						bracketContents: undefined,
+						commandName: "beta",
+						endIndex: 27,
+						startIndex: 20,
 					},
 					{
-						commandName: "beta",
 						bracketContents: "$char",
+						commandName: "beta",
+						endIndex: 40,
+						startIndex: 28,
 					},
 					{
-						commandName: '"',
 						bracketContents: "$char",
+						commandName: '"',
+
+						endIndex: 50,
+						startIndex: 41,
 					},
 					{
-						commandName: '"',
 						bracketContents: "o",
+						commandName: '"',
+
+						endIndex: 56,
+						startIndex: 51,
 					},
 					{
-						commandName: "'",
 						bracketContents: "u",
+						commandName: "'",
+
+						endIndex: 62,
+						startIndex: 57,
 					},
 					{
-						commandName: "c",
 						bracketContents: "c",
+						commandName: "c",
+
+						endIndex: 68,
+						startIndex: 63,
 					},
 					{
-						commandName: "beta",
 						bracketContents: undefined,
+						commandName: "beta",
+
+						endIndex: 74,
+						startIndex: 69,
 					},
 					{
-						commandName: "beta",
 						bracketContents: "foo",
+						commandName: "beta",
+
+						endIndex: 91,
+						startIndex: 81,
 					},
 					{
-						commandName: "beta",
 						bracketContents: undefined,
+						commandName: "beta",
+
+						endIndex: 103,
+						startIndex: 98,
 					},
 					{
-						commandName: "beta",
 						bracketContents: "bar",
-					},
-					{
 						commandName: "beta",
-						bracketContents: "$char",
+
+						endIndex: 116,
+						startIndex: 104,
 					},
 					{
-						commandName: '"',
+						bracketContents: "$char",
+						commandName: "beta",
+
+						endIndex: 131,
+						startIndex: 117,
+					},
+					{
 						bracketContents: "o",
+						commandName: '"',
+						endIndex: 139,
+						startIndex: 132,
 					},
 				],
 			},
@@ -138,6 +177,8 @@ describe("parseLatexCommand", () => {
 				expected: [
 					{
 						commandName: "textalpha",
+						startIndex: 0,
+						endIndex: 10,
 					},
 				],
 			},
@@ -147,6 +188,8 @@ describe("parseLatexCommand", () => {
 					{
 						commandName: '"',
 						bracketContents: "o",
+						startIndex: 0,
+						endIndex: 5,
 					},
 				],
 			},
@@ -156,6 +199,8 @@ describe("parseLatexCommand", () => {
 					{
 						commandName: "symbol",
 						bracketContents: "0361",
+						startIndex: 1,
+						endIndex: 14,
 					},
 				],
 			},
@@ -165,6 +210,8 @@ describe("parseLatexCommand", () => {
 					{
 						commandName: "c",
 						bracketContents: "o",
+						startIndex: 0,
+						endIndex: 5,
 					},
 				],
 			},
@@ -173,6 +220,8 @@ describe("parseLatexCommand", () => {
 				expected: [
 					{
 						commandName: "beta",
+						startIndex: 0,
+						endIndex: 5,
 					},
 				],
 			},
@@ -181,6 +230,9 @@ describe("parseLatexCommand", () => {
 				expected: [
 					{
 						commandName: "beta",
+						bracketContents: undefined,
+						startIndex: 0,
+						endIndex: 7,
 					},
 				],
 			},
@@ -189,6 +241,9 @@ describe("parseLatexCommand", () => {
 				expected: [
 					{
 						commandName: "beta",
+						bracketContents: undefined,
+						startIndex: 0,
+						endIndex: 7,
 					},
 				],
 			},
@@ -198,6 +253,8 @@ describe("parseLatexCommand", () => {
 					{
 						commandName: "beta",
 						bracketContents: "$char",
+						startIndex: 0,
+						endIndex: 12,
 					},
 				],
 			},
@@ -207,6 +264,8 @@ describe("parseLatexCommand", () => {
 					{
 						commandName: '"',
 						bracketContents: "$char",
+						startIndex: 0,
+						endIndex: 9,
 					},
 				],
 			},
@@ -216,6 +275,8 @@ describe("parseLatexCommand", () => {
 					{
 						commandName: '"',
 						bracketContents: "o",
+						startIndex: 0,
+						endIndex: 5,
 					},
 				],
 			},
@@ -225,6 +286,8 @@ describe("parseLatexCommand", () => {
 					{
 						commandName: "'",
 						bracketContents: "u",
+						startIndex: 0,
+						endIndex: 5,
 					},
 				],
 			},
@@ -234,6 +297,8 @@ describe("parseLatexCommand", () => {
 					{
 						commandName: "c",
 						bracketContents: "c",
+						startIndex: 0,
+						endIndex: 5,
 					},
 				],
 			},
@@ -243,6 +308,8 @@ describe("parseLatexCommand", () => {
 					{
 						commandName: "beta",
 						bracketContents: "foo",
+						startIndex: 3,
+						endIndex: 13,
 					},
 				],
 			},
@@ -251,10 +318,15 @@ describe("parseLatexCommand", () => {
 				expected: [
 					{
 						commandName: "beta",
+						bracketContents: undefined,
+						startIndex: 0,
+						endIndex: 5,
 					},
 					{
 						commandName: "beta",
 						bracketContents: "bar",
+						startIndex: 6,
+						endIndex: 18,
 					},
 				],
 			},
@@ -264,6 +336,8 @@ describe("parseLatexCommand", () => {
 					{
 						commandName: "beta",
 						bracketContents: "$char",
+						startIndex: 0,
+						endIndex: 14,
 					},
 				],
 			},
@@ -273,6 +347,8 @@ describe("parseLatexCommand", () => {
 					{
 						commandName: '"',
 						bracketContents: "o",
+						startIndex: 0,
+						endIndex: 7,
 					},
 				],
 			},
@@ -284,12 +360,20 @@ describe("parseLatexCommand", () => {
 	// 		expect(result).toEqual(fixture.expected);
 	// 	});
 	// }
-	test.each(fixtures)("should parse %s", (fixture) => {
-		const result = parseLatexCommand(fixture.input);
-		console.debug(fixture.input, "-->", result);
-		expect(result).toEqual(fixture.expected);
+	// test.each(fixtures)("should parse %s", (fixture) => {
+	// 	const result = parseLatexCommands(fixture.input);
+	// 	console.debug(fixture.input, "-->", result);
+	// 	expect(result).toEqual(fixture.expected);
+	// });
+	describe.each(fixtures)("should parse %s", ({ input, expected }) => {
+		test("should parse", () => {
+			const result = parseLatexCommands(input);
+			console.debug(input, "-->", result);
+			expect(result).toEqual(expected);
+		});
 	});
 });
+
 describe("Encode unicode as codepoint", () => {
 	const cases = ["β", "γ", "α"];
 	for (const input of cases) {
@@ -594,19 +678,41 @@ describe("encodeString", () => {
 		// 	// encoded: "g\\t{oo}d",
 		// },
 	];
-	for (let { name, decoded, encoded } of fixtures) {
-		// name ??= nameTest(decoded, encoded);
-		test("encode " + (name || nameTest(decoded, encoded)), () => {
+	// for (let { name, decoded, encoded } of fixtures) {
+	// 	// name ??= nameTest(decoded, encoded);
+	// 	test("encode " + (name || nameTest(decoded, encoded)), () => {
+	// 		const result = encodeString(decoded);
+	// 		console.debug(decoded, "->", result);
+	// 		expect(result).toBe(encoded);
+	// 	});
+	// 	test("decode " + (name ?? nameTest(encoded, decoded)), () => {
+	// 		const result = decodeString(encoded);
+	// 		console.debug(encoded, "->", result);
+	// 		expect(result).toBe(decoded);
+	// 	});
+	// 	test("round trip " + (name ?? nameTest(encoded, decoded)), () => {
+	// 		const encodedResult = encodeString(decoded);
+	// 		console.debug(decoded, "->", encodedResult);
+	// 		expect(encodedResult).toBe(encoded);
+	// 		const decodedResult = decodeString(encodedResult);
+	// 		console.debug(encodedResult, "->", decodedResult);
+	// 		expect(decodedResult).toBe(decoded);
+	// 	});
+	// }
+	describe.each(fixtures)("encode %s", ({ decoded, encoded }) => {
+		test(`should encode "${encoded}"`, () => {
 			const result = encodeString(decoded);
 			console.debug(decoded, "->", result);
 			expect(result).toBe(encoded);
 		});
-		test("decode " + (name ?? nameTest(encoded, decoded)), () => {
+
+		test(`should decode "${decoded}"`, () => {
 			const result = decodeString(encoded);
 			console.debug(encoded, "->", result);
 			expect(result).toBe(decoded);
 		});
-		test("round trip " + (name ?? nameTest(encoded, decoded)), () => {
+
+		test(`should round trip "${decoded}" -> "${encoded}" -> "${decoded}"`, () => {
 			const encodedResult = encodeString(decoded);
 			console.debug(decoded, "->", encodedResult);
 			expect(encodedResult).toBe(encoded);
@@ -614,7 +720,7 @@ describe("encodeString", () => {
 			console.debug(encodedResult, "->", decodedResult);
 			expect(decodedResult).toBe(decoded);
 		});
-	}
+	});
 });
 
 describe("decodeString", () => {
@@ -672,4 +778,3 @@ function truncateString(input: string) {
 		.filter(Boolean)
 		.join(" ");
 }
-
