@@ -9,7 +9,7 @@ import {
 	parseLatexCommands,
 } from "../src/util/tex/isTexCommand";
 // import { decodeString, encodeString } from "../src/main";
-import { UnicodeLaTeXCommand } from "../src/util/UnicodeLaTeXCommand";
+import { UnicodeTeXCommand } from "../src/util/UnicodeTeXCommand";
 import { getLatexRadixSymbol } from "../src/util/radix/getLatexRadixSymbol";
 import { charToTexSymbolCommand } from "../src/util/tex/charToTexSymbolCommand";
 import { stringToTexSymbolCommand } from "../src/util/tex/stringToTex";
@@ -641,8 +641,8 @@ describe("latexRadixSymbol", () => {
 
 describe("Test all values in UnicodeLaTeXCommand", () => {
 	describe("Combining Characters", () => {
-		const combiningCharacters: UnicodeLaTeXCommand[] =
-			UnicodeLaTeXCommand.getAllCombiningCharacters();
+		const combiningCharacters: UnicodeTeXCommand[] =
+			UnicodeTeXCommand.getAllCombiningCharacters();
 
 		test("should have length > 0", () => {
 			expect(combiningCharacters.length).toBeGreaterThan(0);
@@ -660,7 +660,7 @@ describe("Test all values in UnicodeLaTeXCommand", () => {
 			"should survive round trip",
 			(command) => {
 				test(`"${command.commandNames[0]}" should survive round trip`, () => {
-					const value = UnicodeLaTeXCommand.toUnicode(command);
+					const value = UnicodeTeXCommand.toUnicode(command);
 					const encoded = encodeString(value);
 					expect(decodeString(encoded)).toBe(value);
 					const decoded = decodeString(encoded);
