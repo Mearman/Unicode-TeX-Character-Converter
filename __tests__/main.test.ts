@@ -46,22 +46,20 @@ describe("string normalization methods", () => {
 		{ form: "NFKC", expected: "same" },
 		{ form: "NFKD", expected: "different" },
 	];
-	// const methods = ["NFC", "NFD", "NFKC", "NFKD"];
-	for (const fixture of fixtures) {
-		for (const method of cases) {
-			test(`should normalize ${method}`, () => {
-				const input = fixture.input;
-				const result = fixture.input.normalize(method.form).split("");
-				console.debug(input, "--", method, "->", result);
-				if (method.expected === "same") {
-					expect(result).toEqual(input.split(""));
-				} else {
-					expect(result).not.toEqual(input.split(""));
-				}
-			});
-		}
-	}
+
+	describe.each(cases)("should normalize %s", ({ form, expected }) => {
+		test.each(fixtures)(`should normalize "%s"`, ({ input }) => {
+			const result = input.normalize(form).split("");
+			console.debug(input, "--", form, "->", result);
+			if (expected === "same") {
+				expect(result).toEqual(input.split(""));
+			} else {
+				expect(result).not.toEqual(input.split(""));
+			}
+		});
+	});
 });
+
 // test("isCodePoint", () => {
 // 	assert.ok(isPrefixedHexCodePoint("U+0041"));
 // 	assert.ok(isPrefixedHexCodePoint("U+1F600"));
