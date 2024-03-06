@@ -755,34 +755,38 @@ describe("encodeString", () => {
 describe("decodeString", () => {
 	// Test fixtures
 	const testCases: { input: string; expected: string }[] = [
-		// { input: "Hello \\symbol{0041} World", expected: "Hello A World" },
-		// { input: "Some \\symbol{0042} text", expected: "Some B text" },
-		// {
-		// 	input: "Test \\symbol{0031}\\symbol{0032}\\symbol{0033}",
-		// 	expected: "Test 123",
-		// },
-		// {
-		// 	input: "Unicode \\symbol{03B1}\\symbol{03B2}\\symbol{03B3}",
-		// 	expected: "Unicode αβγ",
-		// },
-		// {
-		// 	input: "Mixed \\symbol{0041}BCD E\\symbol{0046}G",
-		// 	expected: "Mixed ABCD EFG",
-		// },
-		// { input: "Just ASCII", expected: "Just ASCII" },
-		// { input: "Empty string", expected: "Empty string" },
-		// { input: "\\symbol{005A}", expected: "Z" },
-		// { input: "No \\command here", expected: "No \\command here" },
-		// { input: 'No \\"{o} here', expected: "No ö here" },
-		// { input: "o\\symbol{0361}o", expected: "o͡o" },
+		{ input: 'Hello \\symbol{"0041} World', expected: "Hello A World" },
+		{ input: 'Some \\symbol{"0042} text', expected: "Some B text" },
+		{
+			input: 'Test \\symbol{"0031}\\symbol{"0032}\\symbol{"0033}',
+			expected: "Test 123",
+		},
+		{
+			input: 'Unicode \\symbol{"03B1}\\symbol{"03B2}\\symbol{"03B3}',
+			expected: "Unicode αβγ",
+		},
+		{
+			input: 'Mixed \\symbol{"0041}BCD E\\symbol{"0046}G',
+			expected: "Mixed ABCD EFG",
+		},
+		{ input: "Just ASCII", expected: "Just ASCII" },
+		{ input: "Empty string", expected: "Empty string" },
+		{ input: '\\symbol{"005A}', expected: "Z" },
+		{ input: 'No \\"{o} here', expected: "No ö here" },
+		{ input: 'o\\symbol{"361}o', expected: "o͡o" },
 	];
 
-	testCases.forEach(({ input, expected }) => {
-		test(`should decode ${input}`, () => {
-			const result = decodeString(input);
-			console.debug(input, "->", result);
-			expect(result).toBe(expected);
-		});
+	// testCases.forEach(({ input, expected }) => {
+	// 	test(`should decode ${input}`, () => {
+	// 		const result = decodeString(input);
+	// 		console.debug(input, "->", result);
+	// 		expect(result).toBe(expected);
+	// 	});
+	// });
+	test.each(testCases)("should decode %s", ({ input, expected }) => {
+		const result = decodeString(input);
+		console.debug(input, "->", result);
+		expect(result).toBe(expected);
 	});
 });
 
