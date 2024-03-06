@@ -60,6 +60,7 @@ const jestConfig: JestConfigWithTsJest = {
 
 const jestConfigWithHelper: JestConfigWithTsJest = {
 	preset: "ts-jest/presets/default-esm", // or other ESM presets
+	testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/dist/"],
 
 	// [...]
 	// roots: ["<rootDir>"],
