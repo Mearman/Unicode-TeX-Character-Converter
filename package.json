@@ -1,6 +1,6 @@
 {
 	"name": "unicode-tex-character-converter",
-	"version": "1.0.13",
+	"version": "1.1.0",
 	"browser": "dist/index.iife.js",
 	"devDependencies": {
 		"@esbuild-kit/esm-loader": "^2.6.5",
