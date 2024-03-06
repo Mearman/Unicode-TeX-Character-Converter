@@ -1,5 +1,9 @@
 # Unicode Tex Character Converter for LaTeX/BibTeX
 
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/Mearman/Unicode-Tex-Character-Converter?style=for-the-badge&logo=GitHub&color=%23181717&link=https%3A%2F%2Fgithub.com%2FMearman%2FUnicode-Tex-Character-Converter%2Fcommits%2Fmain%2F)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Mearman/Unicode-Tex-Character-Converter/test.yml?branch=main&style=for-the-badge&logo=githubactions&link=https%3A%2F%2Fgithub.com%2FMearman%2FUnicode-Tex-Character-Converter%2Factions)
+![NPM Version](https://img.shields.io/npm/v/unicode-tex-character-converter?style=for-the-badge&logo=npm&color=CC3534&link=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Funicode-tex-character-converter)
+
 This TypeScript library facilitates the conversion among Unicode characters, their codepoints, and corresponding LaTeX/BibTeX commands. For instance:
 
 - `α` -> `U+03B1`
