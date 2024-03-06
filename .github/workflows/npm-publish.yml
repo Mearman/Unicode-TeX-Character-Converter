@@ -30,8 +30,9 @@ jobs:
       - uses: actions/setup-node@main
         with:
           node-version: ${{ matrix.node_version }}
-      - run: npm ci
-      - run: npm run test
+      - run: npm install -g yarn
+      - run: yarn install
+      - run: yarn test
 
   build:
     needs: test
@@ -41,8 +42,9 @@ jobs:
       - uses: actions/setup-node@main
         with:
           node-version: ${{ env.node_version }}
-      - run: npm ci
-      - run: npm run build
+      - run: npm install -g yarn
+      - run: yarn install
+      - run: yarn build
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@main
         with:
@@ -84,8 +86,8 @@ jobs:
         with:
           node-version: ${{ env.node_version }}
           registry-url: ${{ env.REGISTRY }}
-      - run: npm install -g npm
-      - run: npm ci
+      - run: npm install -g yarn
+      - run: yarn install
       - run: npm pkg set name=@${{ github.repository_owner }}/$(npm pkg get name | tr -d '"')
       - run: npm pkg set publishConfig.registry=${{ env.REGISTRY }}
       - name: Download a Build Artifact
@@ -113,8 +115,8 @@ jobs:
         with:
           node-version: ${{ env.node_version }}
           registry-url: ${{ env.REGISTRY }}
-      - run: npm install -g npm
-      - run: npm ci
+      - run: npm install -g yarn
+      - run: yarn install
       - run: npm pkg set publishConfig.registry=${{ env.REGISTRY }}
       - name: Download a Build Artifact
         uses: actions/download-artifact@main
