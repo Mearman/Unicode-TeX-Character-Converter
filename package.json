@@ -4,6 +4,7 @@
 	"browser": "dist/index.iife.js",
 	"devDependencies": {
 		"@esbuild-kit/esm-loader": "^2.6.5",
+		"@rollup/plugin-node-resolve": "^15.2.3",
 		"@rollup/plugin-typescript": "^11.1.6",
 		"@types/jest": "^29.5.12",
 		"@types/node": "^20.11.25",
@@ -16,7 +17,7 @@
 		"rollup-plugin-dts": "^6.1.0",
 		"syncpack": "^12.3.0",
 		"ts-jest": "^29.1.2",
-		"ts-node": "^11.0.0-beta.1",
+		"ts-node": "^10.9.2",
 		"tslib": "^2.6.2",
 		"tsx": "^4.7.1",
 		"typescript": "^5.4.2",
