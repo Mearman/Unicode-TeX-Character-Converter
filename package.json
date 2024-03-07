@@ -51,7 +51,7 @@
 	"scripts": {
 		"build": "wireit",
 		"postversion": "git stash pop",
-		"preversion": "git stash --include-untracked",
+		"preversion": "git push --follow-tags && git stash --include-untracked",
 		"syncpack": "wireit",
 		"test": "jest",
 		"test:glob:node:tsx": "glob __tests__/**/*.test.ts -c 'node --import tsx --test-reporter=spec --test'",
