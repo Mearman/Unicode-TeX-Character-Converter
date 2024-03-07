@@ -1,20 +1,15 @@
+import nodeResolve from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
-import { resolve } from "node:path";
 import { defineConfig, Plugin, PluginContext } from "rollup";
-import dts from "rollup-plugin-dts";
+import pkg from "./package.json" assert { type: "json" };
 import tsConfig from "./tsconfig.json" assert { type: "json" };
-
 const production = !process.env.ROLLUP_WATCH;
+const extensions = [".js", ".ts"];
 
 export default defineConfig({
 	plugins: [
 		clean(),
-		dts({
-			compilerOptions: {
-				baseUrl: tsConfig.compilerOptions.baseUrl,
-				paths: tsConfig.compilerOptions.paths,
-			},
-		}),
+		nodeResolve({ preferBuiltins: true, extensions }),
 		typescript({
 			...tsConfig,
 			exclude: ["rollup.config.ts", "__tests__/**"],
@@ -22,23 +17,39 @@ export default defineConfig({
 			inlineSources: !production,
 		}),
 	],
-	input: resolve("src", "index.ts"),
+	input: "src/index.ts",
 	output: [
 		{
-			file: resolve("dist", "index.cjs.js"),
 			format: "cjs",
+			file: "dist/index.cjs.js",
+			sourcemap: true,
 		},
 		{
-			file: resolve("dist", "index.esm.js"),
-			format: "es",
+			format: "esm",
+			file: "dist/index.esm.js",
+			sourcemap: true,
 		},
 		{
-			file: resolve("dist", "index.umd.js"),
 			format: "umd",
+			file: "dist/index.umd.js",
+			name: "unicode-tex-character-converter",
+			sourcemap: true,
 		},
 		{
-			file: resolve("dist", "index.iife.js"),
+			format: "amd",
+			file: "dist/index.amd.js",
+			sourcemap: true,
+		},
+		{
+			format: "system",
+			file: "dist/index.system.js",
+			sourcemap: true,
+		},
+		{
 			format: "iife",
+			file: "dist/index.iife.js",
+			name: snakeCase(pkg.name),
+			sourcemap: true,
 		},
 	],
 
@@ -82,4 +93,7 @@ export function clean(
 			fs.rmdirSync(dirPath, { recursive: true });
 		},
 	};
+}
+function snakeCase(name: string): string {
+	return name.replace(/-/g, "_");
 }
