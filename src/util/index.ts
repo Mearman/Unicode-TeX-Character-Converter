@@ -1,0 +1,1 @@
+export { isCombiningDiacritic } from "./isCombiningDiactricMark";
