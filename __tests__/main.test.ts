@@ -860,3 +860,23 @@ describe.each(Array.from({ length: 128 }, (_, i) => i + 128))(
 		});
 	}
 );
+
+describe("wrapping", () => {
+	const fixtures: { name?: string; decoded: string; encoded: string }[] = [
+		{
+			name: "sentence containing accented characters",
+			decoded:
+				"François, who lives in Zürich, enjoys reading Brontë novels and loves the café near the fjord.",
+			encoded:
+				'Fran{\\c{c}}ois, who lives in Z{\\"{u}}rich, enjoys reading Bront{\\"{e}} novels and loves the caf{\\\'{e}} near the fjord.',
+		},
+	];
+	describe.each(fixtures)("encode %s", ({ decoded, encoded }) => {
+		test(`should encode "${encoded}"`, () => {
+			const result = encodeString(decoded, 16, true);
+			console.debug(decoded, "->", result);
+			expect(result).toBe(encoded);
+		});
+	});
+});
+
