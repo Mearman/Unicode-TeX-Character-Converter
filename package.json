@@ -41,6 +41,7 @@
 	"files": [
 		"dist"
 	],
+	"license": "ISC",
 	"main": "dist/index.cjs.js",
 	"module": "dist/index.esm.js",
 	"packageManager": "yarn@4.1.0",
