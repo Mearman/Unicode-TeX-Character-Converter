@@ -1,7 +1,7 @@
 {
 	"name": "unicode-tex-character-converter",
 	"version": "1.2.4",
-	"browser": "dist/index.iife.js",
+	"browser": "./dist/index.iife.js",
 	"devDependencies": {
 		"@esbuild-kit/esm-loader": "^2.6.5",
 		"@rollup/plugin-node-resolve": "^15.2.3",
@@ -38,11 +38,11 @@
 		"./cjs": "./dist/index.cjs.js"
 	},
 	"files": [
-		"dist"
+		"./dist"
 	],
 	"license": "ISC",
-	"main": "dist/index.cjs.js",
-	"module": "dist/index.esm.js",
+	"main": "./dist/index.cjs.js",
+	"module": "./dist/index.esm.js",
 	"packageManager": "yarn@4.1.0",
 	"publishConfig": {
 		"provenance": true
@@ -61,8 +61,9 @@
 		"test:node:tsnode": "node --loader ts-node/esm --test __tests__/**/*.test.ts",
 		"test:tsx": "tsx --test ./__tests__/**/*.ts"
 	},
+	"source": "./src/index.ts",
 	"type": "module",
-	"types": "dist/index.d.ts",
+	"types": "./dist/index.d.ts",
 	"wireit": {
 		"build": {
 			"command": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
@@ -70,7 +71,7 @@
 				"syncpack"
 			],
 			"output": [
-				"dist"
+				"./dist"
 			]
 		},
 		"syncpack": {
