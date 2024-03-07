@@ -50,7 +50,8 @@
 	"repository": "github:Mearman/Unicode-Tex-Character-Converter",
 	"scripts": {
 		"build": "wireit",
-		"postversion": "git push --follow-tags",
+		"postversion": "git stash pop",
+		"preversion": "git stash",
 		"syncpack": "wireit",
 		"test": "jest",
 		"test:glob:node:tsx": "glob __tests__/**/*.test.ts -c 'node --import tsx --test-reporter=spec --test'",
