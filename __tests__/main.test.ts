@@ -10,6 +10,7 @@ import {
 } from "../src/util/tex/isTexCommand";
 // import { decodeString, encodeString } from "../src/main";
 import { UnicodeTeXCommand } from "../src/util/UnicodeTeXCommand";
+import { cleanForBib } from "../src/util/cleanForBib";
 import { encodeForBib } from "../src/util/encodeForBib";
 import { getLatexRadixSymbol } from "../src/util/radix/getLatexRadixSymbol";
 import { charToTexSymbolCommand } from "../src/util/tex/charToTexSymbolCommand";
@@ -881,7 +882,6 @@ describe("wrapping", () => {
 	});
 });
 
-
 describe("encodeForBib", () => {
 	const fixtures: { name?: string; decoded: string; encoded: string }[] = [
 		{
@@ -898,5 +898,10 @@ describe("encodeForBib", () => {
 			console.debug(decoded, "->", result);
 			expect(result).toBe(encoded);
 		});
+	});
+	test('should encode "’" to "\'"', () => {
+		const result = cleanForBib("’");
+		console.debug("’", "->", result);
+		expect(result).toBe("'");
 	});
 });
