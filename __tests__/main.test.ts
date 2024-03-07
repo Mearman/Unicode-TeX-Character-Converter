@@ -10,6 +10,7 @@ import {
 } from "../src/util/tex/isTexCommand";
 // import { decodeString, encodeString } from "../src/main";
 import { UnicodeTeXCommand } from "../src/util/UnicodeTeXCommand";
+import { encodeForBib } from "../src/util/encodeForBib";
 import { getLatexRadixSymbol } from "../src/util/radix/getLatexRadixSymbol";
 import { charToTexSymbolCommand } from "../src/util/tex/charToTexSymbolCommand";
 import { stringToTexSymbolCommand } from "../src/util/tex/stringToTex";
@@ -880,3 +881,22 @@ describe("wrapping", () => {
 	});
 });
 
+
+describe("encodeForBib", () => {
+	const fixtures: { name?: string; decoded: string; encoded: string }[] = [
+		{
+			name: "sentence containing accented characters",
+			decoded:
+				"François, who lives in Zürich, enjoys reading Brontë novels and loves the café near the fjord.",
+			encoded:
+				'Fran{\\c c}ois, who lives in Z{\\"u}rich, enjoys reading Bront{\\"e} novels and loves the caf{\\\'e} near the fjord.',
+		},
+	];
+	describe.each(fixtures)("encode %s", ({ decoded, encoded }) => {
+		test(`should encode "${encoded}"`, () => {
+			const result = encodeForBib(decoded);
+			console.debug(decoded, "->", result);
+			expect(result).toBe(encoded);
+		});
+	});
+});
