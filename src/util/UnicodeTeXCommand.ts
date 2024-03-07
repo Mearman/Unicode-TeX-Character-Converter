@@ -575,3 +575,8 @@ export class UnicodeTeXCommand {
 export class UnicodeLaTeXCombiningCharacter extends UnicodeTeXCommand {}
 
 export class UnicodeLaTeXStandaloneCharacter extends UnicodeTeXCommand {}
+
+const UnicodeTeXCommandMappings = UnicodeTeXCommand.mappings;
+
+type UnicodeTeXCommandMappings = typeof UnicodeTeXCommandMappings;
+export { UnicodeTeXCommandMappings };
