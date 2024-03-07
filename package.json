@@ -26,18 +26,16 @@
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"node": "./dist/index.cjs.js",
-			"browser": "./dist/index.iife.js",
 			"import": "./dist/index.esm.js",
 			"require": "./dist/index.cjs.js",
-			"default": "./dist/index.cjs.js",
+			"default": "./dist/index.umd.js",
 			"umd": "./dist/index.umd.js"
 		},
-		"./cjs": "./dist/index.cjs.js",
-		"./esm": "./dist/index.esm.js",
+		"./umd": "./dist/index.umd.js",
+		"./amd": "./dist/index.amd.js",
+		"./system": "./dist/index.system.js",
 		"./iife": "./dist/index.iife.js",
-		"./types": "./dist/index.d.ts",
-		"./umd": "./dist/index.umd.js"
+		"./cjs": "./dist/index.cjs.js"
 	},
 	"files": [
 		"dist"
