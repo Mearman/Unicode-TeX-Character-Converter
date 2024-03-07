@@ -2,7 +2,11 @@ import { Hexadecimal, Radix } from "../types/radix";
 import { UnicodeTeXCommand } from "./UnicodeTeXCommand";
 import { getLatexRadixSymbol } from "./radix/getLatexRadixSymbol";
 
-export function encodeString(input: string, radix: Radix = Hexadecimal) {
+export function encodeString(
+	input: string,
+	radix: Radix = Hexadecimal,
+	wrap: boolean = false
+) {
 	input = input.normalize("NFD");
 	const radixSymbol = getLatexRadixSymbol(radix);
 	let result = "";
@@ -34,20 +38,31 @@ export function encodeString(input: string, radix: Radix = Hexadecimal) {
 					// const nextChar = input[i + 1] || "";
 					const parentChar = split[i - 1] || "";
 					// const nextCharCode = nextChar.codePointAt(0)!.toString(radix);
-					const command = unicodeLatexCommand.commands[0].replace(
+					let command = unicodeLatexCommand.commands[0].replace(
 						"$char",
 						parentChar
 					);
+					if (wrap) {
+						command = `{${command}}`;
+					}
 					// result += command;
 					// replace last character in result
 					result = result.slice(0, -1) + command;
 					// skipNext = true;
 				} else {
-					result += unicodeLatexCommand.commands[0];
+					let command = unicodeLatexCommand.commands[0];
+					if (wrap) {
+						command = `{${command}}`;
+					}
+					result += command;
 				}
 			} else {
 				// Use \symbol{codepoint} for characters without a specific LaTeX command
-				result += `\\symbol{${radixSymbol}${charCode.toString(radix)}}`;
+				let command = `\\symbol{${radixSymbol}${charCode.toString(radix)}}`;
+				if (wrap) {
+					command = `{${command}}`;
+				}
+				result += command;
 			}
 		}
 	}
