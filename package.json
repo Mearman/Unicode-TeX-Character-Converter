@@ -1,5 +1,6 @@
 {
 	"name": "unicode-tex-character-converter",
+	"description": "A simple library to convert unicode characters to TeX and LaTeX equivalents",
 	"version": "1.10.1",
 	"browser": "./dist/index.iife.js",
 	"devDependencies": {
