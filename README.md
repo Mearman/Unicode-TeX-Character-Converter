@@ -17,4 +17,4 @@ Initially, this library was designed to assist with the conversion of content wi
 
 ## How to Contribute
 
-Should you encounter any missing or incorrect mappings, we encourage you to report the issue or submit a pull request.
+Should you encounter any issues, missing or incorrect mappings, please [file an issue](https://github.com/Mearman/Unicode-Tex-Character-Converter/issues/new) and/or [create a fork](https://github.com/Mearman/Unicode-Tex-Character-Converter/fork) and [submit a pull request](https://github.com/Mearman/Unicode-Tex-Character-Converter/compare) via the [GitHub repository](https://github.com/Mearman/Unicode-Tex-Character-Converter).
