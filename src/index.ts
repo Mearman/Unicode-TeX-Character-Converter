@@ -4,8 +4,12 @@ export {
 	UnicodeTeXCommandMappings,
 } from "./util/UnicodeTeXCommand";
 export { cleanForBib } from "./util/cleanForBib";
-export * as months from "./util/convertMonth";
+export {
+	Locale,
+	MonthFormat,
+	convertMonth,
+	convertMonthToNumeric,
+} from "./util/convertMonth";
 export { decodeString } from "./util/decodeString";
 export { encodeForBib } from "./util/encodeForBib";
 export { encodeString } from "./util/encodeString";
-
