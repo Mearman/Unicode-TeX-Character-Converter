@@ -44,10 +44,10 @@
 		"BibTeX",
 		"LaTeX",
 		"TeX",
+		"TeX",
 		"character",
 		"codepoint",
 		"converter",
-		"TeX",
 		"unicode"
 	],
 	"license": "ISC",
@@ -61,7 +61,7 @@
 	"scripts": {
 		"build": "wireit",
 		"postversion": "git push --follow-tags && git stash pop",
-		"preversion": "git stash --include-untracked",
+		"preversion": "wireit",
 		"syncpack": "wireit",
 		"test": "jest",
 		"test:glob:node:tsx": "glob __tests__/**/*.test.ts -c 'node --import tsx --test-reporter=spec --test'",
@@ -82,6 +82,14 @@
 			],
 			"output": [
 				"./dist"
+			]
+		},
+		"git:stash": {
+			"command": "git stash --include-untracked"
+		},
+		"preversion": {
+			"dependencies": [
+				"git:stash"
 			]
 		},
 		"syncpack": {
