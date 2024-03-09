@@ -57,7 +57,7 @@
 	"publishConfig": {
 		"provenance": true
 	},
-	"repository": "github:Mearman/Unicode-Tex-Character-Converter",
+	"repository": "github:Mearman/Unicode-TeX-Character-Converter",
 	"scripts": {
 		"build": "wireit",
 		"postversion": "git push --follow-tags && git stash pop",
