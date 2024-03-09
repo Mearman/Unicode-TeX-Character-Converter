@@ -3,13 +3,10 @@
 	"version": "1.9.6",
 	"browser": "./dist/index.iife.js",
 	"devDependencies": {
-		"@esbuild-kit/esm-loader": "^2.6.5",
 		"@rollup/plugin-node-resolve": "^15.2.3",
 		"@rollup/plugin-typescript": "^11.1.6",
 		"@types/jest": "^29.5.12",
 		"@types/node": "^20.11.25",
-		"esbuild": "^0.20.1",
-		"esbuild-register": "^3.5.0",
 		"glob": "^10.3.10",
 		"jest": "^29.7.0",
 		"rimraf": "^5.0.5",
@@ -63,13 +60,7 @@
 		"postversion": "git push --follow-tags && git stash pop",
 		"preversion": "wireit",
 		"syncpack": "wireit",
-		"test": "jest",
-		"test:glob:node:tsx": "glob __tests__/**/*.test.ts -c 'node --import tsx --test-reporter=spec --test'",
-		"test:glob:tsx": "glob __tests__/**/*.test.ts -c 'tsx --test'",
-		"test:node:esbuild": "node --loader @esbuild-kit/esm-loader  --test  __tests__/**/*.test.ts",
-		"test:node:esbuild-register": "node --loader @esbuild-kit/esm-loader --test -r esbuild-register __tests__/**/*.test.ts",
-		"test:node:tsnode": "node --loader ts-node/esm --test __tests__/**/*.test.ts",
-		"test:tsx": "tsx --test ./__tests__/**/*.ts"
+		"test": "jest"
 	},
 	"source": "./src/index.ts",
 	"type": "module",
