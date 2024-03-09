@@ -31,14 +31,24 @@
 			"default": "./dist/index.umd.js",
 			"umd": "./dist/index.umd.js"
 		},
-		"./umd": "./dist/index.umd.js",
 		"./amd": "./dist/index.amd.js",
-		"./system": "./dist/index.system.js",
+		"./cjs": "./dist/index.cjs.js",
 		"./iife": "./dist/index.iife.js",
-		"./cjs": "./dist/index.cjs.js"
+		"./system": "./dist/index.system.js",
+		"./umd": "./dist/index.umd.js"
 	},
 	"files": [
 		"./dist"
+	],
+	"keywords": [
+		"BibTeX",
+		"LaTex",
+		"TeX",
+		"character",
+		"codepoint",
+		"converter",
+		"tex",
+		"unicode"
 	],
 	"license": "ISC",
 	"main": "./dist/index.cjs.js",
