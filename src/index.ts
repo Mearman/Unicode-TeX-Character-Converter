@@ -9,7 +9,9 @@ export {
 	MonthFormat,
 	convertMonth,
 	convertMonthToNumeric,
+	isMonthString,
 } from "./util/convertMonth";
 export { decodeString } from "./util/decodeString";
 export { encodeForBib } from "./util/encodeForBib";
 export { encodeString } from "./util/encodeString";
+
