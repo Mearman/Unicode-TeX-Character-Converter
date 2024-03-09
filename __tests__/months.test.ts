@@ -154,32 +154,6 @@ describe("isMonthString", () => {
 			"November",
 			"December",
 			//
-			"january",
-			"february",
-			"march",
-			"april",
-			"may",
-			"june",
-			"july",
-			"august",
-			"september",
-			"october",
-			"november",
-			"december",
-			//
-			"JANUARY",
-			"FEBRUARY",
-			"MARCH",
-			"APRIL",
-			"MAY",
-			"JUNE",
-			"JULY",
-			"AUGUST",
-			"SEPTEMBER",
-			"OCTOBER",
-			"NOVEMBER",
-			"DECEMBER",
-			//
 			"Jan",
 			"Feb",
 			"Mar",
@@ -189,28 +163,16 @@ describe("isMonthString", () => {
 			"Sept",
 			"Nov",
 			"Dec",
-			//
-			"jan",
-			"feb",
-			"mar",
-			"apr",
-			"jun",
-			"jul",
-			"sept",
-			"nov",
-			"dec",
-			//
-			"JAN",
-			"FEB",
-			"MAR",
-			"APR",
-			"JUN",
-			"JUL",
-			"SEPT",
-			"NOV",
-			"DEC",
 		];
-		test.each(fixtures)("%s", (input) => {
+
+		const capitalisationVariants = fixtures.flatMap((month) => [
+			toSentenceCase(month),
+			month.toLowerCase(),
+			month.toUpperCase(),
+		]);
+
+		// Use capitalisationVariants in the test
+		test.each(capitalisationVariants)("%s", (input) => {
 			expect(isMonthString(input)).toBe(true);
 		});
 	});
@@ -222,3 +184,7 @@ describe("isMonthString", () => {
 		});
 	});
 });
+function toSentenceCase(month: string): string {
+	return month.charAt(0).toUpperCase() + month.slice(1).toLowerCase();
+}
+
