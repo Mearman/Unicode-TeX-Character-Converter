@@ -29,3 +29,7 @@ export function convertMonthToNumeric(
 	}
 	return intResult;
 }
+////////////////////////////////////////////////////////////////////////////////
+export function isMonthString(input: string): boolean {
+	return !isNaN(new Date(`${input} 1 2000`).getMonth());
+}
