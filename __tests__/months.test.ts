@@ -2,6 +2,7 @@ import {
 	MonthFormat,
 	convertMonth,
 	convertMonthToNumeric,
+	isMonthString,
 } from "../src/util/convertMonth";
 
 const fixtures: Partial<Record<MonthFormat, string>>[] = [
@@ -109,6 +110,10 @@ describe("convertMonth", () => {
 			});
 		});
 	});
+	// should throw for invalid month
+	test("should throw for invalid month", () => {
+		expect(() => convertMonth("foo")).toThrow();
+	});
 });
 
 describe("convertMonthToNumeric", () => {
@@ -124,6 +129,96 @@ describe("convertMonthToNumeric", () => {
 				const result = convertMonthToNumeric(value);
 				expect(result).toBe(expected);
 			});
+		});
+	});
+	// should throw for invalid month
+	test("should throw for invalid month", () => {
+		expect(() => convertMonthToNumeric("foo")).toThrow();
+	});
+});
+
+describe("isMonthString", () => {
+	describe("should return true for valid month strings", () => {
+		// TODO: compute the capitalisation variants
+		const fixtures = [
+			"January",
+			"February",
+			"March",
+			"April",
+			"May",
+			"June",
+			"July",
+			"August",
+			"September",
+			"October",
+			"November",
+			"December",
+			//
+			"january",
+			"february",
+			"march",
+			"april",
+			"may",
+			"june",
+			"july",
+			"august",
+			"september",
+			"october",
+			"november",
+			"december",
+			//
+			"JANUARY",
+			"FEBRUARY",
+			"MARCH",
+			"APRIL",
+			"MAY",
+			"JUNE",
+			"JULY",
+			"AUGUST",
+			"SEPTEMBER",
+			"OCTOBER",
+			"NOVEMBER",
+			"DECEMBER",
+			//
+			"Jan",
+			"Feb",
+			"Mar",
+			"Apr",
+			"Jun",
+			"Jul",
+			"Sept",
+			"Nov",
+			"Dec",
+			//
+			"jan",
+			"feb",
+			"mar",
+			"apr",
+			"jun",
+			"jul",
+			"sept",
+			"nov",
+			"dec",
+			//
+			"JAN",
+			"FEB",
+			"MAR",
+			"APR",
+			"JUN",
+			"JUL",
+			"SEPT",
+			"NOV",
+			"DEC",
+		];
+		test.each(fixtures)("%s", (input) => {
+			expect(isMonthString(input)).toBe(true);
+		});
+	});
+
+	describe("should return false for invalid month strings", () => {
+		const fixtures = ["foo", "bar", "baz", "po", "ta", "to"];
+		test.each(fixtures)("%s", (input) => {
+			expect(isMonthString(input)).toBe(false);
 		});
 	});
 });
