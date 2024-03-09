@@ -13,6 +13,8 @@ export function cleanForBib(str: string): string {
 				return "--";
 			case "…":
 				return "...";
+			case "&":
+				return "\\&";
 			default:
 				return char;
 		}
