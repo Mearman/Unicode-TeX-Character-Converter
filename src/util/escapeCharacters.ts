@@ -88,7 +88,10 @@ export function replaceAllEscapedWithUnescaped(input: string): string {
 	);
 }
 
-export function replaceAllUnescapedWithEscaped(input: string): string {
+export function replaceAllUnescapedWithEscaped(
+	input: string,
+	wrap: boolean = false
+): string {
 	let escapedResult = "";
 	for (let i = 0; i < input.length; i++) {
 		const matched: string = EscapedCharacterValues.reduce((prev, escaped) => {
@@ -101,8 +104,12 @@ export function replaceAllUnescapedWithEscaped(input: string): string {
 		if (!matched) {
 			const unescaped = input[i];
 			if (unescaped in EscapeCharacters) {
-				const escaped = toEscaped(unescaped as UnescapedCharacter);
-				escapedResult += escaped;
+				const escaped = toEscaped(unescaped as UnescapedCharacter)
+				if (wrap) {
+					escapedResult += `${escaped}`;
+				} else {
+					escapedResult += escaped;
+				}
 			} else {
 				escapedResult += unescaped;
 			}
