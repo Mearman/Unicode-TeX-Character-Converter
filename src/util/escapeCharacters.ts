@@ -106,7 +106,7 @@ export function replaceAllUnescapedWithEscaped(
 			if (unescaped in EscapeCharacters) {
 				const escaped = toEscaped(unescaped as UnescapedCharacter)
 				if (wrap) {
-					escapedResult += `${escaped}`;
+					escapedResult += `{${escaped}}`;
 				} else {
 					escapedResult += escaped;
 				}
