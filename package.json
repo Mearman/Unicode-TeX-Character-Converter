@@ -1,7 +1,7 @@
 {
 	"name": "unicode-tex-character-converter",
 	"description": "A simple library to convert unicode characters to TeX and LaTeX equivalents",
-	"version": "1.13.0",
+	"version": "1.14.0",
 	"$schema": "https://json.schemastore.org/package",
 	"browser": "./dist/index.iife.js",
 	"bugs": "https://github.com/Mearman/Unicode-TeX-Character-Converter/issues/new",
