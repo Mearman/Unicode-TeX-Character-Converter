@@ -183,6 +183,64 @@ describe("isMonthString", () => {
 			expect(isMonthString(input)).toBe(false);
 		});
 	});
+
+	describe("should return false for sentences containing valid month strings", () => {
+		const fixtures = [
+			"January is a month",
+			"February is a month",
+			"March is a month",
+			"April is a month",
+			"May is a month",
+			"June is a month",
+			"July is a month",
+			"August is a month",
+			"September is a month",
+			"October is a month",
+			"November is a month",
+			"December is a month",
+			//
+			"Jan is a month",
+			"Feb is a month",
+			"Mar is a month",
+			"Apr is a month",
+			"Jun is a month",
+			"Jul is a month",
+			"Sept is a month",
+			"Nov is a month",
+			"Dec is a month",
+		];
+		test.each(fixtures)("%s", (input) => {
+			expect(isMonthString(input)).toBe(false);
+		});
+	});
+
+	describe("should return false for sentences containing multiple valid month strings", () => {
+		const fixtures = [
+			"January and February are months",
+			"February and March are months",
+			"March and April are months",
+			"April and May are months",
+			"May and June are months",
+			"June and July are months",
+			"July and August are months",
+			"August and September are months",
+			"September and October are months",
+			"October and November are months",
+			"November and December are months",
+			//
+			"Jan and Feb are months",
+			"Feb and Mar are months",
+			"Mar and Apr are months",
+			"Apr and Jun are months",
+			"Jun and Jul are months",
+			"Jul and Sept are months",
+			"Sept and Nov are months",
+			"Nov and Dec are months",
+		];
+		test.each(fixtures)("%s", (input) => {
+			expect(isMonthString(input)).toBe(false);
+		});
+	});
 });
 function toSentenceCase(month: string): string {
 	return month.charAt(0).toUpperCase() + month.slice(1).toLowerCase();
