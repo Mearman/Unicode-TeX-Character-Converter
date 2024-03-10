@@ -28,4 +28,4 @@ export {
 	toEscaped,
 	toUnescaped,
 } from "./util/escapeCharacters";
-
+export { cleanWhiteSpace } from "./util/whitespace";
