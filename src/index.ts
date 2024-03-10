@@ -14,4 +14,15 @@ export {
 export { decodeString } from "./util/decodeString";
 export { encodeForBib } from "./util/encodeForBib";
 export { encodeString } from "./util/encodeString";
+export {
+	EscapeCharacterMap,
+	EscapedCharacter,
+	EscapedCharacterValues,
+	UnescapedCharacter,
+	UnescapedCharacterValues,
+	fromEscaped,
+	fromUnescaped,
+	toEscaped,
+	toUnescaped,
+} from "./util/escapeCharacters";
 
