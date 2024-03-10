@@ -31,5 +31,7 @@ export function convertMonthToNumeric(
 }
 ////////////////////////////////////////////////////////////////////////////////
 export function isMonthString(input: string): boolean {
+	input = input.trim();
+	if (input.split(" ").length > 1) return false;
 	return !isNaN(new Date(`${input} 1 2000`).getMonth());
 }
