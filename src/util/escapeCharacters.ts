@@ -77,3 +77,39 @@ export function fromEscaped(escaped: EscapedCharacter): UnescapedCharacter {
  * An alias for `fromEscaped`.
  */
 export const toUnescaped = fromEscaped;
+
+export function replaceAllEscapedWithUnescaped(input: string): string {
+	return UnescapedCharacterValues.map((unescaped) => {
+		const escaped = toEscaped(unescaped);
+		return [escaped, unescaped];
+	}, input).reduce(
+		(prev, [escaped, unescaped]) => prev.split(escaped).join(unescaped),
+		input
+	);
+}
+
+export function replaceAllUnescapedWithEscaped(input: string): string {
+	let escapedResult = "";
+	for (let i = 0; i < input.length; i++) {
+		const matched: string = EscapedCharacterValues.reduce((prev, escaped) => {
+			if (prev) return prev;
+			if (input.slice(i).startsWith(escaped)) {
+				return escaped;
+			}
+			return prev;
+		}, "");
+		if (!matched) {
+			const unescaped = input[i];
+			if (unescaped in EscapeCharacters) {
+				const escaped = toEscaped(unescaped as UnescapedCharacter);
+				escapedResult += escaped;
+			} else {
+				escapedResult += unescaped;
+			}
+		} else {
+			escapedResult += matched;
+			i += matched.length - 1;
+		}
+	}
+	return escapedResult;
+}
