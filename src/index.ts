@@ -16,12 +16,15 @@ export { encodeForBib } from "./util/encodeForBib";
 export { encodeString } from "./util/encodeString";
 export {
 	EscapeCharacterMap,
+	EscapeCharacters,
 	EscapedCharacter,
 	EscapedCharacterValues,
 	UnescapedCharacter,
 	UnescapedCharacterValues,
 	fromEscaped,
 	fromUnescaped,
+	replaceAllEscapedWithUnescaped,
+	replaceAllUnescapedWithEscaped,
 	toEscaped,
 	toUnescaped,
 } from "./util/escapeCharacters";
